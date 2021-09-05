@@ -1,0 +1,28 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Metadata" #>
+using System;
+using System.Collections.Generic;
+<#  if (_model.IsEntity && _module.DomainSettings.EntityUsings.Any()) #>
+<#      foreach (var @using in _module.DomainSettings.EntityUsings) 
+        { #>
+using <#= @using #>;
+<#      } #>
+
+namespace <#= _module.GetDomainModelNameSpace() #>
+{
+    public partial class <#= _model.Name #> <#= _model.GetBaseClassName(_module) #>
+    {
+<#  if (_model.IsEntity && _module.DomainSettings.GenerateIdProperties)
+    {   #>
+        public <#= _model.IdentifierProperty.TypeName #> <#= _model.IdentifierProperty.Name #> { get; set; }
+<#  }   #>
+<#  foreach(var property in _model.Properties.Values)
+    {   #>
+        public <#= _model.GetPropertyTypeName(property) #> <#= _model.GetPropertyName(property) #> { get; set; }
+<#  }   #>
+    }
+}
