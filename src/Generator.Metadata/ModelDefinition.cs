@@ -20,6 +20,7 @@ namespace Generator.Metadata
 
         public bool IsOwnedEntity => !IsRoot && IsEntity;
         public bool IsValueObject => !IsRoot && !IsEntity;
+        public bool RequiresDataAccessClass { get; private set; }
 
         public void AdjustProperties(ModuleDefinition moduleDefinition, string name)
         {
@@ -61,6 +62,11 @@ namespace Generator.Metadata
                 if (Parent == null)
                     throw new ArgumentException(null, nameof(Parent));
             }
+
+            RequiresDataAccessClass = IdentifierProperty != null &&
+                (Properties.Any(p => p.Value.IsGeneric) ||
+                Properties.Any(p => p.Value.IsEntityType) ||
+                moduleDefinition.Models.Values.Any(m => m.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == this)));
         }
     }
 }

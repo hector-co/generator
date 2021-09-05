@@ -30,6 +30,7 @@ namespace Generator.Metadata
         public bool IsSystemType => TargetType is SystemTypeDefinition;
         public bool IsRootType => TargetType is ModelTypeDefinition t0 && t0.Model.IsRoot;
         public bool IsEntityType => TargetType is ModelTypeDefinition t0 && t0.Model.IsEntity;
+        public bool IsOwnedEntity => TargetType is ModelTypeDefinition t0 && t0.Model.IsEntity && t0.Model.IsOwnedEntity;
         public bool IsValueObjectType => TargetType is ModelTypeDefinition t0 && t0.Model.IsValueObject;
         public bool IsEnumType => TargetType is EnumTypeDefinition;
 

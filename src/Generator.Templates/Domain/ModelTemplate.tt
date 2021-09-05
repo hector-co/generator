@@ -12,17 +12,17 @@ using System.Collections.Generic;
 using <#= @using #>;
 <#      } #>
 
-namespace <#= _module.GetDomainModelNameSpace() #>
+namespace <#= GetDomainModelNameSpace(_module) #>
 {
-    public partial class <#= _model.Name #> <#= _model.GetBaseClassName(_module) #>
+    public partial class <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>
     {
 <#  if (_model.IsEntity && _module.DomainSettings.GenerateIdProperties)
-    {   #>
+    { #>
         public <#= _model.IdentifierProperty.TypeName #> <#= _model.IdentifierProperty.Name #> { get; set; }
-<#  }   #>
-<#  foreach(var property in _model.Properties.Values)
-    {   #>
-        public <#= _model.GetPropertyTypeName(property) #> <#= _model.GetPropertyName(property) #> { get; set; }
-<#  }   #>
+<#  } #>
+<#  foreach(var propInfo in GetPropertiesInfo(_model))
+    { #>
+        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+<#  } #>
     }
 }

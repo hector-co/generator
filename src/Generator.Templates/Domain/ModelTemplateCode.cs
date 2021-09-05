@@ -1,4 +1,5 @@
 ﻿using Generator.Metadata;
+using System.Collections.Generic;
 
 namespace Generator.Templates.Domain
 {
@@ -11,6 +12,84 @@ namespace Generator.Templates.Domain
         {
             _module = module;
             _model = model;
+        }
+
+        public static string GetDomainModelNameSpace(ModuleDefinition moduleDefinition)
+        {
+            return $"{moduleDefinition.Name}.Domain.Model";
+        }
+
+        public static string GetBaseClassName(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
+        {
+            if (modelDefinition.IsRoot)
+                return string.IsNullOrEmpty(moduleDefinition.DomainSettings.AggregateRootBaseClass)
+                    ? ""
+                    : $": {moduleDefinition.DomainSettings.AggregateRootBaseClass.Replace(":T0:", modelDefinition.IdentifierType)}";
+
+            if (modelDefinition.IsEntity)
+                return string.IsNullOrEmpty(moduleDefinition.DomainSettings.EntityBaseClass)
+                        ? ""
+                        : $": {moduleDefinition.DomainSettings.EntityBaseClass.Replace(":T0:", modelDefinition.IdentifierType)}";
+
+            return "";
+        }
+
+        public static List<PropertyInfo> GetPropertiesInfo(ModelDefinition modelDefinition)
+        {
+            var result = new List<PropertyInfo>();
+            foreach (var property in modelDefinition.Properties.Values)
+            {
+                var propInfo = new PropertyInfo
+                {
+                    Visibility = "public",
+                    TypeName = GetPropertyTypeName(modelDefinition, property),
+                    Name = GetPropertyName(modelDefinition, property)
+                };
+                result.Add(propInfo);
+            }
+            return result;
+        }
+
+        public static string GetPropertyTypeName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
+        {
+            if (propertyDefinition.IsSystemType || propertyDefinition.IsValueObjectType || propertyDefinition.IsEnumType)
+                return ResolvePropertyInternalType(propertyDefinition, propertyDefinition.TargetType.Name);
+
+            if (propertyDefinition.IsEntityType)
+            {
+                var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
+                if (entityType.Model.Parent == modelDefinition)
+                    return ResolvePropertyInternalType(propertyDefinition, entityType.Name, false);
+                else
+                    return ResolvePropertyInternalType(propertyDefinition, entityType.Model.IdentifierType);
+            }
+
+            return "";
+        }
+
+        private static string ResolvePropertyInternalType(PropertyDefinition propertyDefinition, string targetType, bool applyNullable = true)
+        {
+            if (propertyDefinition.IsEntityType && propertyDefinition.TargetType.IsNullable && applyNullable)
+                targetType += "?";
+
+            return propertyDefinition.InternalTypeName.Replace($":T0:", targetType);
+        }
+
+        public static string GetPropertyName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
+        {
+            if (propertyDefinition.IsSystemType || propertyDefinition.IsValueObjectType || propertyDefinition.IsEnumType)
+                return propertyDefinition.Name;
+
+            if (propertyDefinition.IsEntityType)
+            {
+                var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
+                if (entityType.Model.Parent == modelDefinition)
+                    return propertyDefinition.Name;
+                else
+                    return propertyDefinition.Name + "Id" + (propertyDefinition.IsCollection ? "s" : "");
+            }
+
+            return "";
         }
 
     }
