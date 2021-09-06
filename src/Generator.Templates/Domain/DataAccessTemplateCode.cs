@@ -13,8 +13,11 @@ namespace Generator.Templates.Domain
             _module = module;
         }
 
-        private static string ResolveEntityPropertyTypeName(PropertyDefinition propertyDefinition)
+        private static string ResolveEntityPropertyTypeName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
         {
+            if (propertyDefinition.WithMany)
+                return $"List<{modelDefinition.Name}{propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess>";
+
             if (!propertyDefinition.IsOwnedEntity)
                 return propertyDefinition.InternalTypeName.Replace($":T0:", propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.Name);
 
@@ -35,8 +38,10 @@ namespace Generator.Templates.Domain
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "internal",
-                    TypeName = ResolveEntityPropertyTypeName(property),
-                    Name = property.Name + (property.IsOwnedEntity ? "Id" : "")
+                    TypeName = ResolveEntityPropertyTypeName(modelDefinition, property),
+                    Name = property.WithMany
+                    ? property.Name + "DataAccess"
+                    : property.Name + (property.IsOwnedEntity ? "Id" : "")
                 };
                 result.Add(propInfo);
             }
@@ -77,6 +82,50 @@ namespace Generator.Templates.Domain
                     Name = property.Name
                 };
                 result.Add(propInfo);
+            }
+            return result;
+        }
+
+        public static Dictionary<string, List<PropertyInfo>> GetJoinClassesInfo(ModuleDefinition moduleDefinition)
+        {
+            var result = new Dictionary<string, List<PropertyInfo>>();
+
+            var models = moduleDefinition.Models.Values.Where(m => m.Properties.Values.Any(p => p.IsCollection && p.IsEntityType && p.WithMany));
+
+            foreach (var model in models)
+            {
+                var properties = model.Properties.Values.Where(p => p.IsCollection && p.IsEntityType && p.WithMany);
+                foreach (var property in properties)
+                {
+                    result.Add($"{model.Name}{property.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess", new List<PropertyInfo>
+                    {
+                        new PropertyInfo
+                        {
+                            Visibility = "internal",
+                            TypeName = model.IdentifierProperty.TargetType.Name,
+                            Name = model.Name + "Id"
+                        },
+                        new PropertyInfo
+                        {
+                            Visibility = "internal",
+                            TypeName = model.Name,
+                            Name = model.Name
+                        },
+                        new PropertyInfo
+                        {
+                            Visibility = "internal",
+                            TypeName = property.CastTargetType<ModelTypeDefinition>().Model.IdentifierProperty.TargetType.Name,
+                            Name = property.CastTargetType<ModelTypeDefinition>().Model.Name + "Id"
+                        },
+                        new PropertyInfo
+                        {
+                            Visibility = "internal",
+                            TypeName = property.CastTargetType<ModelTypeDefinition>().Model.Name,
+                            Name = property.CastTargetType<ModelTypeDefinition>().Model.Name
+                        }
+                    });
+
+                }
             }
             return result;
         }
