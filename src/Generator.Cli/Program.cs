@@ -12,8 +12,11 @@ namespace Generator.Cli
             var str = @"
   {
     name: 'Module1',
-    domainSettings: {
-      aggregateRootBaseClass: 'Agg<:T0:>',
+    'domainSettings': {
+      aggregateRootBaseClass: 'AggregateRoot<:T0:>',
+      entityBaseClass: 'Entity<:T0:>',
+      entityUsings: [ 'Hco.Base.Domain' ],
+      generateIdProperties: false
     },
     'models': {
       'Model1': {
@@ -32,6 +35,9 @@ namespace Generator.Cli
           'Prop1': {
             'typeName': 'string'
           },
+          SubModel2: {
+            typeName: 'List<Model2>'
+          }, 
           'Model1Rel': {
             'typeName': 'Model1'
           },
@@ -63,6 +69,34 @@ namespace Generator.Cli
           },
           'Model3Rel': {
             'typeName': 'List<Model3>'
+          },
+          'Model2Rel': {
+            'typeName': 'Model2?'
+          }
+        }
+      },
+      'Model5': {
+        'properties': {
+          'Name': {
+            'typeName': 'string'
+          },
+          'Model3Rel': {
+            'typeName': 'List<Model3>',
+            withMany: true
+          }
+        }
+      },
+      'Model6': {
+        'properties': {
+          'Name': {
+            'typeName': 'string'
+          }
+        }
+      },
+      'Model7': {
+        'properties': {
+          'Model6Rel': {
+            'typeName': 'List<Model6>'
           }
         }
       },
@@ -82,13 +116,20 @@ namespace Generator.Cli
 
             foreach (var model in module.Models)
             {
-                var a = new ModelTemplate(module, model.Value);
-                var t = a.TransformText();
-                Console.WriteLine(t);
+                var modelTpl = new ModelTemplate(module, model.Value);
+                var text = modelTpl.TransformText();
+                System.IO.File.WriteAllText($"E:/temp/gentest/{model.Key}.cs", text);
+                Console.WriteLine(text);
                 Console.WriteLine();
             }
 
-            Console.ReadLine();
+            var dataAccesTpl = new DataAccessTemplate(module);
+            var text2 = dataAccesTpl.TransformText();
+            System.IO.File.WriteAllText($"E:/temp/gentest/_DataAccess.Ef.cs", text2);
+            Console.WriteLine(text2);
+            Console.WriteLine();
+
+            Console.ReadKey();
         }
     }
 }
