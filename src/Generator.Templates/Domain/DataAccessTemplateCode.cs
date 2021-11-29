@@ -18,9 +18,6 @@ namespace Generator.Templates.Domain
             if (propertyDefinition.WithMany)
                 return $"List<{modelDefinition.Name}{propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess>";
 
-            if (!propertyDefinition.IsOwnedEntity)
-                return propertyDefinition.InternalTypeName.Replace($":T0:", propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.Name);
-
             var targetType = propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.IdentifierProperty.TypeName;
             if (propertyDefinition.IsEntityType && propertyDefinition.TargetType.IsNullable)
                 targetType += "?";
@@ -32,7 +29,7 @@ namespace Generator.Templates.Domain
         {
             var result = new List<PropertyInfo>();
             var properties = modelDefinition.Properties.Values.Where(p => !p.IsGeneric && p.IsOwnedEntity)
-                .Concat(modelDefinition.Properties.Values.Where(p => p.IsEntityType && !p.IsOwnedEntity));
+                .Concat(modelDefinition.Properties.Values.Where(p => !p.IsGeneric && p.IsEntityType && !p.IsOwnedEntity));
             foreach (var property in properties)
             {
                 var propInfo = new PropertyInfo
@@ -41,7 +38,7 @@ namespace Generator.Templates.Domain
                     TypeName = ResolveEntityPropertyTypeName(modelDefinition, property),
                     Name = property.WithMany
                     ? property.Name + "DataAccess"
-                    : property.Name + (property.IsOwnedEntity ? "Id" : "")
+                    : property.Name + "Id"
                 };
                 result.Add(propInfo);
             }
@@ -57,12 +54,19 @@ namespace Generator.Templates.Domain
 
             foreach (var model in models)
             {
-                //var property = model.Properties.Values.FirstOrDefault(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == modelDefinition);
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "internal",
                     TypeName = model.IdentifierProperty.TargetType.Name,
                     Name = model.Name + "Id"
+                };
+                result.Add(propInfo);
+
+                propInfo = new PropertyInfo
+                {
+                    Visibility = "internal",
+                    TypeName = model.Name,
+                    Name = model.Name
                 };
                 result.Add(propInfo);
             }
@@ -82,6 +86,26 @@ namespace Generator.Templates.Domain
                     Name = property.Name
                 };
                 result.Add(propInfo);
+            }
+            return result;
+        }
+
+        public static List<PropertyInfo> GetJoinPropertiesInfo(ModelDefinition modelDefinition)
+        {
+            if (!modelDefinition.Properties.Values.Any(p => p.IsCollection && p.IsEntityType && p.WithMany))
+                return new List<PropertyInfo>();
+
+            var result = new List<PropertyInfo>();
+
+            var properties = modelDefinition.Properties.Values.Where(p => p.IsCollection && p.IsEntityType && p.WithMany);
+            foreach (var property in properties)
+            {
+                result.Add(new PropertyInfo
+                {
+                    Visibility = "internal",
+                    TypeName = $"List<{modelDefinition.Name}{property.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess>",
+                    Name = $"{property.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess"
+                });
             }
             return result;
         }

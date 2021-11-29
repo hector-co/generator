@@ -22,9 +22,9 @@ namespace Generator.Templates.Domain
         public static string GetBaseClassName(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
         {
             if (modelDefinition.IsRoot)
-                return string.IsNullOrEmpty(moduleDefinition.DomainSettings.AggregateRootBaseClass)
+                return string.IsNullOrEmpty(moduleDefinition.DomainSettings.RootBaseClass)
                     ? ""
-                    : $": {moduleDefinition.DomainSettings.AggregateRootBaseClass.Replace(":T0:", modelDefinition.IdentifierType)}";
+                    : $": {moduleDefinition.DomainSettings.RootBaseClass.Replace(":T0:", modelDefinition.IdentifierType)}";
 
             if (modelDefinition.IsEntity)
                 return string.IsNullOrEmpty(moduleDefinition.DomainSettings.EntityBaseClass)
@@ -53,15 +53,13 @@ namespace Generator.Templates.Domain
         public static string GetPropertyTypeName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
         {
             if (propertyDefinition.IsSystemType || propertyDefinition.IsValueObjectType || propertyDefinition.IsEnumType)
+            {
                 return ResolvePropertyInternalType(propertyDefinition, propertyDefinition.TargetType.Name);
-
-            if (propertyDefinition.IsEntityType)
+            }
+            else if (propertyDefinition.IsEntityType)
             {
                 var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
-                if (entityType.Model.Parent == modelDefinition)
-                    return ResolvePropertyInternalType(propertyDefinition, entityType.Name, false);
-                else
-                    return ResolvePropertyInternalType(propertyDefinition, entityType.Model.IdentifierType);
+                return ResolvePropertyInternalType(propertyDefinition, entityType.Name, false);
             }
 
             return "";
@@ -77,19 +75,7 @@ namespace Generator.Templates.Domain
 
         public static string GetPropertyName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
         {
-            if (propertyDefinition.IsSystemType || propertyDefinition.IsValueObjectType || propertyDefinition.IsEnumType)
-                return propertyDefinition.Name;
-
-            if (propertyDefinition.IsEntityType)
-            {
-                var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
-                if (entityType.Model.Parent == modelDefinition)
-                    return propertyDefinition.Name;
-                else
-                    return propertyDefinition.Name + "Id" + (propertyDefinition.IsCollection ? "s" : "");
-            }
-
-            return "";
+            return propertyDefinition.Name;
         }
 
     }

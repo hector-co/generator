@@ -13,7 +13,7 @@ namespace Generator.Cli
   {
     name: 'Module1',
     'domainSettings': {
-      aggregateRootBaseClass: 'AggregateRoot<:T0:>',
+      rootBaseClass: 'AggregateRoot<:T0:>',
       entityBaseClass: 'Entity<:T0:>',
       entityUsings: [ 'Hco.Base.Domain' ],
       generateIdProperties: false
@@ -82,7 +82,7 @@ namespace Generator.Cli
           },
           'Model3Rel': {
             'typeName': 'List<Model3>',
-            withMany: true
+            'withMany': true
           }
         }
       },
@@ -125,7 +125,7 @@ namespace Generator.Cli
 
             var dataAccesTpl = new DataAccessTemplate(module);
             var text2 = dataAccesTpl.TransformText();
-            System.IO.File.WriteAllText($"E:/temp/gentest/_DataAccess.Ef.cs", text2);
+            //System.IO.File.WriteAllText($"E:/temp/gentest/_DataAccess.Ef.cs", text2);
             Console.WriteLine(text2);
             Console.WriteLine();
 

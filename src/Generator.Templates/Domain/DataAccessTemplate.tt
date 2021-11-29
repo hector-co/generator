@@ -21,6 +21,10 @@ namespace <#= ModelTemplate.GetDomainModelNameSpace(_module) #>
         { #>
         <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
 <#      } #>
+<#      foreach(var propInfo in GetJoinPropertiesInfo(model))
+        { #>
+        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+<#      } #>
 <#      foreach(var propInfo in GetGenericSystemPropertiesInfo(model))
         { #>
         internal string <#= propInfo.Name #>_Serialized
