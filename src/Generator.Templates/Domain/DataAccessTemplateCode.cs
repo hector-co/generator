@@ -96,7 +96,7 @@ namespace Generator.Templates.Domain
                 {
                     Visibility = "internal",
                     TypeName = $"List<{modelDefinition.Name}{property.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess>",
-                    Name = $"{property.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess"
+                    Name = $"{property.Name}DataAccess"
                 });
             }
             return result;

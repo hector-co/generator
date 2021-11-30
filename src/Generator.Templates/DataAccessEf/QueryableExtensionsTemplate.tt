@@ -1,0 +1,56 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Templates.Domain" #>
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using <#= ModelTemplate.GetDomainModelNameSpace(_namespace) #>;
+
+namespace <#= ModelConfigurationTemplate.GetDataAccessNameSpace(_modelDefinition, _namespace) #>
+{
+    internal static class <#= _modelDefinition.Name #>QueryableExtensions
+    {
+<#    if (RequiresIncludes(_modelDefinition))
+    { #>
+        public static IQueryable<<#= _modelDefinition.Name #>> AddIncludes
+            (this IQueryable<<#= _modelDefinition.Name #>> queryable)
+        {
+            return queryable
+<#        foreach (var propName in GetRelatedEntitiesPropertyNames(_modelDefinition))
+        { #>
+                .Include(m => m.<#= propName #>)
+<#        } #>
+<#        foreach (var propNames in GetRelatedEntitiesWithManyPropertyNames(_modelDefinition))
+        { #>
+                .Include(m => m.<#= propNames.PropertyName #>DataAccess).ThenInclude(r => r.<#= propNames.RelatedTypeName #>)
+<#        } #>
+                ;
+        }
+<#    } #>
+<#    if (RequiresAdjustLoadData(_modelDefinition))
+    { #>
+
+        public static void AdjustLoadedData(this IEnumerable<<#= _modelDefinition.Name #>> <#= _modelDefinition.Name.GetVariablePluralName() #>)
+        {
+            if (<#= _modelDefinition.Name.GetVariablePluralName() #> == null) return;
+
+            <#= _modelDefinition.Name.GetVariablePluralName() #>.ToList().ForEach(m => m.AdjustLoadedData());
+        }
+
+        public static void AdjustLoadedData(this <#= _modelDefinition.Name #> <#= _modelDefinition.Name.GetVariableName() #>)
+        {
+            if (<#= _modelDefinition.Name.GetVariableName() #> == null) return;
+
+<#        foreach (var propNames in GetRelatedEntitiesWithManyPropertyNames(_modelDefinition))
+        { #>
+            if (<#= _modelDefinition.Name.GetVariableName() #>.<#= propNames.PropertyName #>DataAccess != null)
+                <#= _modelDefinition.Name.GetVariableName() #>.<#= propNames.PropertyName #> = <#= _modelDefinition.Name.GetVariableName() #>.<#= propNames.PropertyName #>DataAccess.Select(r => r.<#= propNames.RelatedTypeName #>).ToList();
+
+<#        } #>
+        }
+<#    } #>
+    }
+}

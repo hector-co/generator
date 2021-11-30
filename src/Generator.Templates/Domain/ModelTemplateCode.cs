@@ -14,9 +14,9 @@ namespace Generator.Templates.Domain
             _model = model;
         }
 
-        public static string GetDomainModelNameSpace(ModuleDefinition moduleDefinition)
+        public static string GetDomainModelNameSpace(string @namespace)
         {
-            return $"{moduleDefinition.Name}.Domain.Model";
+            return $"{@namespace}.Domain.Model";
         }
 
         public static string GetBaseClassName(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
