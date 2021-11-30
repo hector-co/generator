@@ -23,6 +23,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ModelTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="Queries\DtoTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DtoTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Queries\GetByIdQueryTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GetByIdQueryTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Queries\PagedQueryTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PagedQueryTemplate.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +48,18 @@
     <None Update="Domain\ModelTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ModelTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Queries\DtoTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DtoTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Queries\PagedQueryTemplate.tt">
+      <LastGenOutput>PagedQueryTemplate.cs</LastGenOutput>
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+    </None>
+    <None Update="Queries\GetByIdQueryTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>GetByIdQueryTemplate.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

@@ -18,10 +18,13 @@ namespace Generator.Metadata
         public void Init()
         {
             foreach (var modelName in Models.Keys)
-                Models[modelName].AdjustProperties(this, modelName);
+                Models[modelName].Init(this, modelName);
 
             foreach (var modelName in Models.Keys)
-                Models[modelName].Init(this, modelName);
+                Models[modelName].InitProperties(this);
+
+            foreach (var modelName in Models.Keys)
+                Models[modelName].AdjustRelationships(this);
 
             foreach (var enumName in Enums.Keys)
                 Enums[enumName].Init(enumName);

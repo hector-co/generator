@@ -1,0 +1,29 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Metadata" #>
+using System;
+using System.Collections.Generic;
+using MediatR;
+using Qurl;
+
+namespace <#= DtoTemplate.GetDtoNamespaceName(_modelDefinition, _namespace) #>
+{
+    public class <#= DtoTemplate.GetDtoName(_modelDefinition) #>PagedQuery : Query<<#= DtoTemplate.GetDtoName(_modelDefinition) #>PagedQuery.FilterProperties>, IRequest<ResultModel<IEnumerable<<#= DtoTemplate.GetDtoName(_modelDefinition) #>>>>
+    {
+        public <#= DtoTemplate.GetDtoName(_modelDefinition) #>PagedQuery()
+        {
+        }
+
+        public class FilterProperties
+        {
+<# foreach(var propInfo in GetFilterPropertiesInfo(_modelDefinition))
+    { 
+#>
+            <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+<#  } #>
+        }
+    }
+}

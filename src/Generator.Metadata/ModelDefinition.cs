@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Humanizer;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,23 @@ namespace Generator.Metadata
 {
     public class ModelDefinition
     {
+        public const string IdPropertyName = "Id";
+
+        private string _pluralName;
+
         public string Name { get; set; }
         public string IdentifierType { get; set; } = "int";
-        public string PluralName { get; set; }
+        public string PluralName
+        {
+            get
+            {
+                return string.IsNullOrEmpty(_pluralName) ? Name.Pluralize() : _pluralName;
+            }
+            set
+            {
+                _pluralName = value;
+            }
+        }
         public bool IsRoot { get; set; } = true;
         public bool IsEntity { get; set; } = true;
         [JsonIgnore]
@@ -22,7 +37,7 @@ namespace Generator.Metadata
         public bool IsValueObject => !IsRoot && !IsEntity;
         public bool RequiresDataAccessClass { get; private set; }
 
-        public void AdjustProperties(ModuleDefinition moduleDefinition, string name)
+        public void Init(ModuleDefinition moduleDefinition, string name)
         {
             Name = name;
 
@@ -35,15 +50,21 @@ namespace Generator.Metadata
                 {
                     TypeName = IdentifierType
                 };
-                IdentifierProperty.Init(moduleDefinition, "Id");
+                IdentifierProperty.Init(moduleDefinition, ModelDefinition.IdPropertyName);
             }
+        }
 
+        public void InitProperties(ModuleDefinition moduleDefinition)
+        {
             foreach (var propertyName in Properties.Keys)
                 Properties[propertyName].Init(moduleDefinition, propertyName);
         }
 
-        public void Init(ModuleDefinition moduleDefinition, string name)
+        public void AdjustRelationships(ModuleDefinition moduleDefinition)
         {
+            foreach (var propertyName in Properties.Keys)
+                Properties[propertyName].Init(moduleDefinition, propertyName);
+
             if (IsOwnedEntity)
             {
                 foreach (var model in moduleDefinition.Models.Values)
@@ -64,8 +85,9 @@ namespace Generator.Metadata
             }
 
             RequiresDataAccessClass = IdentifierProperty != null &&
-                (Properties.Any(p => p.Value.IsGeneric) ||
-                Properties.Any(p => p.Value.IsEntityType) ||
+                (Properties.Any(p => p.Value.IsGeneric && (!p.Value.TypeName.StartsWith("List<") || p.Value.WithMany)) ||
+                Properties.Any(p => p.Value.IsEntityType && !p.Value.IsGeneric) ||
+                Properties.Any(p => p.Value.IsSystemType && p.Value.IsGeneric) ||
                 moduleDefinition.Models.Values.Any(m => m.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == this)));
         }
     }

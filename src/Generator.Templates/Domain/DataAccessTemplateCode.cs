@@ -38,7 +38,7 @@ namespace Generator.Templates.Domain
                     TypeName = ResolveEntityPropertyTypeName(modelDefinition, property),
                     Name = property.WithMany
                     ? property.Name + "DataAccess"
-                    : property.Name + "Id"
+                    : property.Name + ModelDefinition.IdPropertyName
                 };
                 result.Add(propInfo);
             }
@@ -58,15 +58,7 @@ namespace Generator.Templates.Domain
                 {
                     Visibility = "internal",
                     TypeName = model.IdentifierProperty.TargetType.Name,
-                    Name = model.Name + "Id"
-                };
-                result.Add(propInfo);
-
-                propInfo = new PropertyInfo
-                {
-                    Visibility = "internal",
-                    TypeName = model.Name,
-                    Name = model.Name
+                    Name = model.Name + ModelDefinition.IdPropertyName
                 };
                 result.Add(propInfo);
             }
@@ -82,7 +74,7 @@ namespace Generator.Templates.Domain
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "internal",
-                    TypeName = ModelTemplate.GetPropertyTypeName(modelDefinition, property),
+                    TypeName = ModelTemplate.GetPropertyTypeName(property),
                     Name = property.Name
                 };
                 result.Add(propInfo);
@@ -127,7 +119,7 @@ namespace Generator.Templates.Domain
                         {
                             Visibility = "internal",
                             TypeName = model.IdentifierProperty.TargetType.Name,
-                            Name = model.Name + "Id"
+                            Name = model.Name + ModelDefinition.IdPropertyName
                         },
                         new PropertyInfo
                         {
@@ -139,7 +131,7 @@ namespace Generator.Templates.Domain
                         {
                             Visibility = "internal",
                             TypeName = property.CastTargetType<ModelTypeDefinition>().Model.IdentifierProperty.TargetType.Name,
-                            Name = property.CastTargetType<ModelTypeDefinition>().Model.Name + "Id"
+                            Name = property.CastTargetType<ModelTypeDefinition>().Model.Name + ModelDefinition.IdPropertyName
                         },
                         new PropertyInfo
                         {

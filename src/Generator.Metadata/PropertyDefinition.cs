@@ -9,11 +9,12 @@ namespace Generator.Metadata
     public class PropertyDefinition
     {
         public const string GenericTypeExp = @"\w+<(.*)?>";
-        public static readonly IEnumerable<string> ValidSystemTypes = new[] { "byte", "bool", "int", "long", "float", "double", "char", "string", "DateTime", "DateTimeOffset", "TimeSpan", "object", "DayOfWeek" };
+        public static readonly IEnumerable<string> ValidSystemTypes = new[] { "byte", "bool", "int", "long", "float", "double", "char", "string", "DateTime", "DateTimeOffset", "TimeSpan", "object", "DayOfWeek", "Guid" };
 
         public string Name { get; set; }
         public string PluralName { get; set; }
         public bool WithMany { get; set; }
+        public FilterDefinition Filter { get; set; }
 
         [JsonIgnore]
         public bool IsGeneric { get; private set; }
@@ -43,7 +44,12 @@ namespace Generator.Metadata
         public void Init(ModuleDefinition moduleDefinition, string name)
         {
             Name = name;
+            InitInternalType(moduleDefinition);
+            InitFilter();
+        }
 
+        private void InitInternalType(ModuleDefinition moduleDefinition)
+        {
             if (!TypeName.Contains("<"))
             {
                 TargetTypes = new List<TypeDefinition>
@@ -82,6 +88,17 @@ namespace Generator.Metadata
                 TargetTypes.Add(GetTypeDefinition(moduleDefinition, st));
             }
             InternalTypeName = TypeName.Replace(stype, string.Join(", ", Enumerable.Range(0, stypes.Count()).Select(n => $":T{n}:")));
+        }
+
+        private void InitFilter()
+        {
+            if (Filter == null && !IsValueObjectType)
+            {
+                Filter = new FilterDefinition
+                {
+                    Apply = !IsValueObjectType
+                };
+            }
         }
 
         private static TypeDefinition GetTypeDefinition(ModuleDefinition moduleDefinition, string typeName)

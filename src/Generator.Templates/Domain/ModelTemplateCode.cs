@@ -42,15 +42,15 @@ namespace Generator.Templates.Domain
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "public",
-                    TypeName = GetPropertyTypeName(modelDefinition, property),
-                    Name = GetPropertyName(modelDefinition, property)
+                    TypeName = GetPropertyTypeName(property),
+                    Name = property.Name
                 };
                 result.Add(propInfo);
             }
             return result;
         }
 
-        public static string GetPropertyTypeName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
+        public static string GetPropertyTypeName(PropertyDefinition propertyDefinition)
         {
             if (propertyDefinition.IsSystemType || propertyDefinition.IsValueObjectType || propertyDefinition.IsEnumType)
             {
@@ -59,23 +59,15 @@ namespace Generator.Templates.Domain
             else if (propertyDefinition.IsEntityType)
             {
                 var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
-                return ResolvePropertyInternalType(propertyDefinition, entityType.Name, false);
+                return ResolvePropertyInternalType(propertyDefinition, entityType.Name);
             }
 
             return "";
         }
 
-        private static string ResolvePropertyInternalType(PropertyDefinition propertyDefinition, string targetType, bool applyNullable = true)
+        private static string ResolvePropertyInternalType(PropertyDefinition propertyDefinition, string targetType)
         {
-            if (propertyDefinition.IsEntityType && propertyDefinition.TargetType.IsNullable && applyNullable)
-                targetType += "?";
-
             return propertyDefinition.InternalTypeName.Replace($":T0:", targetType);
-        }
-
-        public static string GetPropertyName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
-        {
-            return propertyDefinition.Name;
         }
 
     }

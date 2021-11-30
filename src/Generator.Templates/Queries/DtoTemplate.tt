@@ -1,0 +1,28 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Metadata" #>
+using System;
+using System.Collections.Generic;
+<# foreach(var relType in GetRelatedEntitiesUsings(_modelDefinition, _namespace))
+   { 
+#>
+using <#= relType #>;
+<# } #>
+
+namespace <#= GetDtoNamespaceName(_modelDefinition, _namespace) #>
+{
+    public class <#= GetDtoName(_modelDefinition) #>
+    {
+        public <#= GetDtoName(_modelDefinition) #>()
+        {
+        }
+
+<#  foreach(var propInfo in GetPropertiesInfo(_modelDefinition))
+    { #>
+        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+<#  } #>
+    }
+}

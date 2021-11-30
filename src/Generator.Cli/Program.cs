@@ -1,5 +1,6 @@
 ﻿using Generator.Metadata;
 using Generator.Templates.Domain;
+using Generator.Templates.Queries;
 using Newtonsoft.Json;
 using System;
 
@@ -13,7 +14,6 @@ namespace Generator.Cli
   {
     name: 'Module1',
     'domainSettings': {
-      rootBaseClass: 'AggregateRoot<:T0:>',
       entityBaseClass: 'Entity<:T0:>',
       entityUsings: [ 'Hco.Base.Domain' ],
       generateIdProperties: false
@@ -49,6 +49,9 @@ namespace Generator.Cli
           },
           'Addresses': {
             'typeName': 'List<Address>'
+          },
+          'Value1': {
+            'typeName': 'int?'
           }
         }
       },
@@ -58,9 +61,13 @@ namespace Generator.Cli
             'typeName': 'string'
           },
           'Model2Rel': {
-            'typeName': 'Model2'
+            'typeName': 'Model2',
+            'filter': {
+              'apply': false
+            }
           }
-        }
+        },
+        'identifierType': 'Guid'
       },
       'Model4': {
         'properties': {
@@ -68,7 +75,11 @@ namespace Generator.Cli
             'typeName': 'string'
           },
           'Model3Rel': {
-            'typeName': 'List<Model3>'
+            'typeName': 'List<Model3>',
+            'filter': {
+              'apply': true,
+              'type': 'equals'
+            }
           },
           'Model2Rel': {
             'typeName': 'Model2?'
@@ -96,7 +107,11 @@ namespace Generator.Cli
       'Model7': {
         'properties': {
           'Model6Rel': {
-            'typeName': 'List<Model6>'
+            'typeName': 'List<Model6>',
+            'filter': {
+              'apply': true,
+              'type': 'range'
+            }
           }
         }
       },
@@ -118,14 +133,32 @@ namespace Generator.Cli
             {
                 var modelTpl = new ModelTemplate(module, model.Value);
                 var text = modelTpl.TransformText();
-                System.IO.File.WriteAllText($"E:/temp/gentest/{model.Key}.cs", text);
+                System.IO.File.WriteAllText($"E:/temp/gentest2/Domain/Model/{model.Key}.cs", text);
                 Console.WriteLine(text);
+                Console.WriteLine();
+
+                var dtoTpl = new DtoTemplate(module.Name, model.Value);
+                var dtoText = dtoTpl.TransformText();
+                System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}Dto.cs", dtoText);
+                Console.WriteLine(dtoText);
+                Console.WriteLine();
+
+                var getByIdTpl = new GetByIdQueryTemplate(module.Name, model.Value);
+                var getByIdText = getByIdTpl.TransformText();
+                System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}DtoGetById.cs", getByIdText);
+                Console.WriteLine(getByIdText);
+                Console.WriteLine();
+
+                var pagedTpl = new PagedQueryTemplate(module.Name, model.Value);
+                var pagedText = pagedTpl.TransformText();
+                System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}DtoPagedQuery.cs", pagedText);
+                Console.WriteLine(pagedText);
                 Console.WriteLine();
             }
 
             var dataAccesTpl = new DataAccessTemplate(module);
             var text2 = dataAccesTpl.TransformText();
-            //System.IO.File.WriteAllText($"E:/temp/gentest/_DataAccess.Ef.cs", text2);
+            System.IO.File.WriteAllText($"E:/temp/gentest2/Domain/Model/_DataAccess.Ef.cs", text2);
             Console.WriteLine(text2);
             Console.WriteLine();
 
