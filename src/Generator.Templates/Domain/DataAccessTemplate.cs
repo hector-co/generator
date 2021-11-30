@@ -32,7 +32,7 @@ namespace Generator.Templates.Domain
                     "space ");
             
             #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModelTemplate.GetDomainModelNameSpace(_module.Name)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden

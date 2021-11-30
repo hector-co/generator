@@ -12,11 +12,11 @@ using System.Collections.Generic;
 using <#= relType #>;
 <# } #>
 
-namespace <#= GetDtoNamespaceName(_modelDefinition, _namespace) #>
+namespace <#= _modelDefinition.GetDtoNamespace(_namespace) #>
 {
-    public class <#= GetDtoName(_modelDefinition) #>
+    public class <#= _modelDefinition.GetDtoName() #>
     {
-        public <#= GetDtoName(_modelDefinition) #>()
+        public <#= _modelDefinition.GetDtoName() #>()
         {
         }
 

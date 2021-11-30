@@ -13,15 +13,16 @@ namespace Generator.Templates.DataAccessEf
     using System.Text;
     using System.Collections.Generic;
     using Generator.Templates.Domain;
+    using Generator.Templates.Queries;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class QueryableExtensionsTemplate : QueryableExtensionsTemplateBase
+    public partial class PagedQueryHandlerTemplate : PagedQueryHandlerTemplateBase
     {
 #line hidden
         /// <summary>
@@ -29,236 +30,149 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Microsoft.EntityFrameworkCore;\r\nusing System.Collections.Generic;\r\nusing Sy" +
-                    "stem.Linq;\r\nusing ");
+            this.Write("using Mapster;\r\nusing MediatR;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing Qurl." +
+                    "Queryable;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing Sy" +
+                    "stem.Threading.Tasks;\r\nusing ");
             
-            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetDomainModelNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\nusing ");
+            
+            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetQueriesNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\nusing ");
+            
+            #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoNamespace(_namespace)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDataAccessModelNamespace(_namespace)));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    internal static class ");
+            this.Write(".Queries\r\n{\r\n    public class ");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write("PagedQueryHandler : IRequestHandler<");
+            
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write("PagedQuery, ResultModel<IEnumerable<");
+            
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write(">>>\r\n    {\r\n        private readonly ");
+            
+            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetContextName()));
+            
+            #line default
+            #line hidden
+            this.Write(" _context;\r\n\r\n        public ");
+            
+            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write("PagedQueryHandler(");
+            
+            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetContextName()));
+            
+            #line default
+            #line hidden
+            this.Write(" context)\r\n        {\r\n            _context = context;\r\n        }\r\n\r\n        publi" +
+                    "c async Task<ResultModel<IEnumerable<");
+            
+            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write(">>> Handle(");
+            
+            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write("PagedQuery request, CancellationToken cancellationToken)\r\n        {\r\n            " +
+                    "var result = new ResultModel<IEnumerable<");
+            
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write(">>();\r\n\r\n            var efQuery = _context.Set<");
+            
+            #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
             
             #line default
             #line hidden
-            this.Write("QueryableExtensions\r\n    {\r\n");
+            this.Write(">().ApplyQuery(request, false);\r\n            result.TotalCount = await efQuery.Co" +
+                    "untAsync(cancellationToken);\r\n            efQuery = efQuery.ApplySortAndPaging(r" +
+                    "equest);\r\n\r\n");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-    if (RequiresIncludes(_modelDefinition))
+            #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+    if (QueryableExtensionsTemplate.RequiresIncludes(_modelDefinition))
     { 
             
             #line default
             #line hidden
-            this.Write("        internal static IQueryable<");
+            this.Write("            efQuery = efQuery.AddIncludes();\r\n            \r\n");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
-            
-            #line default
-            #line hidden
-            this.Write("> AddIncludes\r\n            (this IQueryable<");
-            
-            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
-            
-            #line default
-            #line hidden
-            this.Write("> queryable)\r\n        {\r\n            return queryable\r\n");
-            
-            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-        foreach (var propName in GetRelatedEntitiesPropertyNames(_modelDefinition))
-        { 
-            
-            #line default
-            #line hidden
-            this.Write("                .Include(m => m.");
-            
-            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propName));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n");
-            
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-        } 
-            
-            #line default
-            #line hidden
-            
-            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-        foreach (var propNames in GetRelatedEntitiesWithManyPropertyNames(_modelDefinition))
-        { 
-            
-            #line default
-            #line hidden
-            this.Write("                .Include(m => m.");
-            
-            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propNames.PropertyName));
-            
-            #line default
-            #line hidden
-            this.Write("DataAccess).ThenInclude(r => r.");
-            
-            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propNames.RelatedTypeName));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n");
-            
-            #line 29 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-        } 
-            
-            #line default
-            #line hidden
-            this.Write("                ;\r\n        }\r\n");
-            
-            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 42 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
     } 
             
             #line default
             #line hidden
+            this.Write("            var data = await efQuery\r\n                .ToListAsync(cancellationTo" +
+                    "ken);\r\n");
             
-            #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-    if (RequiresAdjustLoadData(_modelDefinition))
+            #line 45 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+    if (QueryableExtensionsTemplate.RequiresAdjustLoadData(_modelDefinition))
     { 
             
             #line default
             #line hidden
-            this.Write("\r\n        internal static void AdjustLoadedData(this IEnumerable<");
+            this.Write("\r\n            data.AdjustLoadedData();\r\n");
             
-            #line 36 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
-            
-            #line default
-            #line hidden
-            this.Write("> ");
-            
-            #line 36 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name.GetVariablePluralName()));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n        {\r\n            if (");
-            
-            #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name.GetVariablePluralName()));
-            
-            #line default
-            #line hidden
-            this.Write(" == null) return;\r\n\r\n            ");
-            
-            #line 40 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name.GetVariablePluralName()));
-            
-            #line default
-            #line hidden
-            this.Write(".ToList().ForEach(m => m.AdjustLoadedData());\r\n        }\r\n\r\n        internal stat" +
-                    "ic void AdjustLoadedData(this ");
-            
-            #line 43 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 43 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name.GetVariableName()));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n        {\r\n            if (");
-            
-            #line 45 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name.GetVariableName()));
-            
-            #line default
-            #line hidden
-            this.Write(" == null) return;\r\n\r\n");
-            
-            #line 47 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-        foreach (var propNames in GetRelatedEntitiesWithManyPropertyNames(_modelDefinition))
-        { 
-            
-            #line default
-            #line hidden
-            this.Write("            if (");
-            
-            #line 49 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name.GetVariableName()));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 49 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propNames.PropertyName));
-            
-            #line default
-            #line hidden
-            this.Write("DataAccess != null)\r\n                ");
-            
-            #line 50 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name.GetVariableName()));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 50 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propNames.PropertyName));
-            
-            #line default
-            #line hidden
-            this.Write(" = ");
-            
-            #line 50 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name.GetVariableName()));
-            
-            #line default
-            #line hidden
-            this.Write(".");
-            
-            #line 50 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propNames.PropertyName));
-            
-            #line default
-            #line hidden
-            this.Write("DataAccess.Select(r => r.");
-            
-            #line 50 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propNames.RelatedTypeName));
-            
-            #line default
-            #line hidden
-            this.Write(").ToList();\r\n\r\n");
-            
-            #line 52 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
-        } 
-            
-            #line default
-            #line hidden
-            this.Write("        }\r\n");
-            
-            #line 54 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 49 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
     } 
             
             #line default
             #line hidden
-            this.Write("    }\r\n}");
+            this.Write("           \r\n            result.Data = data.Adapt<List<");
+            
+            #line 51 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write(">>();\r\n\r\n            return result;\r\n        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -270,7 +184,7 @@ namespace Generator.Templates.DataAccessEf
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class QueryableExtensionsTemplateBase
+    public class PagedQueryHandlerTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

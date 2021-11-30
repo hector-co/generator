@@ -1,0 +1,55 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Generator.Templates.Queries" #>
+using Mapster;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using <#= _namespace.GetDomainModelNamespace() #>;
+using <#= _namespace.GetQueriesNamespace() #>;
+using <#= _modelDefinition.GetDtoNamespace(_namespace) #>;
+
+namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>.Queries
+{
+    public class <#= _modelDefinition.GetDtoName() #>GetByIdQueryHandler : IRequestHandler<<#= _modelDefinition.GetDtoName() #>GetByIdQuery, ResultModel<<#= _modelDefinition.GetDtoName() #>>>
+    {
+        private readonly <#= _namespace.GetContextName() #> _context;
+
+        public <#= _modelDefinition.GetDtoName() #>GetByIdQueryHandler(<#= _namespace.GetContextName() #> context)
+        {
+            _context = context;
+        }
+
+        public async Task<ResultModel<<#= _modelDefinition.GetDtoName() #>>> Handle(<#= _modelDefinition.GetDtoName() #>GetByIdQuery request, CancellationToken cancellationToken)
+        {
+            IQueryable<<#= _modelDefinition.Name #>> efQuery = _context.Set<<#= _modelDefinition.Name #>>();
+
+<#    if (QueryableExtensionsTemplate.RequiresIncludes(_modelDefinition))
+    { #>
+            efQuery = efQuery.AddIncludes();
+
+<#    } #>
+            var data = await efQuery
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);
+<#    if (QueryableExtensionsTemplate.RequiresAdjustLoadData(_modelDefinition))
+    { #>
+
+            data.AdjustLoadedData();
+<#    } #>
+
+            var result = new ResultModel<<#= _modelDefinition.GetDtoName() #>>
+            {
+                Data = data.Adapt<<#= _modelDefinition.GetDtoName() #>>()
+            };
+
+            return result;
+        }
+    }
+}

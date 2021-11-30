@@ -1,0 +1,56 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Generator.Templates.Queries" #>
+using Mapster;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Qurl.Queryable;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using <#= _namespace.GetDomainModelNamespace() #>;
+using <#= _namespace.GetQueriesNamespace() #>;
+using <#= _modelDefinition.GetDtoNamespace(_namespace) #>;
+
+namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>.Queries
+{
+    public class <#= _modelDefinition.GetDtoName() #>PagedQueryHandler : IRequestHandler<<#= _modelDefinition.GetDtoName() #>PagedQuery, ResultModel<IEnumerable<<#= _modelDefinition.GetDtoName() #>>>>
+    {
+        private readonly <#= _namespace.GetContextName() #> _context;
+
+        public <#= _modelDefinition.GetDtoName() #>PagedQueryHandler(<#= _namespace.GetContextName() #> context)
+        {
+            _context = context;
+        }
+
+        public async Task<ResultModel<IEnumerable<<#= _modelDefinition.GetDtoName() #>>>> Handle(<#= _modelDefinition.GetDtoName() #>PagedQuery request, CancellationToken cancellationToken)
+        {
+            var result = new ResultModel<IEnumerable<<#= _modelDefinition.GetDtoName() #>>>();
+
+            var efQuery = _context.Set<<#= _modelDefinition.Name #>>().ApplyQuery(request, false);
+            result.TotalCount = await efQuery.CountAsync(cancellationToken);
+            efQuery = efQuery.ApplySortAndPaging(request);
+
+<#    if (QueryableExtensionsTemplate.RequiresIncludes(_modelDefinition))
+    { #>
+            efQuery = efQuery.AddIncludes();
+            
+<#    } #>
+            var data = await efQuery
+                .ToListAsync(cancellationToken);
+<#    if (QueryableExtensionsTemplate.RequiresAdjustLoadData(_modelDefinition))
+    { #>
+
+            data.AdjustLoadedData();
+<#    } #>
+           
+            result.Data = data.Adapt<List<<#= _modelDefinition.GetDtoName() #>>>();
+
+            return result;
+        }
+    }
+}

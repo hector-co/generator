@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using <#= @using #>;
 <#      } #>
 
-namespace <#= GetDomainModelNameSpace(_module.Name) #>
+namespace <#= _module.GetDomainModelNamespace() #>
 {
     public partial class <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>
     {

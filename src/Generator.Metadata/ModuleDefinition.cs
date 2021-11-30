@@ -6,6 +6,7 @@ namespace Generator.Metadata
     public class ModuleDefinition
     {
         public string Name { get; set; }
+        public string DatabaseSchema { get; set; }
         public DomainSettings DomainSettings { get; set; } = new DomainSettings();
         public Dictionary<string, ModelDefinition> Models { get; set; } = new Dictionary<string, ModelDefinition>();
         public Dictionary<string, EnumDefinition> Enums { get; set; } = new Dictionary<string, EnumDefinition>();

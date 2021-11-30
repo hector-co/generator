@@ -33,35 +33,35 @@ namespace Generator.Templates.Queries
                     "namespace ");
             
             #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\PagedQueryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DtoTemplate.GetDtoNamespaceName(_modelDefinition, _namespace)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoNamespace(_namespace)));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public class ");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\PagedQueryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DtoTemplate.GetDtoName(_modelDefinition)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default
             #line hidden
             this.Write("PagedQuery : Query<");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\PagedQueryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DtoTemplate.GetDtoName(_modelDefinition)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default
             #line hidden
             this.Write("PagedQuery.FilterProperties>, IRequest<ResultModel<IEnumerable<");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\PagedQueryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DtoTemplate.GetDtoName(_modelDefinition)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">>>\r\n    {\r\n        public ");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\PagedQueryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DtoTemplate.GetDtoName(_modelDefinition)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default
             #line hidden

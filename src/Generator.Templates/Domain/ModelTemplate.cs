@@ -60,7 +60,7 @@ namespace Generator.Templates.Domain
             this.Write("\r\nnamespace ");
             
             #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\ModelTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetDomainModelNameSpace(_module.Name)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden

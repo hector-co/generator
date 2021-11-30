@@ -7,15 +7,15 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using <#= ModelTemplate.GetDomainModelNameSpace(_namespace) #>;
+using <#= _namespace.GetDomainModelNamespace() #>;
 
-namespace <#= ModelConfigurationTemplate.GetDataAccessNameSpace(_modelDefinition, _namespace) #>
+namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>
 {
     internal static class <#= _modelDefinition.Name #>QueryableExtensions
     {
 <#    if (RequiresIncludes(_modelDefinition))
     { #>
-        public static IQueryable<<#= _modelDefinition.Name #>> AddIncludes
+        internal static IQueryable<<#= _modelDefinition.Name #>> AddIncludes
             (this IQueryable<<#= _modelDefinition.Name #>> queryable)
         {
             return queryable
@@ -33,14 +33,14 @@ namespace <#= ModelConfigurationTemplate.GetDataAccessNameSpace(_modelDefinition
 <#    if (RequiresAdjustLoadData(_modelDefinition))
     { #>
 
-        public static void AdjustLoadedData(this IEnumerable<<#= _modelDefinition.Name #>> <#= _modelDefinition.Name.GetVariablePluralName() #>)
+        internal static void AdjustLoadedData(this IEnumerable<<#= _modelDefinition.Name #>> <#= _modelDefinition.Name.GetVariablePluralName() #>)
         {
             if (<#= _modelDefinition.Name.GetVariablePluralName() #> == null) return;
 
             <#= _modelDefinition.Name.GetVariablePluralName() #>.ToList().ForEach(m => m.AdjustLoadedData());
         }
 
-        public static void AdjustLoadedData(this <#= _modelDefinition.Name #> <#= _modelDefinition.Name.GetVariableName() #>)
+        internal static void AdjustLoadedData(this <#= _modelDefinition.Name #> <#= _modelDefinition.Name.GetVariableName() #>)
         {
             if (<#= _modelDefinition.Name.GetVariableName() #> == null) return;
 

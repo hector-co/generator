@@ -9,11 +9,11 @@ using System.Collections.Generic;
 using MediatR;
 using Qurl;
 
-namespace <#= DtoTemplate.GetDtoNamespaceName(_modelDefinition, _namespace) #>
+namespace <#= _modelDefinition.GetDtoNamespace(_namespace) #>
 {
-    public class <#= DtoTemplate.GetDtoName(_modelDefinition) #>PagedQuery : Query<<#= DtoTemplate.GetDtoName(_modelDefinition) #>PagedQuery.FilterProperties>, IRequest<ResultModel<IEnumerable<<#= DtoTemplate.GetDtoName(_modelDefinition) #>>>>
+    public class <#= _modelDefinition.GetDtoName() #>PagedQuery : Query<<#= _modelDefinition.GetDtoName() #>PagedQuery.FilterProperties>, IRequest<ResultModel<IEnumerable<<#= _modelDefinition.GetDtoName() #>>>>
     {
-        public <#= DtoTemplate.GetDtoName(_modelDefinition) #>PagedQuery()
+        public <#= _modelDefinition.GetDtoName() #>PagedQuery()
         {
         }
 

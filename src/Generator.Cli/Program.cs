@@ -14,6 +14,7 @@ namespace Generator.Cli
             var str = @"
   {
     name: 'Module1',
+    'databaseSchema': 'public',
     'domainSettings': {
       entityBaseClass: 'Entity<:T0:>',
       entityUsings: [ 'Hco.Base.Domain' ],
@@ -158,6 +159,18 @@ namespace Generator.Cli
                     Console.WriteLine(pagedText);
                     Console.WriteLine();
 
+                    var getByIdHandlerTpl = new GetByIdQueryHandlerTemplate(module.Name, model.Value);
+                    var getByIdHandlerText = getByIdHandlerTpl.TransformText();
+                    System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/{model.Key}DtoGetByIdQueryHandler.cs", getByIdHandlerText);
+                    Console.WriteLine(getByIdHandlerText);
+                    Console.WriteLine();
+
+                    var pagedHandlerTpl = new PagedQueryHandlerTemplate(module.Name, model.Value);
+                    var pagedHandlerText = pagedHandlerTpl.TransformText();
+                    System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/{model.Key}DtoPagedQueryHandler.cs", pagedHandlerText);
+                    Console.WriteLine(pagedHandlerText);
+                    Console.WriteLine();
+
                     if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model.Value))
                     {
                         var extensionsTpl = new QueryableExtensionsTemplate(module.Name, model.Value);
@@ -173,6 +186,18 @@ namespace Generator.Cli
             var text2 = dataAccesTpl.TransformText();
             System.IO.File.WriteAllText($"E:/temp/gentest2/Domain/Model/_DataAccess.Ef.cs", text2);
             Console.WriteLine(text2);
+            Console.WriteLine();
+
+            var contextTpl = new ContextTemplate(module);
+            var contextText = contextTpl.TransformText();
+            System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/Context.cs", contextText);
+            Console.WriteLine(contextText);
+            Console.WriteLine();
+
+            var contextFactoryTpl = new ContextFactoryTemplate(module);
+            var contextFactoryText = contextFactoryTpl.TransformText();
+            System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/ContextFactory.cs", contextFactoryText);
+            Console.WriteLine(contextFactoryText);
             Console.WriteLine();
 
             Console.ReadKey();

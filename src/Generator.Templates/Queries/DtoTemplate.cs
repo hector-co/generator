@@ -55,21 +55,21 @@ namespace Generator.Templates.Queries
             this.Write("\r\nnamespace ");
             
             #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\DtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetDtoNamespaceName(_modelDefinition, _namespace)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoNamespace(_namespace)));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public class ");
             
             #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\DtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetDtoName(_modelDefinition)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default
             #line hidden
             this.Write("\r\n    {\r\n        public ");
             
             #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\DtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetDtoName(_modelDefinition)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default
             #line hidden

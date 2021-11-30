@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="DataAccessEf\ContextFactoryTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContextFactoryTemplate.tt</DependentUpon>
+    </None>
+    <None Include="DataAccessEf\ContextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContextTemplate.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Generator.Metadata\Generator.Metadata.csproj" />
   </ItemGroup>
 
@@ -13,6 +26,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DataAccessEf\ContextFactoryTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContextFactoryTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="DataAccessEf\ContextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="DataAccessEf\PagedQueryHandlerTemplate.cs">
+      <DependentUpon>PagedQueryHandlerTemplate.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="DataAccessEf\GetByIdQueryHandlerTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GetByIdQueryHandlerTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Update="DataAccessEf\QueryableExtensionsTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -46,6 +79,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DataAccessEf\ContextFactoryTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ContextFactoryTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="DataAccessEf\ContextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ContextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="DataAccessEf\PagedQueryHandlerTemplate.tt">
+      <LastGenOutput>PagedQueryHandlerTemplate.cs</LastGenOutput>
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+    </None>
+    <None Update="DataAccessEf\GetByIdQueryHandlerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>GetByIdQueryHandlerTemplate.cs</LastGenOutput>
+    </None>
     <None Update="DataAccessEf\QueryableExtensionsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>QueryableExtensionsTemplate.cs</LastGenOutput>

@@ -7,15 +7,15 @@
 using System;
 using MediatR;
 
-namespace <#= DtoTemplate.GetDtoNamespaceName(_modelDefinition, _namespace) #>
+namespace <#= _modelDefinition.GetDtoNamespace(_namespace) #>
 {
-    public class <#= DtoTemplate.GetDtoName(_modelDefinition) #>GetByIdQuery : IRequest<ResultModel<<#= DtoTemplate.GetDtoName(_modelDefinition) #>>>
+    public class <#= _modelDefinition.GetDtoName() #>GetByIdQuery : IRequest<ResultModel<<#= _modelDefinition.GetDtoName() #>>>
     {
-        public <#= DtoTemplate.GetDtoName(_modelDefinition) #>GetByIdQuery()
+        public <#= _modelDefinition.GetDtoName() #>GetByIdQuery()
         {
         }
 
-        public <#= DtoTemplate.GetDtoName(_modelDefinition) #>GetByIdQuery(<#= _modelDefinition.IdentifierType #> id)
+        public <#= _modelDefinition.GetDtoName() #>GetByIdQuery(<#= _modelDefinition.IdentifierType #> id)
         {
             Id = id;
         }

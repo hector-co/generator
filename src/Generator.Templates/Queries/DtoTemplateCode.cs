@@ -15,12 +15,6 @@ namespace Generator.Templates.Queries
             _modelDefinition = modelDefinition;
         }
 
-        public static string GetDtoNamespaceName(ModelDefinition modelDefinition, string @namespace)
-            => $"{@namespace}.Queries.{(modelDefinition.Parent ?? modelDefinition).PluralName}";
-
-        public static string GetDtoName(ModelDefinition modelDefinition)
-            => $"{modelDefinition.Name}Dto";
-
         public static List<string> GetRelatedEntitiesUsings(ModelDefinition modelDefinition, string @namespace)
         {
             var result = new List<string>();
@@ -29,7 +23,7 @@ namespace Generator.Templates.Queries
                 => (p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model.Parent != modelDefinition && p.CastTargetType<ModelTypeDefinition>().Model != modelDefinition)
                     || p.IsValueObjectType).Select(p => p.CastTargetType<ModelTypeDefinition>().Model).Distinct())
             {
-                result.Add($"{GetDtoNamespaceName(model, @namespace)}");
+                result.Add($"{model.GetDtoNamespace(@namespace)}");
             }
 
             return result;
@@ -69,7 +63,7 @@ namespace Generator.Templates.Queries
             else if (propertyDefinition.IsValueObjectType || propertyDefinition.IsEntityType)
             {
                 var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
-                return ResolvePropertyInternalType(propertyDefinition, GetDtoName(entityType.Model));
+                return ResolvePropertyInternalType(propertyDefinition, entityType.Model.GetDtoName());
             }
 
             return "";
