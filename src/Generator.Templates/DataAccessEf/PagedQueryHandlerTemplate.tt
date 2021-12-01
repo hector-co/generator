@@ -41,6 +41,7 @@ namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>.Querie
             
 <#    } #>
             var data = await efQuery
+                .AsNoTracking()
                 .ToListAsync(cancellationToken);
 <#    if (QueryableExtensionsTemplate.RequiresAdjustLoadData(_modelDefinition))
     { #>

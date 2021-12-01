@@ -4,6 +4,7 @@ using Generator.Templates.Domain;
 using Generator.Templates.Queries;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 
 namespace Generator.Cli
 {
@@ -145,40 +146,57 @@ namespace Generator.Cli
                 Console.WriteLine(dtoText);
                 Console.WriteLine();
 
-                if (model.Value.IsEntity && !model.Value.IsOwnedEntity)
+                if (model.Value.IsEntity)
                 {
-                    var getByIdTpl = new GetByIdQueryTemplate(module.Name, model.Value);
-                    var getByIdText = getByIdTpl.TransformText();
-                    System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}DtoGetById.cs", getByIdText);
-                    Console.WriteLine(getByIdText);
-                    Console.WriteLine();
-
-                    var pagedTpl = new PagedQueryTemplate(module.Name, model.Value);
-                    var pagedText = pagedTpl.TransformText();
-                    System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}DtoPagedQuery.cs", pagedText);
-                    Console.WriteLine(pagedText);
-                    Console.WriteLine();
-
-                    var getByIdHandlerTpl = new GetByIdQueryHandlerTemplate(module.Name, model.Value);
-                    var getByIdHandlerText = getByIdHandlerTpl.TransformText();
-                    System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/{model.Key}DtoGetByIdQueryHandler.cs", getByIdHandlerText);
-                    Console.WriteLine(getByIdHandlerText);
-                    Console.WriteLine();
-
-                    var pagedHandlerTpl = new PagedQueryHandlerTemplate(module.Name, model.Value);
-                    var pagedHandlerText = pagedHandlerTpl.TransformText();
-                    System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/{model.Key}DtoPagedQueryHandler.cs", pagedHandlerText);
-                    Console.WriteLine(pagedHandlerText);
-                    Console.WriteLine();
-
-                    if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model.Value))
+                    if (!model.Value.IsOwnedEntity)
                     {
-                        var extensionsTpl = new QueryableExtensionsTemplate(module.Name, model.Value);
-                        var extensionsText = extensionsTpl.TransformText();
-                        System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/{model.Key}QueryableExtensions.cs", extensionsText);
-                        Console.WriteLine(extensionsText);
+                        var getByIdTpl = new GetByIdQueryTemplate(module.Name, model.Value);
+                        var getByIdText = getByIdTpl.TransformText();
+                        System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}DtoGetById.cs", getByIdText);
+                        Console.WriteLine(getByIdText);
                         Console.WriteLine();
+
+                        var pagedTpl = new PagedQueryTemplate(module.Name, model.Value);
+                        var pagedText = pagedTpl.TransformText();
+                        System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}DtoPagedQuery.cs", pagedText);
+                        Console.WriteLine(pagedText);
+                        Console.WriteLine();
+
+                        var getByIdHandlerTpl = new GetByIdQueryHandlerTemplate(module.Name, model.Value);
+                        var getByIdHandlerText = getByIdHandlerTpl.TransformText();
+                        System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/Queries/{model.Key}DtoGetByIdQueryHandler.cs", getByIdHandlerText);
+                        Console.WriteLine(getByIdHandlerText);
+                        Console.WriteLine();
+
+                        var pagedHandlerTpl = new PagedQueryHandlerTemplate(module.Name, model.Value);
+                        var pagedHandlerText = pagedHandlerTpl.TransformText();
+                        System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/Queries/{model.Key}DtoPagedQueryHandler.cs", pagedHandlerText);
+                        Console.WriteLine(pagedHandlerText);
+                        Console.WriteLine();
+
+                        foreach (var property in model.Value.Properties.Values.Where(p => p.RelationRequiresJoinModel()))
+                        {
+                            var joinConfigTpl = new JoinModelConfigurationTemplate(module.Name, model.Value, property);
+                            var joinConfigText = joinConfigTpl.TransformText();
+                            System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/{model.Value.GetJoinModelTypeName(property)}.cs", joinConfigText);
+                            Console.WriteLine(joinConfigText);
+                            Console.WriteLine();
+                        }
+
+                        if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model.Value))
+                        {
+                            var extensionsTpl = new QueryableExtensionsTemplate(module.Name, model.Value);
+                            var extensionsText = extensionsTpl.TransformText();
+                            System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/Queries/{model.Key}QueryableExtensions.cs", extensionsText);
+                            Console.WriteLine(extensionsText);
+                            Console.WriteLine();
+                        }
                     }
+                    var configTpl = new ModelConfigurationTemplate(module.Name, model.Value);
+                    var configText = configTpl.TransformText();
+                    System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/{model.Key}Configuration.cs", configText);
+                    Console.WriteLine(configText);
+                    Console.WriteLine();
                 }
             }
 

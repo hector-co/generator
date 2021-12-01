@@ -3,8 +3,13 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ output extension=".txt" #>
+<#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Generator.Templates.DataAccessEf" #>
 using Microsoft.EntityFrameworkCore;
+<#    foreach(var model in _moduleDefinition.Models.Values.Where(m => m.IsRoot))
+    { #>
+using <#= model.GetDataAccessModelNamespace(_moduleDefinition.Name) #>;
+<#    } #>
 
 namespace <#= _moduleDefinition.GetDataAccessNamespace() #>
 {
@@ -14,6 +19,23 @@ namespace <#= _moduleDefinition.GetDataAccessNamespace() #>
 
         public <#= _moduleDefinition.GetContextName() #>(DbContextOptions<<#= _moduleDefinition.GetContextName() #>> options) : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            Configure(modelBuilder);
+        }
+
+        public static void Configure(ModelBuilder modelBuilder, string dbSchema = DbSchema)
+        {
+<#    foreach(var model in _moduleDefinition.Models.Values.Where(m => m.IsEntity))
+    { #>
+            modelBuilder.ApplyConfiguration(new <#= model.Name #>Configuration(dbSchema));
+<#        foreach(var property in model.Properties.Values.Where(p => p.RelationRequiresJoinModel()))
+        { #>
+            modelBuilder.ApplyConfiguration(new <#= model.GetJoinModelTypeName(property) #>Configuration(dbSchema));
+<#        } #>
+<#    } #>
         }
     }
 }

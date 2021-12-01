@@ -15,6 +15,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ContextTemplate.tt</DependentUpon>
     </None>
+    <None Include="DataAccessEf\ModelConfigurationTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModelConfigurationTemplate.tt</DependentUpon>
+    </None>
+    <None Include="DataAccessEf\JoinModelConfigurationTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>JoinModelConfigurationTemplate.tt</DependentUpon>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +46,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ContextTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="DataAccessEf\JoinModelConfigurationTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>JoinModelConfigurationTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="DataAccessEf\ModelConfigurationTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModelConfigurationTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Update="DataAccessEf\PagedQueryHandlerTemplate.cs">
       <DependentUpon>PagedQueryHandlerTemplate.tt</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -50,6 +70,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>QueryableExtensionsTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="DataAccessEf\WithManyConfigurationTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WithManyConfigurationTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="Domain\DataAccessTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -87,6 +112,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ContextTemplate.cs</LastGenOutput>
     </None>
+    <None Update="DataAccessEf\ModelConfigurationTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModelConfigurationTemplate.cs</LastGenOutput>
+    </None>
     <None Update="DataAccessEf\PagedQueryHandlerTemplate.tt">
       <LastGenOutput>PagedQueryHandlerTemplate.cs</LastGenOutput>
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -98,6 +127,10 @@
     <None Update="DataAccessEf\QueryableExtensionsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>QueryableExtensionsTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="DataAccessEf\JoinModelConfigurationTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>JoinModelConfigurationTemplate.cs</LastGenOutput>
     </None>
     <None Update="Domain\DataAccessTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

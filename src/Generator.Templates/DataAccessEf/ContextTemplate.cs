@@ -12,6 +12,8 @@ namespace Generator.Templates.DataAccessEf
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
+    using Generator.Templates.Domain;
+    using Generator.Templates.DataAccessEf;
     using System;
     
     /// <summary>
@@ -28,42 +30,118 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Microsoft.EntityFrameworkCore;\r\n\r\nnamespace ");
+            this.Write("using Microsoft.EntityFrameworkCore;\r\n");
             
             #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+    foreach(var model in _moduleDefinition.Models.Values.Where(m => m.IsRoot))
+    { 
+            
+            #line default
+            #line hidden
+            this.Write("using ");
+            
+            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(model.GetDataAccessModelNamespace(_moduleDefinition.Name)));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
+            
+            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+    } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\nnamespace ");
+            
+            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetDataAccessNamespace()));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public class ");
             
-            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
             
             #line default
             #line hidden
             this.Write(" : DbContext\r\n    {\r\n        public const string DbSchema = \"");
             
-            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.DatabaseSchema));
             
             #line default
             #line hidden
             this.Write("\";\r\n\r\n        public ");
             
-            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
             
             #line default
             #line hidden
             this.Write("(DbContextOptions<");
             
-            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
             
             #line default
             #line hidden
-            this.Write("> options) : base(options)\r\n        {\r\n        }\r\n    }\r\n}");
+            this.Write(@"> options) : base(options)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            Configure(modelBuilder);
+        }
+
+        public static void Configure(ModelBuilder modelBuilder, string dbSchema = DbSchema)
+        {
+");
+            
+            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+    foreach(var model in _moduleDefinition.Models.Values.Where(m => m.IsEntity))
+    { 
+            
+            #line default
+            #line hidden
+            this.Write("            modelBuilder.ApplyConfiguration(new ");
+            
+            #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Configuration(dbSchema));\r\n");
+            
+            #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+        foreach(var property in model.Properties.Values.Where(p => p.RelationRequiresJoinModel()))
+        { 
+            
+            #line default
+            #line hidden
+            this.Write("            modelBuilder.ApplyConfiguration(new ");
+            
+            #line 36 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(model.GetJoinModelTypeName(property)));
+            
+            #line default
+            #line hidden
+            this.Write("Configuration(dbSchema));\r\n");
+            
+            #line 37 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+        } 
+            
+            #line default
+            #line hidden
+            
+            #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+    } 
+            
+            #line default
+            #line hidden
+            this.Write("        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Generator.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -82,26 +83,6 @@ namespace Generator.Templates.Domain
             return result;
         }
 
-        public static List<PropertyInfo> GetJoinPropertiesInfo(ModelDefinition modelDefinition)
-        {
-            if (!modelDefinition.Properties.Values.Any(p => p.IsCollection && p.IsEntityType && p.WithMany))
-                return new List<PropertyInfo>();
-
-            var result = new List<PropertyInfo>();
-
-            var properties = modelDefinition.Properties.Values.Where(p => p.IsCollection && p.IsEntityType && p.WithMany);
-            foreach (var property in properties)
-            {
-                result.Add(new PropertyInfo
-                {
-                    Visibility = "internal",
-                    TypeName = $"List<{modelDefinition.Name}{property.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess>",
-                    Name = $"{property.Name}DataAccess"
-                });
-            }
-            return result;
-        }
-
         public static Dictionary<string, List<PropertyInfo>> GetJoinClassesInfo(ModuleDefinition moduleDefinition)
         {
             var result = new Dictionary<string, List<PropertyInfo>>();
@@ -113,7 +94,8 @@ namespace Generator.Templates.Domain
                 var properties = model.Properties.Values.Where(p => p.IsCollection && p.IsEntityType && p.WithMany);
                 foreach (var property in properties)
                 {
-                    result.Add($"{model.Name}{property.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess", new List<PropertyInfo>
+                    //result.Add($"{model.Name}{property.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess", new List<PropertyInfo>
+                    result.Add($"{model.GetJoinModelTypeName(property)}", new List<PropertyInfo>
                     {
                         new PropertyInfo
                         {
@@ -142,6 +124,26 @@ namespace Generator.Templates.Domain
                     });
 
                 }
+            }
+            return result;
+        }
+
+        public static List<PropertyInfo> GetJoinPropertiesInfo(ModelDefinition modelDefinition)
+        {
+            if (!modelDefinition.Properties.Values.Any(p => p.RelationRequiresJoinModel()))
+                return new List<PropertyInfo>();
+
+            var result = new List<PropertyInfo>();
+
+            var properties = modelDefinition.Properties.Values.Where(p => p.RelationRequiresJoinModel());
+            foreach (var property in properties)
+            {
+                result.Add(new PropertyInfo
+                {
+                    Visibility = "internal",
+                    TypeName = $"List<{modelDefinition.GetJoinModelTypeName(property)}>",
+                    Name = $"{property.GetJoinModelTypePropertyName()}"
+                });
             }
             return result;
         }

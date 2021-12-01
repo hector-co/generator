@@ -4,9 +4,13 @@ namespace Generator.Templates.DataAccessEf
 {
     public partial class ModelConfigurationTemplate
     {
-        //public static string GetDataAccessNameSpace(ModelDefinition modelDefinition, string @namespace)
-        //{
-        //    return $"{ContextTemplate.GetDataAccessNamespaceName(@namespace)}.{modelDefinition.PluralName}";
-        //}
+        private readonly string _namespace;
+        private readonly ModelDefinition _modelDefinition;
+
+        public ModelConfigurationTemplate(string @namespace, ModelDefinition modelDefinition)
+        {
+            _namespace = @namespace;
+            _modelDefinition = modelDefinition;
+        }
     }
 }
