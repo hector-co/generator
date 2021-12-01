@@ -90,5 +90,10 @@ namespace Generator.Metadata
                 Properties.Any(p => p.Value.IsSystemType && p.Value.IsGeneric) ||
                 moduleDefinition.Models.Values.Any(m => m.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == this)));
         }
+
+        public bool HasMultiplePropertiesWithModelType(ModelDefinition modelDefinition, bool isGeneric)
+        {
+            return Properties.Values.Where(p => p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model == modelDefinition && p.IsGeneric == isGeneric).Count() > 1;
+        }
     }
 }

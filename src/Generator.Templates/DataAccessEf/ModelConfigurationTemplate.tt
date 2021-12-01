@@ -3,6 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Metadata" #>
 <#@ import namespace="Generator.Templates.Domain" #>
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -23,7 +24,61 @@ namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>
 
         public void Configure(EntityTypeBuilder<<#= _modelDefinition.Name #>> builder)
         {
-            throw new System.NotImplementedException();
+            builder.ToTable("<#= _modelDefinition.Name #>", _dbSchema);
+<#    foreach(var propertyName in GetIgnoredPropertyNames(_modelDefinition))
+    { #>
+            builder.Ignore(m => m.<#= propertyName #>);
+<#    } #>
+<#    foreach(var propertyName in GetSerializedPropertyNames(_modelDefinition))
+    { #>
+            builder.Property(m => m.<#= propertyName #>_Serialized);
+<#    } #>
+<#    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.Size.HasValue || p.Required.HasValue))
+    { #>
+            builder.Property(m => m.<#= property.Name #>)
+<#        if(property.Required.HasValue && property.Required.Value) 
+        { #>
+                .IsRequired()<#= property.Size.HasValue? "" : ";" #>
+<#        } #>
+<#        if(property.Size.HasValue) 
+        { #>
+                .HasMaxLength(<#= property.Size.Value #>);
+<#        } #>
+<#    } #>
+<#    foreach(var propertyName in GetNonGenericEntitiesPropertyNames(_modelDefinition))
+    { #>
+            builder.HasOne(m => m.<#= propertyName #>)
+                .WithMany()
+                .HasForeignKey(r => r.<#= propertyName #>Id);
+<#    } #>
+<#    foreach(var property in GetManyToOneProperties(_modelDefinition))
+    { #>
+            builder.HasMany(m => m.<#= property.Name #>)
+                .WithOne()
+<#        if (_modelDefinition.HasMultiplePropertiesWithModelType(property.CastTargetType<ModelTypeDefinition>().Model, property.IsGeneric))
+        { #>
+                .HasForeignKey(r => r.<#= property.Name #><#= _modelDefinition.Name #>Id);
+<#        } #>
+<#        else
+        { #>
+                .HasForeignKey(r => r.<#= _modelDefinition.Name #>Id);
+<#        } #>
+<#    } #>
+<#    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.IsValueObjectType))
+    { #>
+<#        if (property.IsCollection)
+          { #>
+            builder.OwnsMany(m => m.<#= property.Name #>)
+                .ToTable("<#= _modelDefinition.Name #><#= property.Name #>", _dbSchema)
+                .WithOwner().HasForeignKey("<#= _modelDefinition.Name #>Id");
+<#        } #>
+<#        else if (!property.IsGeneric)
+          { #>
+            builder.OwnsOne(m => m.<#= property.Name #>)
+                .ToTable("<#= _modelDefinition.Name #><#= property.Name #>", _dbSchema)
+                .WithOwner().HasForeignKey("<#= _modelDefinition.Name #>Id");
+<#        } #>
+<#    } #>
         }
     }
 }

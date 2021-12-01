@@ -55,13 +55,19 @@ namespace Generator.Templates.Domain
 
             foreach (var model in models)
             {
-                var propInfo = new PropertyInfo
+                var properties = model.Properties.Values.Where(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == modelDefinition);
+                foreach (var property in properties)
                 {
-                    Visibility = "internal",
-                    TypeName = model.IdentifierProperty.TargetType.Name,
-                    Name = model.Name + ModelDefinition.IdPropertyName
-                };
-                result.Add(propInfo);
+                    var propInfo = new PropertyInfo
+                    {
+                        Visibility = "internal",
+                        TypeName = model.IdentifierProperty.TargetType.Name,
+                        Name = properties.Count() == 1
+                            ? model.Name + ModelDefinition.IdPropertyName
+                            : property.Name + model.Name +  ModelDefinition.IdPropertyName
+                    };
+                    result.Add(propInfo);
+                }
             }
             return result;
         }
@@ -94,7 +100,6 @@ namespace Generator.Templates.Domain
                 var properties = model.Properties.Values.Where(p => p.IsCollection && p.IsEntityType && p.WithMany);
                 foreach (var property in properties)
                 {
-                    //result.Add($"{model.Name}{property.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess", new List<PropertyInfo>
                     result.Add($"{model.GetJoinModelTypeName(property)}", new List<PropertyInfo>
                     {
                         new PropertyInfo

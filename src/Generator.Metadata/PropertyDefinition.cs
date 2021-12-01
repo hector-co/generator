@@ -15,6 +15,8 @@ namespace Generator.Metadata
         public string PluralName { get; set; }
         public bool WithMany { get; set; }
         public FilterDefinition Filter { get; set; }
+        public int? Size { get; set; }
+        public bool? Required { get; set; }
 
         [JsonIgnore]
         public bool IsGeneric { get; private set; }

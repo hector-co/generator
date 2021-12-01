@@ -25,7 +25,8 @@ namespace Generator.Cli
       'Model1': {
         'properties': {
           'Prop1': {
-            'typeName': 'string'
+            'typeName': 'string',
+            'size': 20
           },
           'Prop3': {
             'typeName': 'List<string>'
@@ -46,6 +47,9 @@ namespace Generator.Cli
           },
           'Model1Rel2': {
             'typeName': 'List<Model1>'
+          },
+          'Model1Rel3': {
+            'typeName': 'Model1'
           },
           'Address': {
             'typeName': 'Address'
@@ -84,6 +88,13 @@ namespace Generator.Cli
               'type': 'equals'
             }
           },
+          'Model3Rel2': {
+            'typeName': 'List<Model3>',
+            'filter': {
+              'apply': true,
+              'type': 'equals'
+            }
+          },
           'Model2Rel': {
             'typeName': 'Model2?'
           }
@@ -92,7 +103,8 @@ namespace Generator.Cli
       'Model5': {
         'properties': {
           'Name': {
-            'typeName': 'string'
+            'typeName': 'string',
+            'required': true
           },
           'Model3Rel': {
             'typeName': 'List<Model3>',
