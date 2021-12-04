@@ -1,0 +1,39 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
+
+namespace <#= _module.GetDomainModelNamespace() #>
+{
+<#  foreach(var model in _module.Model.Values.Where(m => m.RequiresDataAccessClass)) 
+    { #>
+    public partial class <#= model.Name #>
+    {
+<#      foreach(var propInfo in GetEntityPropertiesInfo(model))
+        { #>
+        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+<#      } #>
+<#      foreach(var propInfo in GetSourceEntityPropertiesInfo(_module, model))
+        { #>
+        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+<#      } #>
+<#      foreach(var propInfo in GetGenericSystemPropertiesInfo(model))
+        { #>
+        internal string <#= propInfo.Name #>_Serialized
+        {
+            get { return JsonSerializer.Serialize(<#= propInfo.Name #>); }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                <#= propInfo.Name #> = JsonSerializer.Deserialize<<#= propInfo.TypeName #>>(value);
+            }
+        }
+<#      } #>
+    }
+
+<#  } #>
+}

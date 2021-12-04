@@ -71,10 +71,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>WithManyConfigurationTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="Domain\DataAccessTemplate.cs">
+    <Compile Update="Domain\DataAccessTemplateEf.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>DataAccessTemplate.tt</DependentUpon>
+      <DependentUpon>DataAccessTemplateEf.tt</DependentUpon>
     </Compile>
     <Compile Update="Domain\ModelTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -127,9 +127,9 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>QueryableExtensionsTemplate.cs</LastGenOutput>
     </None>
-    <None Update="Domain\DataAccessTemplate.tt">
+    <None Update="Domain\DataAccessTemplateEf.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>DataAccessTemplate.cs</LastGenOutput>
+      <LastGenOutput>DataAccessTemplateEf.cs</LastGenOutput>
     </None>
     <None Update="Domain\ModelTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
