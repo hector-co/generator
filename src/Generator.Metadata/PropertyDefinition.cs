@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Generator.Metadata
 {
+    [JsonConverter(typeof(PropertyDefinitionConverter))]
     public class PropertyDefinition
     {
         public const string GenericTypeExp = @"\w+<(.*)?>";

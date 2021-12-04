@@ -50,7 +50,7 @@ namespace Generator.Metadata
                 {
                     TypeName = IdentifierType
                 };
-                IdentifierProperty.Init(moduleDefinition, ModelDefinition.IdPropertyName);
+                IdentifierProperty.Init(moduleDefinition, IdPropertyName);
             }
         }
 
