@@ -21,6 +21,7 @@ namespace Generator.Gui
         private void LoadModelsInfo(string file)
         {
             textFile.Text = file;
+            treeModel.Nodes.Clear();
             var moduleDefinition = JsonConvert.DeserializeObject<ModuleDefinition>(File.ReadAllText(file));
 
             foreach (var modelName in moduleDefinition.Model.Keys)
@@ -307,6 +308,12 @@ namespace Generator.Gui
             MessageBox.Show(this, "Generation completed", "Generator", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Close();
+        }
+
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            if (openFile.ShowDialog() == DialogResult.OK)
+                LoadModelsInfo(openFile.FileName);
         }
     }
 }

@@ -38,6 +38,7 @@
             this.checkApi = new System.Windows.Forms.CheckBox();
             this.buttonGenerate = new System.Windows.Forms.Button();
             this.checkForceRegen = new System.Windows.Forms.CheckBox();
+            this.openFile = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // treeModel
@@ -70,6 +71,7 @@
             this.buttonBrowse.TabIndex = 1;
             this.buttonBrowse.Text = "...";
             this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
             // 
             // checkSelectAll
             // 
@@ -140,12 +142,17 @@
             // 
             this.checkForceRegen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkForceRegen.AutoSize = true;
-            this.checkForceRegen.Location = new System.Drawing.Point(184, 416);
+            this.checkForceRegen.Location = new System.Drawing.Point(208, 416);
             this.checkForceRegen.Name = "checkForceRegen";
-            this.checkForceRegen.Size = new System.Drawing.Size(125, 19);
+            this.checkForceRegen.Size = new System.Drawing.Size(101, 19);
             this.checkForceRegen.TabIndex = 8;
-            this.checkForceRegen.Text = "Force regeneration";
+            this.checkForceRegen.Text = "Overwrite files";
             this.checkForceRegen.UseVisualStyleBackColor = true;
+            // 
+            // openFile
+            // 
+            this.openFile.FileName = "openFileDialog1";
+            this.openFile.Filter = "JSON files (*.json)|*.json";
             // 
             // Form1
             // 
@@ -183,5 +190,6 @@
         private System.Windows.Forms.CheckBox checkApi;
         private System.Windows.Forms.Button buttonGenerate;
         private System.Windows.Forms.CheckBox checkForceRegen;
+        private System.Windows.Forms.OpenFileDialog openFile;
     }
 }
