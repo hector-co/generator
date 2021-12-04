@@ -20,11 +20,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ModelConfigurationTemplate.tt</DependentUpon>
     </None>
-    <None Include="DataAccessEf\JoinModelConfigurationTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>JoinModelConfigurationTemplate.tt</DependentUpon>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Api\ApiControllerTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApiControllerTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Update="DataAccessEf\ContextFactoryTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -45,11 +45,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ContextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Update="DataAccessEf\JoinModelConfigurationTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>JoinModelConfigurationTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="DataAccessEf\ModelConfigurationTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -104,6 +99,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Api\ApiControllerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiControllerTemplate.cs</LastGenOutput>
+    </None>
     <None Update="DataAccessEf\ContextFactoryTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ContextFactoryTemplate.cs</LastGenOutput>
@@ -127,10 +126,6 @@
     <None Update="DataAccessEf\QueryableExtensionsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>QueryableExtensionsTemplate.cs</LastGenOutput>
-    </None>
-    <None Update="DataAccessEf\JoinModelConfigurationTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>JoinModelConfigurationTemplate.cs</LastGenOutput>
     </None>
     <None Update="Domain\DataAccessTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

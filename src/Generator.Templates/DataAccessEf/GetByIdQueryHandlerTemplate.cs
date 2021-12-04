@@ -148,31 +148,16 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            var data = await efQuery\r\n                    .AsNoTracking()\r\n      " +
                     "              .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);\r" +
-                    "\n");
+                    "\n\r\n            var result = new ResultModel<");
             
-            #line 41 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-    if (QueryableExtensionsTemplate.RequiresAdjustLoadData(_modelDefinition))
-    { 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n            data.AdjustLoadedData();\r\n");
-            
-            #line 45 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-    } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n            var result = new ResultModel<");
-            
-            #line 47 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
+            #line 42 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">\r\n            {\r\n                Data = data.Adapt<");
             
-            #line 49 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
+            #line 44 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default

@@ -1,0 +1,41 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Templates.Queries" #>
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using <#= _modelDefinition.GetDtoNamespace(_moduleDefinition.Name) #>;
+
+namespace <#= _moduleDefinition.GetApiNamespace() #>
+{
+    [Route("<#= _moduleDefinition.ApiPrefix #>/<#= _modelDefinition.GetApiRouteName() #>")]
+    public class <#= _modelDefinition.PluralName #>Controller : ControllerBase
+    {
+        private readonly IMediator _mediator;
+
+        public <#= _modelDefinition.PluralName #>Controller(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpGet("{id}", Name = "Get<#= _modelDefinition.Name #>ById")]
+        public async Task<IActionResult> Get(<#= _modelDefinition.IdentifierProperty.TypeName #> id, CancellationToken cancellationToken)
+        {
+            var getByIdQuery = new <#= _modelDefinition.GetDtoName() #>GetByIdQuery(id);
+            var result = await _mediator.Send(getByIdQuery, cancellationToken);
+            if (result.Data == null) return NotFound();
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] <#= _modelDefinition.GetDtoName() #>PagedQuery query, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(query, cancellationToken);
+            return Ok(result);
+        }
+    }
+}

@@ -17,34 +17,19 @@ namespace Generator.Templates.DataAccessEf
 
         public static bool RequiresQueryableExtensions(ModelDefinition modelDefinition)
         {
-            return RequiresIncludes(modelDefinition) || RequiresAdjustLoadData(modelDefinition);
+            return RequiresIncludes(modelDefinition);
         }
 
         public static bool RequiresIncludes(ModelDefinition modelDefinition)
         {
-            return modelDefinition.Properties.Values.Any(p => p.IsEntityType)
-                || modelDefinition.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.WithMany);
+            return modelDefinition.Properties.Values.Any(p => p.IsEntityType);
         }
-
-        public static bool RequiresAdjustLoadData(ModelDefinition modelDefinition)
-        {
-            return modelDefinition.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.WithMany);
-        }
-
 
         public static List<string> GetRelatedEntitiesPropertyNames(ModelDefinition modelDefinition)
         {
             return modelDefinition.Properties.Values
-                .Where(p => p.IsEntityType && !p.WithMany)
+                .Where(p => p.IsEntityType)
                 .Select(p => p.Name)
-                .ToList();
-        }
-
-        public static List<(string PropertyName, string RelatedTypeName)> GetRelatedEntitiesWithManyPropertyNames(ModelDefinition modelDefinition)
-        {
-            return modelDefinition.Properties.Values
-                .Where(p => p.IsEntityType && p.WithMany)
-                .Select(p => (p.Name, p.CastTargetType<ModelTypeDefinition>().Model.Name))
                 .ToList();
         }
     }

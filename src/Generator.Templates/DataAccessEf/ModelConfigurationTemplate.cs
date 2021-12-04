@@ -286,13 +286,85 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 67 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.WithMany))
+    { 
+            
+            #line default
+            #line hidden
+            this.Write("            builder.HasMany(m => m.");
+            
+            #line 69 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n                .WithMany(r => r.");
+            
+            #line 70 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.PluralName));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n                .UsingEntity<Dictionary<string, object>>(\r\n                   " +
+                    " \"");
+            
+            #line 72 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            
+            #line default
+            #line hidden
+            
+            #line 72 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.CastTargetType<ModelTypeDefinition>().Model.PluralName));
+            
+            #line default
+            #line hidden
+            this.Write("\",\r\n                    j => j\r\n                        .HasOne<");
+            
+            #line 74 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.CastTargetType<ModelTypeDefinition>().Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write(">()\r\n                        .WithMany()\r\n                        .HasForeignKey(" +
+                    "\"");
+            
+            #line 76 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(property.CastTargetType<ModelTypeDefinition>().Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Id\"),\r\n                    j => j\r\n                        .HasOne<");
+            
+            #line 78 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write(">()\r\n                        .WithMany()\r\n                        .HasForeignKey(" +
+                    "\"");
+            
+            #line 80 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Id\"));\r\n");
+            
+            #line 81 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+    } 
+            
+            #line default
+            #line hidden
+            
+            #line 82 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
     foreach(var property in _modelDefinition.Properties.Values.Where(p => p.IsValueObjectType))
     { 
             
             #line default
             #line hidden
             
-            #line 69 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 84 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
         if (property.IsCollection)
           { 
             
@@ -300,40 +372,40 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            builder.OwnsMany(m => m.");
             
-            #line 71 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 86 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write(")\r\n                .ToTable(\"");
             
-            #line 72 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 87 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
             
             #line default
             #line hidden
             
-            #line 72 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 87 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write("\", _dbSchema)\r\n                .WithOwner().HasForeignKey(\"");
             
-            #line 73 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 88 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
             
             #line default
             #line hidden
             this.Write("Id\");\r\n");
             
-            #line 74 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 89 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
         } 
             
             #line default
             #line hidden
             
-            #line 75 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 90 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
         else if (!property.IsGeneric)
           { 
             
@@ -341,40 +413,40 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            builder.OwnsOne(m => m.");
             
-            #line 77 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 92 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write(")\r\n                .ToTable(\"");
             
-            #line 78 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 93 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
             
             #line default
             #line hidden
             
-            #line 78 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 93 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write("\", _dbSchema)\r\n                .WithOwner().HasForeignKey(\"");
             
-            #line 79 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 94 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
             
             #line default
             #line hidden
             this.Write("Id\");\r\n");
             
-            #line 80 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 95 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
         } 
             
             #line default
             #line hidden
             
-            #line 81 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
+            #line 96 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
     } 
             
             #line default

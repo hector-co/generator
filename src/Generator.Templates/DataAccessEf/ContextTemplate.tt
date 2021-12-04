@@ -31,10 +31,6 @@ namespace <#= _moduleDefinition.GetDataAccessNamespace() #>
 <#    foreach(var model in _moduleDefinition.Models.Values.Where(m => m.IsEntity))
     { #>
             modelBuilder.ApplyConfiguration(new <#= model.Name #>Configuration(dbSchema));
-<#        foreach(var property in model.Properties.Values.Where(p => p.RelationRequiresJoinModel()))
-        { #>
-            modelBuilder.ApplyConfiguration(new <#= model.GetJoinModelTypeName(property) #>Configuration(dbSchema));
-<#        } #>
 <#    } #>
         }
     }

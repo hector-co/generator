@@ -1,4 +1,5 @@
 ﻿using Generator.Metadata;
+using Generator.Templates.Api;
 using Generator.Templates.DataAccessEf;
 using Generator.Templates.Domain;
 using Generator.Templates.Queries;
@@ -186,14 +187,11 @@ namespace Generator.Cli
                         Console.WriteLine(pagedHandlerText);
                         Console.WriteLine();
 
-                        foreach (var property in model.Value.Properties.Values.Where(p => p.RelationRequiresJoinModel()))
-                        {
-                            var joinConfigTpl = new JoinModelConfigurationTemplate(module.Name, model.Value, property);
-                            var joinConfigText = joinConfigTpl.TransformText();
-                            System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/{model.Value.GetJoinModelTypeName(property)}.cs", joinConfigText);
-                            Console.WriteLine(joinConfigText);
-                            Console.WriteLine();
-                        }
+                        var ctrlTpl = new ApiControllerTemplate(module, model.Value);
+                        var ctrlText = ctrlTpl.TransformText();
+                        System.IO.File.WriteAllText($"E:/temp/gentest2/WebApplication1/Controllers/{model.Value.PluralName}Controller.cs", ctrlText);
+                        Console.WriteLine(ctrlText);
+                        Console.WriteLine();
 
                         if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model.Value))
                         {

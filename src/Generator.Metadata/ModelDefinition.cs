@@ -85,8 +85,7 @@ namespace Generator.Metadata
             }
 
             RequiresDataAccessClass = IdentifierProperty != null &&
-                (Properties.Any(p => p.Value.IsGeneric && (!p.Value.TypeName.StartsWith("List<") || p.Value.WithMany)) ||
-                Properties.Any(p => p.Value.IsEntityType && !p.Value.IsGeneric) ||
+                (Properties.Any(p => p.Value.IsEntityType && !p.Value.IsGeneric) ||
                 Properties.Any(p => p.Value.IsSystemType && p.Value.IsGeneric) ||
                 moduleDefinition.Models.Values.Any(m => m.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == this)));
         }

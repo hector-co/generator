@@ -23,33 +23,7 @@ namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>
         { #>
                 .Include(m => m.<#= propName #>)
 <#        } #>
-<#        foreach (var propNames in GetRelatedEntitiesWithManyPropertyNames(_modelDefinition))
-        { #>
-                .Include(m => m.<#= propNames.PropertyName #>DataAccess).ThenInclude(r => r.<#= propNames.RelatedTypeName #>)
-<#        } #>
                 ;
-        }
-<#    } #>
-<#    if (RequiresAdjustLoadData(_modelDefinition))
-    { #>
-
-        internal static void AdjustLoadedData(this IEnumerable<<#= _modelDefinition.Name #>> <#= _modelDefinition.Name.GetVariablePluralName() #>)
-        {
-            if (<#= _modelDefinition.Name.GetVariablePluralName() #> == null) return;
-
-            <#= _modelDefinition.Name.GetVariablePluralName() #>.ToList().ForEach(m => m.AdjustLoadedData());
-        }
-
-        internal static void AdjustLoadedData(this <#= _modelDefinition.Name #> <#= _modelDefinition.Name.GetVariableName() #>)
-        {
-            if (<#= _modelDefinition.Name.GetVariableName() #> == null) return;
-
-<#        foreach (var propNames in GetRelatedEntitiesWithManyPropertyNames(_modelDefinition))
-        { #>
-            if (<#= _modelDefinition.Name.GetVariableName() #>.<#= propNames.PropertyName #>DataAccess != null)
-                <#= _modelDefinition.Name.GetVariableName() #>.<#= propNames.PropertyName #> = <#= _modelDefinition.Name.GetVariableName() #>.<#= propNames.PropertyName #>DataAccess.Select(r => r.<#= propNames.RelatedTypeName #>).ToList();
-
-<#        } #>
         }
 <#    } #>
     }

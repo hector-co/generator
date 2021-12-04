@@ -7,22 +7,21 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Generator.Templates.DataAccessEf
+namespace Generator.Templates.Api
 {
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
-    using Generator.Templates.Domain;
-    using Generator.Templates.DataAccessEf;
+    using Generator.Templates.Queries;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class ContextTemplate : ContextTemplateBase
+    public partial class ApiControllerTemplate : ApiControllerTemplateBase
     {
 #line hidden
         /// <summary>
@@ -30,97 +29,90 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Microsoft.EntityFrameworkCore;\r\n");
+            this.Write("using System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Microsoft.AspNetCor" +
+                    "e.Mvc;\r\nusing MediatR;\r\nusing ");
             
-            #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-    foreach(var model in _moduleDefinition.Models.Values.Where(m => m.IsRoot))
-    { 
-            
-            #line default
-            #line hidden
-            this.Write("using ");
-            
-            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(model.GetDataAccessModelNamespace(_moduleDefinition.Name)));
+            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoNamespace(_moduleDefinition.Name)));
             
             #line default
             #line hidden
-            this.Write(";\r\n");
+            this.Write(";\r\n\r\nnamespace ");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-    } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\nnamespace ");
-            
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetDataAccessNamespace()));
+            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetApiNamespace()));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class ");
+            this.Write("\r\n{\r\n    [Route(\"");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
-            
-            #line default
-            #line hidden
-            this.Write(" : DbContext\r\n    {\r\n        public const string DbSchema = \"");
-            
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.DatabaseSchema));
+            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.ApiPrefix));
             
             #line default
             #line hidden
-            this.Write("\";\r\n\r\n        public ");
+            this.Write("/");
             
-            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
-            
-            #line default
-            #line hidden
-            this.Write("(DbContextOptions<");
-            
-            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
+            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetApiRouteName()));
             
             #line default
             #line hidden
-            this.Write(@"> options) : base(options)
-        {
+            this.Write("\")]\r\n    public class ");
+            
+            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.PluralName));
+            
+            #line default
+            #line hidden
+            this.Write("Controller : ControllerBase\r\n    {\r\n        private readonly IMediator _mediator;" +
+                    "\r\n\r\n        public ");
+            
+            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.PluralName));
+            
+            #line default
+            #line hidden
+            this.Write("Controller(IMediator mediator)\r\n        {\r\n            _mediator = mediator;\r\n   " +
+                    "     }\r\n\r\n        [HttpGet(\"{id}\", Name = \"Get");
+            
+            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ById\")]\r\n        public async Task<IActionResult> Get(");
+            
+            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.IdentifierProperty.TypeName));
+            
+            #line default
+            #line hidden
+            this.Write(" id, CancellationToken cancellationToken)\r\n        {\r\n            var getByIdQuer" +
+                    "y = new ");
+            
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write(@"GetByIdQuery(id);
+            var result = await _mediator.Send(getByIdQuery, cancellationToken);
+            if (result.Data == null) return NotFound();
+            return Ok(result);
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            Configure(modelBuilder);
-        }
-
-        public static void Configure(ModelBuilder modelBuilder, string dbSchema = DbSchema)
-        {
-");
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] ");
             
-            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-    foreach(var model in _moduleDefinition.Models.Values.Where(m => m.IsEntity))
-    { 
+            #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write("            modelBuilder.ApplyConfiguration(new ");
-            
-            #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
-            
-            #line default
-            #line hidden
-            this.Write("Configuration(dbSchema));\r\n");
-            
-            #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-    } 
-            
-            #line default
-            #line hidden
-            this.Write("        }\r\n    }\r\n}");
+            this.Write("PagedQuery query, CancellationToken cancellationToken)\r\n        {\r\n            va" +
+                    "r result = await _mediator.Send(query, cancellationToken);\r\n            return O" +
+                    "k(result);\r\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -132,7 +124,7 @@ namespace Generator.Templates.DataAccessEf
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class ContextTemplateBase
+    public class ApiControllerTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

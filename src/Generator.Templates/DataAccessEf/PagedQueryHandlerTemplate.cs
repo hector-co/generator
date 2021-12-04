@@ -150,24 +150,10 @@ namespace Generator.Templates.DataAccessEf
             #line default
             #line hidden
             this.Write("            var data = await efQuery\r\n                .AsNoTracking()\r\n          " +
-                    "      .ToListAsync(cancellationToken);\r\n");
+                    "      .ToListAsync(cancellationToken);\r\n           \r\n            result.Data = d" +
+                    "ata.Adapt<List<");
             
-            #line 46 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
-    if (QueryableExtensionsTemplate.RequiresAdjustLoadData(_modelDefinition))
-    { 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n            data.AdjustLoadedData();\r\n");
-            
-            #line 50 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
-    } 
-            
-            #line default
-            #line hidden
-            this.Write("           \r\n            result.Data = data.Adapt<List<");
-            
-            #line 52 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
+            #line 47 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\PagedQueryHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
             
             #line default

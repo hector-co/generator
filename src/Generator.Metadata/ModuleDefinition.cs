@@ -1,11 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using Humanizer;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Generator.Metadata
 {
     public class ModuleDefinition
     {
+        private string _apiPrefix;
         public string Name { get; set; }
+        public string ApiPrefix
+        {
+            set => _apiPrefix = value;
+            get => !string.IsNullOrEmpty(_apiPrefix)
+                      ? _apiPrefix
+                      : Name.Camelize();
+        }
+
         public string DatabaseSchema { get; set; }
         public DomainSettings DomainSettings { get; set; } = new DomainSettings();
         public Dictionary<string, ModelDefinition> Models { get; set; } = new Dictionary<string, ModelDefinition>();

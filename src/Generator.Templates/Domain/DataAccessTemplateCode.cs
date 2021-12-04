@@ -61,10 +61,12 @@ namespace Generator.Templates.Domain
                     var propInfo = new PropertyInfo
                     {
                         Visibility = "internal",
-                        TypeName = model.IdentifierProperty.TargetType.Name,
+                        TypeName = property.WithMany
+                        ? $"List<{model.Name}>"
+                        : model.IdentifierProperty.TargetType.Name,
                         Name = properties.Count() == 1
-                            ? model.Name + ModelDefinition.IdPropertyName
-                            : property.Name + model.Name +  ModelDefinition.IdPropertyName
+                            ? (property.WithMany ? model.PluralName : (model.Name + ModelDefinition.IdPropertyName))
+                            : property.Name + (property.WithMany ? model.PluralName : (model.Name + ModelDefinition.IdPropertyName))
                     };
                     result.Add(propInfo);
                 }
@@ -85,70 +87,6 @@ namespace Generator.Templates.Domain
                     Name = property.Name
                 };
                 result.Add(propInfo);
-            }
-            return result;
-        }
-
-        public static Dictionary<string, List<PropertyInfo>> GetJoinClassesInfo(ModuleDefinition moduleDefinition)
-        {
-            var result = new Dictionary<string, List<PropertyInfo>>();
-
-            var models = moduleDefinition.Models.Values.Where(m => m.Properties.Values.Any(p => p.IsCollection && p.IsEntityType && p.WithMany));
-
-            foreach (var model in models)
-            {
-                var properties = model.Properties.Values.Where(p => p.IsCollection && p.IsEntityType && p.WithMany);
-                foreach (var property in properties)
-                {
-                    result.Add($"{model.GetJoinModelTypeName(property)}", new List<PropertyInfo>
-                    {
-                        new PropertyInfo
-                        {
-                            Visibility = "internal",
-                            TypeName = model.IdentifierProperty.TargetType.Name,
-                            Name = model.Name + ModelDefinition.IdPropertyName
-                        },
-                        new PropertyInfo
-                        {
-                            Visibility = "internal",
-                            TypeName = model.Name,
-                            Name = model.Name
-                        },
-                        new PropertyInfo
-                        {
-                            Visibility = "internal",
-                            TypeName = property.CastTargetType<ModelTypeDefinition>().Model.IdentifierProperty.TargetType.Name,
-                            Name = property.CastTargetType<ModelTypeDefinition>().Model.Name + ModelDefinition.IdPropertyName
-                        },
-                        new PropertyInfo
-                        {
-                            Visibility = "internal",
-                            TypeName = property.CastTargetType<ModelTypeDefinition>().Model.Name,
-                            Name = property.CastTargetType<ModelTypeDefinition>().Model.Name
-                        }
-                    });
-
-                }
-            }
-            return result;
-        }
-
-        public static List<PropertyInfo> GetJoinPropertiesInfo(ModelDefinition modelDefinition)
-        {
-            if (!modelDefinition.Properties.Values.Any(p => p.RelationRequiresJoinModel()))
-                return new List<PropertyInfo>();
-
-            var result = new List<PropertyInfo>();
-
-            var properties = modelDefinition.Properties.Values.Where(p => p.RelationRequiresJoinModel());
-            foreach (var property in properties)
-            {
-                result.Add(new PropertyInfo
-                {
-                    Visibility = "internal",
-                    TypeName = $"List<{modelDefinition.GetJoinModelTypeName(property)}>",
-                    Name = $"{property.GetJoinModelTypePropertyName()}"
-                });
             }
             return result;
         }

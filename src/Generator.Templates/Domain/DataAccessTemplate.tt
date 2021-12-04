@@ -21,10 +21,6 @@ namespace <#= _module.GetDomainModelNamespace() #>
         { #>
         <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
 <#      } #>
-<#      foreach(var propInfo in GetJoinPropertiesInfo(model))
-        { #>
-        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
-<#      } #>
 <#      foreach(var propInfo in GetGenericSystemPropertiesInfo(model))
         { #>
         internal string <#= propInfo.Name #>_Serialized
@@ -39,15 +35,5 @@ namespace <#= _module.GetDomainModelNamespace() #>
 <#      } #>
     }
 
-<#  } #>
-<#  foreach(var modelInfo in GetJoinClassesInfo(_module)) 
-    { #>
-    public class <#= modelInfo.Key #>
-    {
-<#      foreach(var propInfo in modelInfo.Value) 
-        { #>
-        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
-<#      } #>
-    }
 <#  } #>
 }

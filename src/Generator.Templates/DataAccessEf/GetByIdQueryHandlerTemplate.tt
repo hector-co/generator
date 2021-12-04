@@ -38,11 +38,6 @@ namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>.Querie
             var data = await efQuery
                     .AsNoTracking()
                     .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);
-<#    if (QueryableExtensionsTemplate.RequiresAdjustLoadData(_modelDefinition))
-    { #>
-
-            data.AdjustLoadedData();
-<#    } #>
 
             var result = new ResultModel<<#= _modelDefinition.GetDtoName() #>>
             {

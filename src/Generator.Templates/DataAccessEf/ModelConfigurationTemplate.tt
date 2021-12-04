@@ -64,6 +64,21 @@ namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>
                 .HasForeignKey(r => r.<#= _modelDefinition.Name #>Id);
 <#        } #>
 <#    } #>
+<#    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.WithMany))
+    { #>
+            builder.HasMany(m => m.<#= property.Name #>)
+                .WithMany(r => r.<#= _modelDefinition.PluralName #>)
+                .UsingEntity<Dictionary<string, object>>(
+                    "<#= _modelDefinition.Name #><#= property.CastTargetType<ModelTypeDefinition>().Model.PluralName #>",
+                    j => j
+                        .HasOne<<#= property.CastTargetType<ModelTypeDefinition>().Model.Name #>>()
+                        .WithMany()
+                        .HasForeignKey("<#= property.CastTargetType<ModelTypeDefinition>().Model.Name #>Id"),
+                    j => j
+                        .HasOne<<#= _modelDefinition.Name #>>()
+                        .WithMany()
+                        .HasForeignKey("<#= _modelDefinition.Name #>Id"));
+<#    } #>
 <#    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.IsValueObjectType))
     { #>
 <#        if (property.IsCollection)

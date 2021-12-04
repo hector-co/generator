@@ -50,11 +50,6 @@ namespace Generator.Metadata
             InitFilter();
         }
 
-        public bool RelationRequiresJoinModel()
-        {
-            return IsCollection && IsEntityType && WithMany;
-        }
-
         private void InitInternalType(ModuleDefinition moduleDefinition)
         {
             if (!TypeName.Contains("<"))

@@ -19,7 +19,6 @@ namespace Generator.Templates.DataAccessEf
         {
             return modelDefinition.Properties.Values.Where(p => p.IsSystemType && p.IsGeneric)
                 .Concat(modelDefinition.Properties.Values.Where(p => p.IsGeneric && !p.IsCollection))
-                .Concat(modelDefinition.Properties.Values.Where(p => p.RelationRequiresJoinModel()))
                 .Select(p => p.Name).Distinct().ToList();
         }
 
@@ -39,8 +38,6 @@ namespace Generator.Templates.DataAccessEf
         private static List<PropertyDefinition> GetManyToOneProperties(ModelDefinition modelDefinition)
         {
             return modelDefinition.Properties.Values.Where(p => p.IsEntityType && p.IsCollection && !p.WithMany)
-                .Concat(modelDefinition.Properties.Values.Where(p => p.IsRootType && !p.RelationRequiresJoinModel() && p.IsCollection && !p.WithMany))
-                .Concat(modelDefinition.Properties.Values.Where(p => p.IsRootType && p.RelationRequiresJoinModel() && p.IsCollection && !p.WithMany))
                 .Distinct().ToList();
         }
     }
