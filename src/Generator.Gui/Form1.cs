@@ -16,6 +16,8 @@ namespace Generator.Gui
 
             if (!string.IsNullOrEmpty(file))
                 LoadModelsInfo(file);
+            else
+                SetUIEnabled(false);
         }
 
         private void LoadModelsInfo(string file)
@@ -39,6 +41,7 @@ namespace Generator.Gui
             UpdateUI(() =>
             {
                 SetAllCheckedState(true);
+                SetUIEnabled(true);
             });
 
             static void AddNode(TreeNode parent, string text, string tag)
@@ -260,6 +263,21 @@ namespace Generator.Gui
             checkApi.CheckedChanged += MainOption_CheckedChanged;
 
             treeModel.AfterCheck += TreeModel_AfterCheck;
+        }
+
+        private void SetUIEnabled(bool enabled)
+        {
+            checkSelectAll.Enabled = enabled;
+
+            checkDomain.Enabled = enabled;
+            checkQueries.Enabled = enabled;
+            checkDataAccessEf.Enabled = enabled;
+            checkApi.Enabled = enabled;
+
+            treeModel.Enabled = enabled;
+
+            checkForceRegen.Enabled = enabled;
+            buttonGenerate.Enabled = enabled;
         }
 
         private Dictionary<string, TemplateGenerationOption> GetGenerationOptions()
