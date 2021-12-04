@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Generator.Gui": {
+      "commandName": "Project",
+      "workingDirectory": "E:\\temp\\gentest3"
+    }
+  }
+}

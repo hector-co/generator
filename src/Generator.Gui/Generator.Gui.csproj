@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Generator.FilesGeneration\Generator.FilesGeneration.csproj" />
+    <ProjectReference Include="..\Generator.Metadata\Generator.Metadata.csproj" />
+  </ItemGroup>
+
+</Project>

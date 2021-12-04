@@ -6,5 +6,10 @@
         public bool Query { get; set; }
         public bool DataAccessEf { get; set; }
         public bool Api { get; set; }
+
+        public bool AnyChecked()
+        {
+            return Domain || Query || DataAccessEf || Api;
+        }
     }
 }
