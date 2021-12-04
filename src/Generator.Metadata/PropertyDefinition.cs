@@ -113,12 +113,12 @@ namespace Generator.Metadata
                     Name = typeName,
                     IsNullable = nullable
                 };
-            else if (moduleDefinition.Models.Keys.Contains(typeName))
+            else if (moduleDefinition.Model.Keys.Contains(typeName))
                 return new ModelTypeDefinition
                 {
                     Name = typeName,
                     IsNullable = nullable,
-                    Model = moduleDefinition.Models[typeName]
+                    Model = moduleDefinition.Model[typeName]
                 };
             else if (moduleDefinition.Enums.Keys.Contains(typeName))
                 return new EnumTypeDefinition

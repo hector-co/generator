@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace <#= _module.GetDomainModelNamespace() #>
 {
-<#  foreach(var model in _module.Models.Values.Where(m => m.RequiresDataAccessClass)) 
+<#  foreach(var model in _module.Model.Values.Where(m => m.RequiresDataAccessClass)) 
     { #>
     public partial class <#= model.Name #>
     {

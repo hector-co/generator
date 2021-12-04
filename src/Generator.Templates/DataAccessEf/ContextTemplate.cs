@@ -33,7 +33,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write("using Microsoft.EntityFrameworkCore;\r\n");
             
             #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-    foreach(var model in _moduleDefinition.Models.Values.Where(m => m.IsRoot))
+    foreach(var model in _moduleDefinition.Model.Values.Where(m => m.IsRoot))
     { 
             
             #line default
@@ -101,7 +101,7 @@ namespace Generator.Templates.DataAccessEf
 ");
             
             #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-    foreach(var model in _moduleDefinition.Models.Values.Where(m => m.IsEntity))
+    foreach(var model in _moduleDefinition.Model.Values.Where(m => m.IsEntity))
     { 
             
             #line default

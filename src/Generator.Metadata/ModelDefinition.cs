@@ -67,7 +67,7 @@ namespace Generator.Metadata
 
             if (IsOwnedEntity)
             {
-                foreach (var model in moduleDefinition.Models.Values)
+                foreach (var model in moduleDefinition.Model.Values)
                 {
                     var modelProps = model.Properties
                         .Where(p => p.Value.IsEntityType)
@@ -87,7 +87,7 @@ namespace Generator.Metadata
             RequiresDataAccessClass = IdentifierProperty != null &&
                 (Properties.Any(p => p.Value.IsEntityType && !p.Value.IsGeneric) ||
                 Properties.Any(p => p.Value.IsSystemType && p.Value.IsGeneric) ||
-                moduleDefinition.Models.Values.Any(m => m.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == this)));
+                moduleDefinition.Model.Values.Any(m => m.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == this)));
         }
 
         public bool HasMultiplePropertiesWithModelType(ModelDefinition modelDefinition, bool isGeneric)
