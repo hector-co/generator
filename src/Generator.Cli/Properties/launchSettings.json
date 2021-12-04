@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Generator.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "-f E:/temp/gentest3/ -g * -r"
+    }
+  }
+}

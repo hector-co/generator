@@ -1,234 +1,87 @@
-﻿using Generator.Metadata;
-using Generator.Templates.Api;
-using Generator.Templates.DataAccessEf;
-using Generator.Templates.Domain;
-using Generator.Templates.Queries;
-using Newtonsoft.Json;
+﻿using CommandLine;
+using Generator.FilesGeneration;
 using System;
-using System.Linq;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Generator.Cli
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void GenerateFiles(GenOptions options)
         {
-            var str = @"
-  {
-    name: 'Module1',
-    'databaseSchema': 'public',
-    'domainSettings': {
-      entityBaseClass: 'Entity<:T0:>',
-      entityUsings: [ 'Hco.Base.Domain' ],
-      generateIdProperties: false
-    },
-    'models': {
-      'Model1': {
-        'properties': {
-          'Prop1': {
-            'typeName': 'string',
-            'size': 20
-          },
-          'Prop3': {
-            'typeName': 'List<string>'
-          }
-        },
-        'isRoot': false
-      },
-      'Model2': {
-        'properties': {
-          'Prop1': {
-            'typeName': 'string'
-          },
-          SubModel2: {
-            typeName: 'List<Model2>'
-          }, 
-          'Model1Rel': {
-            'typeName': 'Model1'
-          },
-          'Model1Rel2': {
-            'typeName': 'List<Model1>'
-          },
-          'Model1Rel3': {
-            'typeName': 'Model1'
-          },
-          'Address': {
-            'typeName': 'Address'
-          },
-          'Addresses': {
-            'typeName': 'List<Address>'
-          },
-          'Value1': {
-            'typeName': 'int?'
-          }
-        }
-      },
-      'Model3': {
-        'properties': {
-          'Name': {
-            'typeName': 'string'
-          },
-          'Model2Rel': {
-            'typeName': 'Model2',
-            'filter': {
-              'apply': false
-            }
-          }
-        },
-        'identifierType': 'Guid'
-      },
-      'Model4': {
-        'properties': {
-          'Name': {
-            'typeName': 'string'
-          },
-          'Model3Rel': {
-            'typeName': 'List<Model3>',
-            'filter': {
-              'apply': true,
-              'type': 'equals'
-            }
-          },
-          'Model3Rel2': {
-            'typeName': 'List<Model3>',
-            'filter': {
-              'apply': true,
-              'type': 'equals'
-            }
-          },
-          'Model2Rel': {
-            'typeName': 'Model2?'
-          }
-        }
-      },
-      'Model5': {
-        'properties': {
-          'Name': {
-            'typeName': 'string',
-            'required': true
-          },
-          'Model3Rel': {
-            'typeName': 'List<Model3>',
-            'withMany': true
-          }
-        }
-      },
-      'Model6': {
-        'properties': {
-          'Name': {
-            'typeName': 'string'
-          }
-        }
-      },
-      'Model7': {
-        'properties': {
-          'Model6Rel': {
-            'typeName': 'List<Model6>',
-            'filter': {
-              'apply': true,
-              'type': 'range'
-            }
-          }
-        }
-      },
-      'Address': {
-        'properties': {
-          'Prop1': {
-            'typeName': 'string'
-          }
-        },
-        'isEntity': false
-      }
-    }
-  }";
+            var file = string.IsNullOrEmpty(options.File)
+                ? Environment.CurrentDirectory
+                : options.File;
+            if (!file.EndsWith("json", StringComparison.InvariantCultureIgnoreCase))
+                file += "/metadata.json";
 
-            var module = JsonConvert.DeserializeObject<ModuleDefinition>(str);
-            module.Init();
+            var tplOpts = new Dictionary<string, TemplateGenerationOption>();
 
-            foreach (var model in module.Models)
+            foreach (var modelGenOpts in options.Generate)
             {
-                var modelTpl = new ModelTemplate(module, model.Value);
-                var text = modelTpl.TransformText();
-                System.IO.File.WriteAllText($"E:/temp/gentest2/Domain/Model/{model.Key}.cs", text);
-                Console.WriteLine(text);
-                Console.WriteLine();
-
-                var dtoTpl = new DtoTemplate(module.Name, model.Value);
-                var dtoText = dtoTpl.TransformText();
-                System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}Dto.cs", dtoText);
-                Console.WriteLine(dtoText);
-                Console.WriteLine();
-
-                if (model.Value.IsEntity)
+                if (modelGenOpts == "*" || modelGenOpts == "*:*")
                 {
-                    if (!model.Value.IsOwnedEntity)
+                    tplOpts.Add("*", new TemplateGenerationOption
                     {
-                        var getByIdTpl = new GetByIdQueryTemplate(module.Name, model.Value);
-                        var getByIdText = getByIdTpl.TransformText();
-                        System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}DtoGetById.cs", getByIdText);
-                        Console.WriteLine(getByIdText);
-                        Console.WriteLine();
+                        Domain = true,
+                        Query = true,
+                        DataAccessEf = true,
+                        Api = true
+                    });
+                }
+                else
+                {
+                    var modelOptions = modelGenOpts.Split(':');
+                    if (modelOptions.Length != 2)
+                        throw new FormatException(modelGenOpts);
 
-                        var pagedTpl = new PagedQueryTemplate(module.Name, model.Value);
-                        var pagedText = pagedTpl.TransformText();
-                        System.IO.File.WriteAllText($"E:/temp/gentest2/Queries/{model.Key}DtoPagedQuery.cs", pagedText);
-                        Console.WriteLine(pagedText);
-                        Console.WriteLine();
-
-                        var getByIdHandlerTpl = new GetByIdQueryHandlerTemplate(module.Name, model.Value);
-                        var getByIdHandlerText = getByIdHandlerTpl.TransformText();
-                        System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/Queries/{model.Key}DtoGetByIdQueryHandler.cs", getByIdHandlerText);
-                        Console.WriteLine(getByIdHandlerText);
-                        Console.WriteLine();
-
-                        var pagedHandlerTpl = new PagedQueryHandlerTemplate(module.Name, model.Value);
-                        var pagedHandlerText = pagedHandlerTpl.TransformText();
-                        System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/Queries/{model.Key}DtoPagedQueryHandler.cs", pagedHandlerText);
-                        Console.WriteLine(pagedHandlerText);
-                        Console.WriteLine();
-
-                        var ctrlTpl = new ApiControllerTemplate(module, model.Value);
-                        var ctrlText = ctrlTpl.TransformText();
-                        System.IO.File.WriteAllText($"E:/temp/gentest2/WebApplication1/Controllers/{model.Value.PluralName}Controller.cs", ctrlText);
-                        Console.WriteLine(ctrlText);
-                        Console.WriteLine();
-
-                        if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model.Value))
-                        {
-                            var extensionsTpl = new QueryableExtensionsTemplate(module.Name, model.Value);
-                            var extensionsText = extensionsTpl.TransformText();
-                            System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/Queries/{model.Key}QueryableExtensions.cs", extensionsText);
-                            Console.WriteLine(extensionsText);
-                            Console.WriteLine();
-                        }
-                    }
-                    var configTpl = new ModelConfigurationTemplate(module.Name, model.Value);
-                    var configText = configTpl.TransformText();
-                    System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/{model.Key}Configuration.cs", configText);
-                    Console.WriteLine(configText);
-                    Console.WriteLine();
+                    tplOpts.Add(modelOptions[0], FromString(modelOptions[1]));
                 }
             }
 
-            var dataAccesTpl = new DataAccessTemplate(module);
-            var text2 = dataAccesTpl.TransformText();
-            System.IO.File.WriteAllText($"E:/temp/gentest2/Domain/Model/_DataAccess.Ef.cs", text2);
-            Console.WriteLine(text2);
-            Console.WriteLine();
+            var outputDir = string.IsNullOrEmpty(options.OutputDir)
+                ? Path.GetDirectoryName(file)
+                : options.OutputDir;
+            new FileGenerator(file, tplOpts, outputDir, options.ForceRegen).Generate();
+        }
 
-            var contextTpl = new ContextTemplate(module);
-            var contextText = contextTpl.TransformText();
-            System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/Context.cs", contextText);
-            Console.WriteLine(contextText);
-            Console.WriteLine();
+        public static TemplateGenerationOption FromString(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return new TemplateGenerationOption();
 
-            var contextFactoryTpl = new ContextFactoryTemplate(module);
-            var contextFactoryText = contextFactoryTpl.TransformText();
-            System.IO.File.WriteAllText($"E:/temp/gentest2/DataAccess/ContextFactory.cs", contextFactoryText);
-            Console.WriteLine(contextFactoryText);
-            Console.WriteLine();
+            var result = new TemplateGenerationOption
+            {
+                DataAccessEf = VerifyAndRemove(ref value, "da"),
+                Domain = VerifyAndRemove(ref value, "d"),
+                Query = VerifyAndRemove(ref value, "q"),
+                Api = VerifyAndRemove(ref value, "a")
+            };
+            return result;
 
-            Console.ReadKey();
+            static bool VerifyAndRemove(ref string value, string option)
+            {
+                if (value.Contains(option))
+                {
+                    value.Replace(option, "");
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Parser.Default.ParseArguments<GenOptions>(args)
+                   .WithParsed(o =>
+                   {
+                       GenerateFiles(o);
+                   })
+                   .WithNotParsed(errs =>
+                   {
+                       Console.WriteLine(errs);
+                   });
         }
     }
 }

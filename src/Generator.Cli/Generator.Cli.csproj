@@ -6,7 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Generator.Templates\Generator.Templates.csproj" />
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Generator.FilesGeneration\Generator.FilesGeneration.csproj" />
   </ItemGroup>
 
 </Project>
