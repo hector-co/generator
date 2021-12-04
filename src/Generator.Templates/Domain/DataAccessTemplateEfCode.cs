@@ -62,10 +62,12 @@ namespace Generator.Templates.Domain
                     {
                         Visibility = "internal",
                         TypeName = property.WithMany
-                        ? $"List<{model.Name}>"
-                        : model.IdentifierProperty.TargetType.Name,
+                            ? $"List<{model.Name}>"
+                            : model.IdentifierProperty.TargetType.Name + (property.Required.HasValue ? (property.Required.Value ? "" : "?") : ""),
                         Name = properties.Count() == 1
-                            ? (property.WithMany ? model.PluralName : (model.Name + ModelDefinition.IdPropertyName))
+                            ? property.WithMany
+                                ? model.PluralName
+                                : model.Name + ModelDefinition.IdPropertyName
                             : property.Name + (property.WithMany ? model.PluralName : (model.Name + ModelDefinition.IdPropertyName))
                     };
                     result.Add(propInfo);

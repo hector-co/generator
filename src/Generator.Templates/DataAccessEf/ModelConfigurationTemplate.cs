@@ -126,7 +126,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 36 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.Size.HasValue || p.Required.HasValue))
+    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.Size.HasValue || (p.Required.HasValue && !p.IsCollection)))
     { 
             
             #line default

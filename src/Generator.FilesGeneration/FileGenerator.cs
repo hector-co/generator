@@ -80,10 +80,10 @@ namespace Generator.FilesGeneration
             {
                 var dataAccessEfDirectory = $"{_outputDir}.DataAccess.Ef";
 
-                var dataAccessEfContextFileName = $"{dataAccessEfDirectory}/Context.cs";
+                var dataAccessEfContextFileName = $"{dataAccessEfDirectory}/{_moduleDefinition.Name}Context.cs";
                 SaveText(dataAccessEfContextFileName, new ContextTemplate(_moduleDefinition).TransformText(), _forceRegen);
 
-                var dataAccessEfContextFactoryFileName = $"{dataAccessEfDirectory}/ContextFactory.cs";
+                var dataAccessEfContextFactoryFileName = $"{dataAccessEfDirectory}/{_moduleDefinition.Name}ContextFactory.cs";
                 SaveText(dataAccessEfContextFactoryFileName, new ContextFactoryTemplate(_moduleDefinition).TransformText(), _forceRegen);
             }
         }
@@ -133,7 +133,7 @@ namespace Generator.FilesGeneration
 
         private void GenerateDataAccessEfFiles(string modelName, TemplateGenerationOption option)
         {
-            if (!option.Query) return;
+            if (!option.DataAccessEf) return;
 
             var model = _moduleDefinition.Model[modelName];
 
@@ -161,7 +161,7 @@ namespace Generator.FilesGeneration
 
         private void GenerateApiFiles(string modelName, TemplateGenerationOption option)
         {
-            if (!option.Domain) return;
+            if (!option.Api) return;
 
             var model = _moduleDefinition.Model[modelName];
 
