@@ -47,7 +47,7 @@ namespace Generator.Templates.Domain
 
         public static string GetPropertyTypeName(PropertyDefinition propertyDefinition)
         {
-            if (propertyDefinition.IsSystemType || propertyDefinition.IsValueObjectType || propertyDefinition.IsEnumType)
+            if (propertyDefinition.IsSystemType || propertyDefinition.IsValueObjectType)
             {
                 return ResolvePropertyInternalType(propertyDefinition, propertyDefinition.TargetType.Name);
             }
@@ -55,6 +55,10 @@ namespace Generator.Templates.Domain
             {
                 var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
                 return ResolvePropertyInternalType(propertyDefinition, entityType.Name);
+            }
+            else if (propertyDefinition.IsEnumType)
+            {
+                return ResolvePropertyInternalType(propertyDefinition, "int" + (propertyDefinition.TargetType.IsNullable ? "?" : ""));
             }
 
             return "";

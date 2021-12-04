@@ -20,6 +20,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ModelConfigurationTemplate.tt</DependentUpon>
     </None>
+    <None Include="Queries\EnumTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EnumTemplate.tt</DependentUpon>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -86,6 +91,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DtoTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="Queries\EnumTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EnumTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Update="Queries\GetByIdQueryTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -138,6 +148,10 @@
     <None Update="Queries\DtoTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>DtoTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Queries\EnumTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EnumTemplate.cs</LastGenOutput>
     </None>
     <None Update="Queries\PagedQueryTemplate.tt">
       <LastGenOutput>PagedQueryTemplate.cs</LastGenOutput>

@@ -54,6 +54,7 @@ namespace Generator.FilesGeneration
         private void GenerateGlobalFiles()
         {
             var domain = _templateOptions.Values.Any(o => o.Domain);
+            var query = _templateOptions.Values.Any(o => o.Query);
             var dataAccessEf = _templateOptions.Values.Any(o => o.DataAccessEf);
 
             if (domain)
@@ -62,6 +63,17 @@ namespace Generator.FilesGeneration
 
                 var dataAccessEfFileName = $"{modelDirectory}/_DataAccessEf.cs";
                 SaveText(dataAccessEfFileName, new DataAccessTemplateEf(_moduleDefinition).TransformText(), _forceRegen);
+            }
+
+            if (query)
+            {
+                var queryDirectory = $"{_outputDir}.Queries";
+
+                foreach (var @enum in _moduleDefinition.Enums)
+                {
+                    var enumFileName = $"{queryDirectory}/{@enum.Key}.cs";
+                    SaveText(enumFileName, new EnumTemplate(_moduleDefinition.Name, @enum.Value).TransformText(), _forceRegen);
+                }
             }
 
             if (dataAccessEf)
