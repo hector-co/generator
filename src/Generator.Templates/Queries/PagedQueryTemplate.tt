@@ -13,7 +13,7 @@ namespace <#= _modelDefinition.GetDtoNamespace(_namespace) #>
 {
     public class <#= _modelDefinition.GetDtoName() #>PagedQuery : Query<<#= _modelDefinition.GetDtoName() #>PagedQuery.FilterProperties>, IRequest<ResultModel<IEnumerable<<#= _modelDefinition.GetDtoName() #>>>>
     {
-        public <#= _modelDefinition.GetDtoName() #>PagedQuery()
+        public <#= _modelDefinition.GetDtoName() #>PagedQuery() : base(new SortValue("<#= ModelDefinition.IdPropertyName #>", SortDirection.Ascending))
         {
         }
 

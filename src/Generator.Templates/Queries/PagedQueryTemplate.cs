@@ -65,8 +65,15 @@ namespace Generator.Templates.Queries
             
             #line default
             #line hidden
-            this.Write("PagedQuery()\r\n        {\r\n        }\r\n\r\n        public class FilterProperties\r\n    " +
-                    "    {\r\n");
+            this.Write("PagedQuery() : base(new SortValue(\"");
+            
+            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\PagedQueryTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.IdPropertyName));
+            
+            #line default
+            #line hidden
+            this.Write("\", SortDirection.Ascending))\r\n        {\r\n        }\r\n\r\n        public class Filter" +
+                    "Properties\r\n        {\r\n");
             
             #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\PagedQueryTemplate.tt"
  foreach(var propInfo in GetFilterPropertiesInfo(_modelDefinition))
