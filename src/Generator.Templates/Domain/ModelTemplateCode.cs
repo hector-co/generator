@@ -1,5 +1,6 @@
 ﻿using Generator.Metadata;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Generator.Templates.Domain
 {
@@ -27,6 +28,27 @@ namespace Generator.Templates.Domain
                         : $": {moduleDefinition.Settings.EntityBaseClass.Replace(":T0:", modelDefinition.IdentifierType)}";
 
             return "";
+        }
+
+        public static bool HasPropertiesForInit(ModelDefinition modelDefinition)
+        {
+            return modelDefinition.Properties.Values.Where(p => p.IsGeneric).Any();
+        }
+
+        public static List<PropertyInfo> GetPropertiesForInitInfo(ModelDefinition modelDefinition)
+        {
+            var result = new List<PropertyInfo>();
+            foreach (var property in modelDefinition.Properties.Values.Where(p => p.IsGeneric))
+            {
+                var propInfo = new PropertyInfo
+                {
+                    Visibility = "public",
+                    TypeName = GetPropertyTypeName(property),
+                    Name = property.Name
+                };
+                result.Add(propInfo);
+            }
+            return result;
         }
 
         public static List<PropertyInfo> GetPropertiesInfo(ModelDefinition modelDefinition)

@@ -16,6 +16,17 @@ namespace <#= _module.GetDomainModelNamespace() #>
 {
     public partial class <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>
     {
+<# if (HasPropertiesForInit(_model))
+   { #>
+        public <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>()
+        {
+<#      foreach(var propInfo in GetPropertiesForInitInfo(_model))
+        { #>
+            <#= propInfo.Name #> = new <#= propInfo.TypeName #>();
+<#      } #>
+        }
+
+<# } #>
 <#  if (_model.IsEntity && _module.Settings.GenerateIdProperties)
     { #>
         public <#= _model.IdentifierProperty.TypeName #> <#= _model.IdentifierProperty.Name #> { get; set; }

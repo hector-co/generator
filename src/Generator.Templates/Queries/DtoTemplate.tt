@@ -16,10 +16,17 @@ namespace <#= _module.GetDtoNamespace(_model) #>
 {
     public class <#= _model.GetDtoName() #>
     {
+<# if (HasPropertiesForInit(_model))
+   { #>
         public <#= _model.GetDtoName() #>()
         {
+<#      foreach(var propInfo in GetPropertiesForInitInfo(_model))
+        { #>
+            <#= propInfo.Name #> = new <#= propInfo.TypeName #>();
+<#      } #>
         }
 
+<# } #>
 <#  foreach(var propInfo in GetPropertiesInfo(_model))
     { #>
         <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
