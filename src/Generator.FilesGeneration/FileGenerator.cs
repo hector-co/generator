@@ -139,14 +139,14 @@ namespace Generator.FilesGeneration
 
             if (!model.IsEntity) return;
 
-            var dataAccessEfDirectory = $"{_outputDir}.{_module.Settings.DataAccessEfNamespace}";
+            var dataAccessEfDirectory = $"{_outputDir}.{_module.Settings.DataAccessEfFolder}";
 
             if (!model.IsOwnedEntity)
             {
-                var getByIdHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/{_module.Settings.QueriesFolder}/{model.Name}DtoGetByIdQueryHandler.cs";
+                var getByIdHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.Name}DtoGetByIdQueryHandler.cs";
                 SaveText(getByIdHandlerFileName, new GetByIdQueryHandlerTemplate(_module, model).TransformText(), _forceRegen);
 
-                var pagedHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/{_module.Settings.QueriesNamespace}/{model.Name}DtoPagedQueryHandler.cs";
+                var pagedHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.Name}DtoPagedQueryHandler.cs";
                 SaveText(pagedHandlerFileName, new PagedQueryHandlerTemplate(_module, model).TransformText(), _forceRegen);
 
                 if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model))
