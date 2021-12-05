@@ -14,7 +14,7 @@ namespace Generator.FilesGeneration
     {
         private readonly string _outputDir;
         private readonly bool _forceRegen;
-        private readonly ModuleDefinition _moduleDefinition;
+        private readonly ModuleDefinition _module;
         private readonly Dictionary<string, TemplateGenerationOption> _templateOptions;
 
         public FileGenerator(string file, Dictionary<string, TemplateGenerationOption> templateOptions, string outputDir, bool forceRegen)
@@ -25,10 +25,10 @@ namespace Generator.FilesGeneration
             _forceRegen = forceRegen;
             _templateOptions = templateOptions;
 
-            _moduleDefinition = JsonConvert.DeserializeObject<ModuleDefinition>(File.ReadAllText(file));
-            _moduleDefinition.Init();
+            _module = JsonConvert.DeserializeObject<ModuleDefinition>(File.ReadAllText(file));
+            _module.Init();
 
-            _outputDir = outputDir + "/" + _moduleDefinition.Name;
+            _outputDir = outputDir + "/" + _module.Name;
         }
 
         public void Generate()
@@ -39,7 +39,7 @@ namespace Generator.FilesGeneration
             {
                 if (tplOpt.Key == "*")
                 {
-                    foreach (var modelName in _moduleDefinition.Model.Keys)
+                    foreach (var modelName in _module.Model.Keys)
                     {
                         GenerateFiles(modelName, tplOpt.Value);
                     }
@@ -59,32 +59,32 @@ namespace Generator.FilesGeneration
 
             if (domain)
             {
-                var modelDirectory = $"{_outputDir}.Domain/Model";
+                var modelDirectory = $"{_outputDir}.{_module.Settings.DomainModelFolder}";
 
                 var dataAccessEfFileName = $"{modelDirectory}/_DataAccessEf.cs";
-                SaveText(dataAccessEfFileName, new DataAccessTemplateEf(_moduleDefinition).TransformText(), _forceRegen);
+                SaveText(dataAccessEfFileName, new DataAccessTemplateEf(_module).TransformText(), _forceRegen);
             }
 
             if (query)
             {
-                var queryDirectory = $"{_outputDir}.Queries";
+                var queryDirectory = $"{_outputDir}.{_module.Settings.QueriesFolder}";
 
-                foreach (var @enum in _moduleDefinition.Enums)
+                foreach (var @enum in _module.Enums)
                 {
                     var enumFileName = $"{queryDirectory}/{@enum.Key}.cs";
-                    SaveText(enumFileName, new EnumTemplate(_moduleDefinition.Name, @enum.Value).TransformText(), _forceRegen);
+                    SaveText(enumFileName, new EnumTemplate(_module, @enum.Value).TransformText(), _forceRegen);
                 }
             }
 
             if (dataAccessEf)
             {
-                var dataAccessEfDirectory = $"{_outputDir}.DataAccess.Ef";
+                var dataAccessEfDirectory = $"{_outputDir}.{_module.Settings.DataAccessEfFolder}";
 
-                var dataAccessEfContextFileName = $"{dataAccessEfDirectory}/{_moduleDefinition.Name}Context.cs";
-                SaveText(dataAccessEfContextFileName, new ContextTemplate(_moduleDefinition).TransformText(), _forceRegen);
+                var dataAccessEfContextFileName = $"{dataAccessEfDirectory}/{_module.Name}Context.cs";
+                SaveText(dataAccessEfContextFileName, new ContextTemplate(_module).TransformText(), _forceRegen);
 
-                var dataAccessEfContextFactoryFileName = $"{dataAccessEfDirectory}/{_moduleDefinition.Name}ContextFactory.cs";
-                SaveText(dataAccessEfContextFactoryFileName, new ContextFactoryTemplate(_moduleDefinition).TransformText(), _forceRegen);
+                var dataAccessEfContextFactoryFileName = $"{dataAccessEfDirectory}/{_module.Name}ContextFactory.cs";
+                SaveText(dataAccessEfContextFactoryFileName, new ContextFactoryTemplate(_module).TransformText(), _forceRegen);
             }
         }
 
@@ -100,33 +100,33 @@ namespace Generator.FilesGeneration
         {
             if (!option.Domain) return;
 
-            var model = _moduleDefinition.Model[modelName];
+            var model = _module.Model[modelName];
 
-            var modelDirectory = $"{_outputDir}.Domain/Model";
+            var modelDirectory = $"{_outputDir}.{_module.Settings.DomainModelFolder}";
             var modelFileName = $"{modelDirectory}/{model.Name}.cs";
-            SaveText(modelFileName, new ModelTemplate(_moduleDefinition, model).TransformText(), _forceRegen);
+            SaveText(modelFileName, new ModelTemplate(_module, model).TransformText(), _forceRegen);
         }
 
         private void GenerateQueryFiles(string modelName, TemplateGenerationOption option)
         {
             if (!option.Query) return;
 
-            var model = _moduleDefinition.Model[modelName];
+            var model = _module.Model[modelName];
 
-            var queryDirectory = $"{_outputDir}.Queries";
+            var queryDirectory = $"{_outputDir}.{_module.Settings.QueriesFolder}";
 
             var dtoFileName = $"{queryDirectory}/{(model.Parent ?? model).PluralName}/{model.Name}Dto.cs";
-            SaveText(dtoFileName, new DtoTemplate(_moduleDefinition.Name, model).TransformText(), _forceRegen);
+            SaveText(dtoFileName, new DtoTemplate(_module, model).TransformText(), _forceRegen);
 
             if (model.IsEntity)
             {
                 if (!model.IsOwnedEntity)
                 {
                     var getByIdFileName = $"{queryDirectory}/{model.PluralName}/{model.Name}DtoGetById.cs";
-                    SaveText(getByIdFileName, new GetByIdQueryTemplate(_moduleDefinition.Name, model).TransformText(), _forceRegen);
+                    SaveText(getByIdFileName, new GetByIdQueryTemplate(_module, model).TransformText(), _forceRegen);
 
                     var pagedFileName = $"{queryDirectory}/{model.PluralName}/{model.Name}DtoPagedQuery.cs";
-                    SaveText(pagedFileName, new PagedQueryTemplate(_moduleDefinition.Name, model).TransformText(), _forceRegen);
+                    SaveText(pagedFileName, new PagedQueryTemplate(_module, model).TransformText(), _forceRegen);
                 }
             }
         }
@@ -135,41 +135,41 @@ namespace Generator.FilesGeneration
         {
             if (!option.DataAccessEf) return;
 
-            var model = _moduleDefinition.Model[modelName];
+            var model = _module.Model[modelName];
 
             if (!model.IsEntity) return;
 
-            var dataAccessEfDirectory = $"{_outputDir}.DataAccess.Ef";
+            var dataAccessEfDirectory = $"{_outputDir}.{_module.Settings.DataAccessEfNamespace}";
 
             if (!model.IsOwnedEntity)
             {
-                var getByIdHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.Name}DtoGetByIdQueryHandler.cs";
-                SaveText(getByIdHandlerFileName, new GetByIdQueryHandlerTemplate(_moduleDefinition.Name, model).TransformText(), _forceRegen);
+                var getByIdHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/{_module.Settings.QueriesFolder}/{model.Name}DtoGetByIdQueryHandler.cs";
+                SaveText(getByIdHandlerFileName, new GetByIdQueryHandlerTemplate(_module, model).TransformText(), _forceRegen);
 
-                var pagedHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.Name}DtoPagedQueryHandler.cs";
-                SaveText(pagedHandlerFileName, new PagedQueryHandlerTemplate(_moduleDefinition.Name, model).TransformText(), _forceRegen);
+                var pagedHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/{_module.Settings.QueriesNamespace}/{model.Name}DtoPagedQueryHandler.cs";
+                SaveText(pagedHandlerFileName, new PagedQueryHandlerTemplate(_module, model).TransformText(), _forceRegen);
 
                 if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model))
                 {
                     var extensionsFileName = $"{dataAccessEfDirectory}/{model.PluralName}/{model.Name}QueryableExtensions.cs";
-                    SaveText(extensionsFileName, new QueryableExtensionsTemplate(_moduleDefinition.Name, model).TransformText(), _forceRegen);
+                    SaveText(extensionsFileName, new QueryableExtensionsTemplate(_module, model).TransformText(), _forceRegen);
                 }
             }
             var configFileName = $"{dataAccessEfDirectory}/{(model.Parent ?? model).PluralName}/{model.Name}Configuration.cs";
-            SaveText(configFileName, new ModelConfigurationTemplate(_moduleDefinition.Name, model).TransformText(), _forceRegen);
+            SaveText(configFileName, new ModelConfigurationTemplate(_module, model).TransformText(), _forceRegen);
         }
 
         private void GenerateApiFiles(string modelName, TemplateGenerationOption option)
         {
             if (!option.Api) return;
 
-            var model = _moduleDefinition.Model[modelName];
+            var model = _module.Model[modelName];
 
             if (!model.IsRoot) return;
 
-            var ctrlDirectory = $"{_outputDir}.Api/Controllers";
+            var ctrlDirectory = $"{_outputDir}.{_module.Settings.ApiControllersFolder}";
             var ctrlFileName = $"{ctrlDirectory}/{model.PluralName}Controller.cs";
-            SaveText(ctrlFileName, new ApiControllerTemplate(_moduleDefinition, model).TransformText(), _forceRegen);
+            SaveText(ctrlFileName, new ApiControllerTemplate(_module, model).TransformText(), _forceRegen);
         }
 
         private static void SaveText(string fileName, string text, bool forceRegen)

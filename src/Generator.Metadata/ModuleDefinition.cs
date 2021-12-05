@@ -7,6 +7,12 @@ namespace Generator.Metadata
     public class ModuleDefinition
     {
         private string _apiPrefix;
+
+        public ModuleDefinition()
+        {
+            Settings = new Settings();
+        }
+
         public string Name { get; set; }
         public string ApiPrefix
         {
@@ -16,8 +22,7 @@ namespace Generator.Metadata
                       : Name.Camelize();
         }
 
-        public string DatabaseSchema { get; set; }
-        public DomainSettings DomainSettings { get; set; } = new DomainSettings();
+        public Settings Settings { get; set; } = new Settings();
         public Dictionary<string, ModelDefinition> Model { get; set; } = new Dictionary<string, ModelDefinition>();
         public Dictionary<string, EnumDefinition> Enums { get; set; } = new Dictionary<string, EnumDefinition>();
 

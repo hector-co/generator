@@ -6,13 +6,13 @@ namespace Generator.Templates.Queries
 {
     public partial class PagedQueryTemplate
     {
-        private readonly string _namespace;
-        private readonly ModelDefinition _modelDefinition;
+        private readonly ModuleDefinition _module;
+        private readonly ModelDefinition _model;
 
-        public PagedQueryTemplate(string @namespace, ModelDefinition modelDefinition)
+        public PagedQueryTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            _namespace = @namespace;
-            _modelDefinition = modelDefinition;
+            _module = moduleDefinition;
+            _model = modelDefinition;
         }
 
         public static List<PropertyInfo> GetFilterPropertiesInfo(ModelDefinition modelDefinition)

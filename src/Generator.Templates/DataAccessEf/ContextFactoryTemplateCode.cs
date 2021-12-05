@@ -4,11 +4,11 @@ namespace Generator.Templates.DataAccessEf
 {
     public partial class ContextFactoryTemplate
     {
-        private readonly ModuleDefinition _moduleDefinition;
+        private readonly ModuleDefinition _module;
 
         public ContextFactoryTemplate(ModuleDefinition moduleDefinition)
         {
-            _moduleDefinition = moduleDefinition;
+            _module = moduleDefinition;
         }
     }
 }

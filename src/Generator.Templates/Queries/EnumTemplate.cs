@@ -31,21 +31,21 @@ namespace Generator.Templates.Queries
             this.Write("namespace ");
             
             #line 6 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\EnumTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetQueriesNamespace()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetQueriesNamespace()));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public enum ");
             
             #line 8 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\EnumTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_enumDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_enum.Name));
             
             #line default
             #line hidden
             this.Write("\r\n    {\r\n");
             
             #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\EnumTemplate.tt"
- foreach(var value in _enumDefinition.Values)
+ foreach(var value in _enum.Values)
    {
 
             

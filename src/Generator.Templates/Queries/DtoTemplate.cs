@@ -32,7 +32,7 @@ namespace Generator.Templates.Queries
             this.Write("using System;\r\nusing System.Collections.Generic;\r\n");
             
             #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\DtoTemplate.tt"
- foreach(var relType in GetRelatedEntitiesUsings(_modelDefinition, _namespace))
+ foreach(var relType in GetRelatedEntitiesUsings(_model, _module))
    { 
 
             
@@ -55,28 +55,28 @@ namespace Generator.Templates.Queries
             this.Write("\r\nnamespace ");
             
             #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\DtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoNamespace(_namespace)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public class ");
             
             #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\DtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write("\r\n    {\r\n        public ");
             
             #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\DtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write("()\r\n        {\r\n        }\r\n\r\n");
             
             #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\DtoTemplate.tt"
-  foreach(var propInfo in GetPropertiesInfo(_modelDefinition))
+  foreach(var propInfo in GetPropertiesInfo(_model))
     { 
             
             #line default

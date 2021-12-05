@@ -6,18 +6,18 @@
 <#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.DataAccessEf" #>
 using Microsoft.EntityFrameworkCore;
-<#    foreach(var model in _moduleDefinition.Model.Values.Where(m => m.IsRoot))
+<#    foreach(var model in _module.Model.Values.Where(m => m.IsRoot))
     { #>
-using <#= model.GetDataAccessModelNamespace(_moduleDefinition.Name) #>;
+using <#= _module.GetDataAccessModelNamespace(model) #>;
 <#    } #>
 
-namespace <#= _moduleDefinition.GetDataAccessNamespace() #>
+namespace <#= _module.GetDataAccessNamespace() #>
 {
-    public class <#= _moduleDefinition.GetContextName() #> : DbContext
+    public class <#= _module.GetContextName() #> : DbContext
     {
-        public const string DbSchema = "<#= _moduleDefinition.DatabaseSchema #>";
+        public const string DbSchema = "<#= _module.Settings.DatabaseSchema #>";
 
-        public <#= _moduleDefinition.GetContextName() #>(DbContextOptions<<#= _moduleDefinition.GetContextName() #>> options) : base(options)
+        public <#= _module.GetContextName() #>(DbContextOptions<<#= _module.GetContextName() #>> options) : base(options)
         {
         }
 
@@ -28,7 +28,7 @@ namespace <#= _moduleDefinition.GetDataAccessNamespace() #>
 
         public static void Configure(ModelBuilder modelBuilder, string dbSchema = DbSchema)
         {
-<#    foreach(var model in _moduleDefinition.Model.Values.Where(m => m.IsEntity))
+<#    foreach(var model in _module.Model.Values.Where(m => m.IsEntity))
     { #>
             modelBuilder.ApplyConfiguration(new <#= model.Name #>Configuration(dbSchema));
 <#    } #>

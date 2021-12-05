@@ -4,13 +4,13 @@ namespace Generator.Templates.DataAccessEf
 {
     public partial class PagedQueryHandlerTemplate
     {
-        private readonly string _namespace;
-        private readonly ModelDefinition _modelDefinition;
+        private readonly ModuleDefinition _module;
+        private readonly ModelDefinition _model;
 
-        public PagedQueryHandlerTemplate(string @namespace, ModelDefinition modelDefinition)
+        public PagedQueryHandlerTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            _namespace = @namespace;
-            _modelDefinition = modelDefinition;
+            _module = moduleDefinition;
+            _model = modelDefinition;
         }
     }
 }

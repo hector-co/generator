@@ -7,19 +7,19 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using <#= _namespace.GetDomainModelNamespace() #>;
+using <#= _module.GetDomainModelNamespace() #>;
 
-namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>
 {
-    internal static class <#= _modelDefinition.Name #>QueryableExtensions
+    internal static class <#= _model.Name #>QueryableExtensions
     {
-<#    if (RequiresIncludes(_modelDefinition))
+<#    if (RequiresIncludes(_model))
     { #>
-        internal static IQueryable<<#= _modelDefinition.Name #>> AddIncludes
-            (this IQueryable<<#= _modelDefinition.Name #>> queryable)
+        internal static IQueryable<<#= _model.Name #>> AddIncludes
+            (this IQueryable<<#= _model.Name #>> queryable)
         {
             return queryable
-<#        foreach (var propName in GetRelatedEntitiesPropertyNames(_modelDefinition))
+<#        foreach (var propName in GetRelatedEntitiesPropertyNames(_model))
         { #>
                 .Include(m => m.<#= propName #>)
 <#        } #>

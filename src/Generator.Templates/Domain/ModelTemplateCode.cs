@@ -17,14 +17,14 @@ namespace Generator.Templates.Domain
         public static string GetBaseClassName(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
         {
             if (modelDefinition.IsRoot)
-                return string.IsNullOrEmpty(moduleDefinition.DomainSettings.RootBaseClass)
+                return string.IsNullOrEmpty(moduleDefinition.Settings.RootBaseClass)
                     ? ""
-                    : $": {moduleDefinition.DomainSettings.RootBaseClass.Replace(":T0:", modelDefinition.IdentifierType)}";
+                    : $": {moduleDefinition.Settings.RootBaseClass.Replace(":T0:", modelDefinition.IdentifierType)}";
 
             if (modelDefinition.IsEntity)
-                return string.IsNullOrEmpty(moduleDefinition.DomainSettings.EntityBaseClass)
+                return string.IsNullOrEmpty(moduleDefinition.Settings.EntityBaseClass)
                         ? ""
-                        : $": {moduleDefinition.DomainSettings.EntityBaseClass.Replace(":T0:", modelDefinition.IdentifierType)}";
+                        : $": {moduleDefinition.Settings.EntityBaseClass.Replace(":T0:", modelDefinition.IdentifierType)}";
 
             return "";
         }

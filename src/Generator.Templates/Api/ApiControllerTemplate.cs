@@ -33,35 +33,35 @@ namespace Generator.Templates.Api
                     "osoft.AspNetCore.Mvc;\r\nusing MediatR;\r\nusing ");
             
             #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoNamespace(_moduleDefinition.Name)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetApiNamespace()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetApiNamespace()));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    [Route(\"");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.ApiPrefix));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.ApiPrefix));
             
             #line default
             #line hidden
             this.Write("/");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetApiRouteName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetApiRouteName()));
             
             #line default
             #line hidden
             this.Write("\")]\r\n    public class ");
             
             #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.PluralName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
             
             #line default
             #line hidden
@@ -69,7 +69,7 @@ namespace Generator.Templates.Api
                     "\r\n\r\n        public ");
             
             #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.PluralName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
             
             #line default
             #line hidden
@@ -77,14 +77,14 @@ namespace Generator.Templates.Api
                     "     }\r\n\r\n        [HttpGet(\"{id}\", Name = \"Get");
             
             #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("ById\")]\r\n        public async Task<IActionResult> Get(");
             
             #line 27 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.IdentifierProperty.TypeName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
             
             #line default
             #line hidden
@@ -92,7 +92,7 @@ namespace Generator.Templates.Api
                     "y = new ");
             
             #line 29 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
@@ -106,7 +106,7 @@ namespace Generator.Templates.Api
         public async Task<IActionResult> Get([FromQuery] ");
             
             #line 36 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden

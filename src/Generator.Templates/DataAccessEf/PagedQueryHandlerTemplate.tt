@@ -12,30 +12,30 @@ using Qurl.Queryable;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using <#= _namespace.GetDomainModelNamespace() #>;
-using <#= _namespace.GetQueriesNamespace() #>;
-using <#= _modelDefinition.GetDtoNamespace(_namespace) #>;
+using <#= _module.GetDomainModelNamespace() #>;
+using <#= _module.GetQueriesNamespace() #>;
+using <#= _module.GetDtoNamespace(_model) #>;
 
-namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>.Queries
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries
 {
-    public class <#= _modelDefinition.GetDtoName() #>PagedQueryHandler : IRequestHandler<<#= _modelDefinition.GetDtoName() #>PagedQuery, ResultModel<IEnumerable<<#= _modelDefinition.GetDtoName() #>>>>
+    public class <#= _model.GetDtoName() #>PagedQueryHandler : IRequestHandler<<#= _model.GetDtoName() #>PagedQuery, ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>>
     {
-        private readonly <#= _namespace.GetContextName() #> _context;
+        private readonly <#= _module.GetContextName() #> _context;
 
-        public <#= _modelDefinition.GetDtoName() #>PagedQueryHandler(<#= _namespace.GetContextName() #> context)
+        public <#= _model.GetDtoName() #>PagedQueryHandler(<#= _module.GetContextName() #> context)
         {
             _context = context;
         }
 
-        public async Task<ResultModel<IEnumerable<<#= _modelDefinition.GetDtoName() #>>>> Handle(<#= _modelDefinition.GetDtoName() #>PagedQuery request, CancellationToken cancellationToken)
+        public async Task<ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>> Handle(<#= _model.GetDtoName() #>PagedQuery request, CancellationToken cancellationToken)
         {
-            var result = new ResultModel<IEnumerable<<#= _modelDefinition.GetDtoName() #>>>();
+            var result = new ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>();
 
-            var efQuery = _context.Set<<#= _modelDefinition.Name #>>().ApplyQuery(request, false);
+            var efQuery = _context.Set<<#= _model.Name #>>().ApplyQuery(request, false);
             result.TotalCount = await efQuery.CountAsync(cancellationToken);
             efQuery = efQuery.ApplySortAndPaging(request);
 
-<#    if (QueryableExtensionsTemplate.RequiresIncludes(_modelDefinition))
+<#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
     { #>
             efQuery = efQuery.AddIncludes();
             
@@ -44,7 +44,7 @@ namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>.Querie
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
            
-            result.Data = data.Adapt<List<<#= _modelDefinition.GetDtoName() #>>>();
+            result.Data = data.Adapt<List<<#= _model.GetDtoName() #>>>();
 
             return result;
         }

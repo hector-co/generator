@@ -9,17 +9,17 @@ using System.Collections.Generic;
 using MediatR;
 using Qurl;
 
-namespace <#= _modelDefinition.GetDtoNamespace(_namespace) #>
+namespace <#= _module.GetDtoNamespace(_model) #>
 {
-    public class <#= _modelDefinition.GetDtoName() #>PagedQuery : Query<<#= _modelDefinition.GetDtoName() #>PagedQuery.FilterProperties>, IRequest<ResultModel<IEnumerable<<#= _modelDefinition.GetDtoName() #>>>>
+    public class <#= _model.GetDtoName() #>PagedQuery : Query<<#= _model.GetDtoName() #>PagedQuery.FilterProperties>, IRequest<ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>>
     {
-        public <#= _modelDefinition.GetDtoName() #>PagedQuery() : base(new SortValue("<#= ModelDefinition.IdPropertyName #>", SortDirection.Ascending))
+        public <#= _model.GetDtoName() #>PagedQuery() : base(new SortValue("<#= ModelDefinition.IdPropertyName #>", SortDirection.Ascending))
         {
         }
 
         public class FilterProperties
         {
-<# foreach(var propInfo in GetFilterPropertiesInfo(_modelDefinition))
+<# foreach(var propInfo in GetFilterPropertiesInfo(_model))
     { 
 #>
             <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }

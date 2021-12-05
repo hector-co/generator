@@ -6,13 +6,13 @@ namespace Generator.Templates.DataAccessEf
 {
     public partial class ModelConfigurationTemplate
     {
-        private readonly string _namespace;
-        private readonly ModelDefinition _modelDefinition;
+        private readonly ModuleDefinition _module;
+        private readonly ModelDefinition _model;
 
-        public ModelConfigurationTemplate(string @namespace, ModelDefinition modelDefinition)
+        public ModelConfigurationTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            _namespace = @namespace;
-            _modelDefinition = modelDefinition;
+            _module = moduleDefinition;
+            _model = modelDefinition;
         }
 
         private static List<string> GetIgnoredPropertyNames(ModelDefinition modelDefinition)

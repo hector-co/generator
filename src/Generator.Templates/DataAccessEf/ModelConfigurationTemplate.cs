@@ -34,35 +34,35 @@ namespace Generator.Templates.DataAccessEf
                     "a.Builders;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing ");
             
             #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetDomainModelNamespace()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDataAccessModelNamespace(_namespace)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public class ");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("Configuration : IEntityTypeConfiguration<");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write(">\r\n    {\r\n        private readonly string _dbSchema;\r\n\r\n        public ");
             
             #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
@@ -70,21 +70,21 @@ namespace Generator.Templates.DataAccessEf
                     "     }\r\n\r\n        public void Configure(EntityTypeBuilder<");
             
             #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("> builder)\r\n        {\r\n            builder.ToTable(\"");
             
             #line 27 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("\", _dbSchema);\r\n");
             
             #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-    foreach(var propertyName in GetIgnoredPropertyNames(_modelDefinition))
+    foreach(var propertyName in GetIgnoredPropertyNames(_model))
     { 
             
             #line default
@@ -105,7 +105,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-    foreach(var propertyName in GetSerializedPropertyNames(_modelDefinition))
+    foreach(var propertyName in GetSerializedPropertyNames(_model))
     { 
             
             #line default
@@ -126,7 +126,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 36 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.Size.HasValue || (p.Required.HasValue && !p.IsCollection)))
+    foreach(var property in _model.Properties.Values.Where(p => p.Size.HasValue || (p.Required.HasValue && !p.IsCollection)))
     { 
             
             #line default
@@ -189,7 +189,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 48 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-    foreach(var propertyName in GetNonGenericEntitiesPropertyNames(_modelDefinition))
+    foreach(var propertyName in GetNonGenericEntitiesPropertyNames(_model))
     { 
             
             #line default
@@ -217,7 +217,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 54 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-    foreach(var property in GetManyToOneProperties(_modelDefinition))
+    foreach(var property in GetManyToOneProperties(_model))
     { 
             
             #line default
@@ -232,7 +232,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write(")\r\n                .WithOne()\r\n");
             
             #line 58 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-        if (_modelDefinition.HasMultiplePropertiesWithModelType(property.CastTargetType<ModelTypeDefinition>().Model, property.IsGeneric))
+        if (_model.HasMultiplePropertiesWithModelType(property.CastTargetType<ModelTypeDefinition>().Model, property.IsGeneric))
         { 
             
             #line default
@@ -246,7 +246,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 60 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
@@ -267,7 +267,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write("                .HasForeignKey(r => r.");
             
             #line 64 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
@@ -286,7 +286,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 67 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.WithMany))
+    foreach(var property in _model.Properties.Values.Where(p => p.WithMany))
     { 
             
             #line default
@@ -301,7 +301,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write(")\r\n                .WithMany(r => r.");
             
             #line 70 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.PluralName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
             
             #line default
             #line hidden
@@ -309,7 +309,7 @@ namespace Generator.Templates.DataAccessEf
                     " \"");
             
             #line 72 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
@@ -337,7 +337,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write("Id\"),\r\n                    j => j\r\n                        .HasOne<");
             
             #line 78 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
@@ -345,7 +345,7 @@ namespace Generator.Templates.DataAccessEf
                     "\"");
             
             #line 80 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
@@ -358,7 +358,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 82 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.IsValueObjectType))
+    foreach(var property in _model.Properties.Values.Where(p => p.IsValueObjectType))
     { 
             
             #line default
@@ -380,7 +380,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write(")\r\n                .ToTable(\"");
             
             #line 87 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
@@ -393,7 +393,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write("\", _dbSchema)\r\n                .WithOwner().HasForeignKey(\"");
             
             #line 88 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
@@ -421,7 +421,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write(")\r\n                .ToTable(\"");
             
             #line 93 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
@@ -434,7 +434,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write("\", _dbSchema)\r\n                .WithOwner().HasForeignKey(\"");
             
             #line 94 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden

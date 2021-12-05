@@ -6,13 +6,13 @@ namespace Generator.Templates.DataAccessEf
 {
     public partial class QueryableExtensionsTemplate
     {
-        private readonly string _namespace;
-        private readonly ModelDefinition _modelDefinition;
+        private readonly ModuleDefinition _module;
+        private readonly ModelDefinition _model;
 
-        public QueryableExtensionsTemplate(string @namespace, ModelDefinition modelDefinition)
+        public QueryableExtensionsTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            _namespace = @namespace;
-            _modelDefinition = modelDefinition;
+            _module = moduleDefinition;
+            _model = modelDefinition;
         }
 
         public static bool RequiresQueryableExtensions(ModelDefinition modelDefinition)

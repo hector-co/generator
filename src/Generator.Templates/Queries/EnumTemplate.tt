@@ -3,11 +3,11 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-namespace <#= _namespace.GetQueriesNamespace() #>
+namespace <#= _module.GetQueriesNamespace() #>
 {
-    public enum <#= _enumDefinition.Name #>
+    public enum <#= _enum.Name #>
     {
-<# foreach(var value in _enumDefinition.Values)
+<# foreach(var value in _enum.Values)
    {
 #>
         <#= value #>,

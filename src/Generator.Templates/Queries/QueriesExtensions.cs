@@ -6,16 +6,11 @@ namespace Generator.Templates.Queries
     {
         public static string GetQueriesNamespace(this ModuleDefinition moduleDefinition)
         {
-            return moduleDefinition.Name.GetQueriesNamespace();
+            return $"{moduleDefinition.Name}.{moduleDefinition.Settings.QueriesNamespace}";
         }
 
-        public static string GetQueriesNamespace(this string @namespace)
-        {
-            return $"{@namespace}.Queries";
-        }
-
-        public static string GetDtoNamespace(this ModelDefinition modelDefinition, string @namespace)
-           => $"{@namespace.GetQueriesNamespace()}.{(modelDefinition.Parent ?? modelDefinition).PluralName}";
+        public static string GetDtoNamespace(this ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
+           => $"{moduleDefinition.GetQueriesNamespace()}.{(modelDefinition.Parent ?? modelDefinition).PluralName}";
 
         public static string GetDtoName(this ModelDefinition modelDefinition)
             => $"{modelDefinition.Name}Dto";

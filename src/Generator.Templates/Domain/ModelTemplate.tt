@@ -6,8 +6,8 @@
 <#@ import namespace="Generator.Metadata" #>
 using System;
 using System.Collections.Generic;
-<#  if (_model.IsEntity && _module.DomainSettings.EntityUsings.Any()) #>
-<#      foreach (var @using in _module.DomainSettings.EntityUsings) 
+<#  if (_model.IsEntity && _module.Settings.EntityUsings.Any()) #>
+<#      foreach (var @using in _module.Settings.EntityUsings) 
         { #>
 using <#= @using #>;
 <#      } #>
@@ -16,7 +16,7 @@ namespace <#= _module.GetDomainModelNamespace() #>
 {
     public partial class <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>
     {
-<#  if (_model.IsEntity && _module.DomainSettings.GenerateIdProperties)
+<#  if (_model.IsEntity && _module.Settings.GenerateIdProperties)
     { #>
         public <#= _model.IdentifierProperty.TypeName #> <#= _model.IdentifierProperty.Name #> { get; set; }
 <#  } #>

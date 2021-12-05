@@ -7,19 +7,19 @@
 using System;
 using MediatR;
 
-namespace <#= _modelDefinition.GetDtoNamespace(_namespace) #>
+namespace <#= _module.GetDtoNamespace(_model) #>
 {
-    public class <#= _modelDefinition.GetDtoName() #>GetByIdQuery : IRequest<ResultModel<<#= _modelDefinition.GetDtoName() #>>>
+    public class <#= _model.GetDtoName() #>GetByIdQuery : IRequest<ResultModel<<#= _model.GetDtoName() #>>>
     {
-        public <#= _modelDefinition.GetDtoName() #>GetByIdQuery()
+        public <#= _model.GetDtoName() #>GetByIdQuery()
         {
         }
 
-        public <#= _modelDefinition.GetDtoName() #>GetByIdQuery(<#= _modelDefinition.IdentifierType #> id)
+        public <#= _model.GetDtoName() #>GetByIdQuery(<#= _model.IdentifierType #> id)
         {
             Id = id;
         }
 
-        public <#= _modelDefinition.IdentifierType #> Id { get; set; }
+        public <#= _model.IdentifierType #> Id { get; set; }
     }
 }

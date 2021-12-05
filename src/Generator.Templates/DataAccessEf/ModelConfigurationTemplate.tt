@@ -9,31 +9,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 using System.Linq;
-using <#= _namespace.GetDomainModelNamespace() #>;
+using <#= _module.GetDomainModelNamespace() #>;
 
-namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>
 {
-    public class <#= _modelDefinition.Name #>Configuration : IEntityTypeConfiguration<<#= _modelDefinition.Name #>>
+    public class <#= _model.Name #>Configuration : IEntityTypeConfiguration<<#= _model.Name #>>
     {
         private readonly string _dbSchema;
 
-        public <#= _modelDefinition.Name #>Configuration(string dbSchema)
+        public <#= _model.Name #>Configuration(string dbSchema)
         {
             _dbSchema = dbSchema;
         }
 
-        public void Configure(EntityTypeBuilder<<#= _modelDefinition.Name #>> builder)
+        public void Configure(EntityTypeBuilder<<#= _model.Name #>> builder)
         {
-            builder.ToTable("<#= _modelDefinition.Name #>", _dbSchema);
-<#    foreach(var propertyName in GetIgnoredPropertyNames(_modelDefinition))
+            builder.ToTable("<#= _model.Name #>", _dbSchema);
+<#    foreach(var propertyName in GetIgnoredPropertyNames(_model))
     { #>
             builder.Ignore(m => m.<#= propertyName #>);
 <#    } #>
-<#    foreach(var propertyName in GetSerializedPropertyNames(_modelDefinition))
+<#    foreach(var propertyName in GetSerializedPropertyNames(_model))
     { #>
             builder.Property(m => m.<#= propertyName #>_Serialized);
 <#    } #>
-<#    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.Size.HasValue || (p.Required.HasValue && !p.IsCollection)))
+<#    foreach(var property in _model.Properties.Values.Where(p => p.Size.HasValue || (p.Required.HasValue && !p.IsCollection)))
     { #>
             builder.Property(m => m.<#= property.Name #>)
 <#        if(property.Required.HasValue && property.Required.Value) 
@@ -45,53 +45,53 @@ namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>
                 .HasMaxLength(<#= property.Size.Value #>);
 <#        } #>
 <#    } #>
-<#    foreach(var propertyName in GetNonGenericEntitiesPropertyNames(_modelDefinition))
+<#    foreach(var propertyName in GetNonGenericEntitiesPropertyNames(_model))
     { #>
             builder.HasOne(m => m.<#= propertyName #>)
                 .WithMany()
                 .HasForeignKey(r => r.<#= propertyName #>Id);
 <#    } #>
-<#    foreach(var property in GetManyToOneProperties(_modelDefinition))
+<#    foreach(var property in GetManyToOneProperties(_model))
     { #>
             builder.HasMany(m => m.<#= property.Name #>)
                 .WithOne()
-<#        if (_modelDefinition.HasMultiplePropertiesWithModelType(property.CastTargetType<ModelTypeDefinition>().Model, property.IsGeneric))
+<#        if (_model.HasMultiplePropertiesWithModelType(property.CastTargetType<ModelTypeDefinition>().Model, property.IsGeneric))
         { #>
-                .HasForeignKey(r => r.<#= property.Name #><#= _modelDefinition.Name #>Id);
+                .HasForeignKey(r => r.<#= property.Name #><#= _model.Name #>Id);
 <#        } #>
 <#        else
         { #>
-                .HasForeignKey(r => r.<#= _modelDefinition.Name #>Id);
+                .HasForeignKey(r => r.<#= _model.Name #>Id);
 <#        } #>
 <#    } #>
-<#    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.WithMany))
+<#    foreach(var property in _model.Properties.Values.Where(p => p.WithMany))
     { #>
             builder.HasMany(m => m.<#= property.Name #>)
-                .WithMany(r => r.<#= _modelDefinition.PluralName #>)
+                .WithMany(r => r.<#= _model.PluralName #>)
                 .UsingEntity<Dictionary<string, object>>(
-                    "<#= _modelDefinition.Name #><#= property.CastTargetType<ModelTypeDefinition>().Model.PluralName #>",
+                    "<#= _model.Name #><#= property.CastTargetType<ModelTypeDefinition>().Model.PluralName #>",
                     j => j
                         .HasOne<<#= property.CastTargetType<ModelTypeDefinition>().Model.Name #>>()
                         .WithMany()
                         .HasForeignKey("<#= property.CastTargetType<ModelTypeDefinition>().Model.Name #>Id"),
                     j => j
-                        .HasOne<<#= _modelDefinition.Name #>>()
+                        .HasOne<<#= _model.Name #>>()
                         .WithMany()
-                        .HasForeignKey("<#= _modelDefinition.Name #>Id"));
+                        .HasForeignKey("<#= _model.Name #>Id"));
 <#    } #>
-<#    foreach(var property in _modelDefinition.Properties.Values.Where(p => p.IsValueObjectType))
+<#    foreach(var property in _model.Properties.Values.Where(p => p.IsValueObjectType))
     { #>
 <#        if (property.IsCollection)
           { #>
             builder.OwnsMany(m => m.<#= property.Name #>)
-                .ToTable("<#= _modelDefinition.Name #><#= property.Name #>", _dbSchema)
-                .WithOwner().HasForeignKey("<#= _modelDefinition.Name #>Id");
+                .ToTable("<#= _model.Name #><#= property.Name #>", _dbSchema)
+                .WithOwner().HasForeignKey("<#= _model.Name #>Id");
 <#        } #>
 <#        else if (!property.IsGeneric)
           { #>
             builder.OwnsOne(m => m.<#= property.Name #>)
-                .ToTable("<#= _modelDefinition.Name #><#= property.Name #>", _dbSchema)
-                .WithOwner().HasForeignKey("<#= _modelDefinition.Name #>Id");
+                .ToTable("<#= _model.Name #><#= property.Name #>", _dbSchema)
+                .WithOwner().HasForeignKey("<#= _model.Name #>Id");
 <#        } #>
 <#    } #>
         }

@@ -4,13 +4,13 @@ namespace Generator.Templates.Queries
 {
     public partial class GetByIdQueryTemplate
     {
-        private readonly string _namespace;
-        private readonly ModelDefinition _modelDefinition;
+        private readonly ModuleDefinition _module;
+        private readonly ModelDefinition _model;
 
-        public GetByIdQueryTemplate(string @namespace, ModelDefinition modelDefinition)
+        public GetByIdQueryTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            _namespace = @namespace;
-            _modelDefinition = modelDefinition;
+            _module = moduleDefinition;
+            _model = modelDefinition;
         }
     }
 }

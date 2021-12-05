@@ -32,13 +32,13 @@ namespace Generator.Templates.Domain
             this.Write("using System;\r\nusing System.Collections.Generic;\r\n");
             
             #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\ModelTemplate.tt"
-  if (_model.IsEntity && _module.DomainSettings.EntityUsings.Any()) 
+  if (_model.IsEntity && _module.Settings.EntityUsings.Any()) 
             
             #line default
             #line hidden
             
             #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\ModelTemplate.tt"
-      foreach (var @using in _module.DomainSettings.EntityUsings) 
+      foreach (var @using in _module.Settings.EntityUsings) 
         { 
             
             #line default
@@ -81,7 +81,7 @@ namespace Generator.Templates.Domain
             this.Write("\r\n    {\r\n");
             
             #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\ModelTemplate.tt"
-  if (_model.IsEntity && _module.DomainSettings.GenerateIdProperties)
+  if (_model.IsEntity && _module.Settings.GenerateIdProperties)
     { 
             
             #line default

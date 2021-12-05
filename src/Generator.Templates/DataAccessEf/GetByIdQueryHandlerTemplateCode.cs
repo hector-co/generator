@@ -4,13 +4,13 @@ namespace Generator.Templates.DataAccessEf
 {
     public partial class GetByIdQueryHandlerTemplate
     {
-        private readonly string _namespace;
-        private readonly ModelDefinition _modelDefinition;
+        private readonly ModuleDefinition _module;
+        private readonly ModelDefinition _model;
 
-        public GetByIdQueryHandlerTemplate(string @namespace, ModelDefinition modelDefinition)
+        public GetByIdQueryHandlerTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            _namespace = @namespace;
-            _modelDefinition = modelDefinition;
+            _module = moduleDefinition;
+            _model = modelDefinition;
         }
     }
 }

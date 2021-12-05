@@ -34,70 +34,70 @@ namespace Generator.Templates.DataAccessEf
                     "m.Linq;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing ");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetDomainModelNamespace()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
             #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetQueriesNamespace()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetQueriesNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoNamespace(_namespace)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
             #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDataAccessModelNamespace(_namespace)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(".Queries\r\n{\r\n    public class ");
             
             #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write("GetByIdQueryHandler : IRequestHandler<");
             
             #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write("GetByIdQuery, ResultModel<");
             
             #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">>\r\n    {\r\n        private readonly ");
             
             #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetContextName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
             this.Write(" _context;\r\n\r\n        public ");
             
             #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write("GetByIdQueryHandler(");
             
             #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace.GetContextName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
@@ -105,14 +105,14 @@ namespace Generator.Templates.DataAccessEf
                     "c async Task<ResultModel<");
             
             #line 29 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">> Handle(");
             
             #line 29 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
@@ -120,21 +120,21 @@ namespace Generator.Templates.DataAccessEf
                     "  IQueryable<");
             
             #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("> efQuery = _context.Set<");
             
             #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write(">();\r\n\r\n");
             
             #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-    if (QueryableExtensionsTemplate.RequiresIncludes(_modelDefinition))
+    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
     { 
             
             #line default
@@ -151,14 +151,14 @@ namespace Generator.Templates.DataAccessEf
                     "\n\r\n            var result = new ResultModel<");
             
             #line 42 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">\r\n            {\r\n                Data = data.Adapt<");
             
             #line 44 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetByIdQueryHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modelDefinition.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden

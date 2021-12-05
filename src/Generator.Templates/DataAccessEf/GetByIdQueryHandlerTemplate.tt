@@ -11,26 +11,26 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using <#= _namespace.GetDomainModelNamespace() #>;
-using <#= _namespace.GetQueriesNamespace() #>;
-using <#= _modelDefinition.GetDtoNamespace(_namespace) #>;
+using <#= _module.GetDomainModelNamespace() #>;
+using <#= _module.GetQueriesNamespace() #>;
+using <#= _module.GetDtoNamespace(_model) #>;
 
-namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>.Queries
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries
 {
-    public class <#= _modelDefinition.GetDtoName() #>GetByIdQueryHandler : IRequestHandler<<#= _modelDefinition.GetDtoName() #>GetByIdQuery, ResultModel<<#= _modelDefinition.GetDtoName() #>>>
+    public class <#= _model.GetDtoName() #>GetByIdQueryHandler : IRequestHandler<<#= _model.GetDtoName() #>GetByIdQuery, ResultModel<<#= _model.GetDtoName() #>>>
     {
-        private readonly <#= _namespace.GetContextName() #> _context;
+        private readonly <#= _module.GetContextName() #> _context;
 
-        public <#= _modelDefinition.GetDtoName() #>GetByIdQueryHandler(<#= _namespace.GetContextName() #> context)
+        public <#= _model.GetDtoName() #>GetByIdQueryHandler(<#= _module.GetContextName() #> context)
         {
             _context = context;
         }
 
-        public async Task<ResultModel<<#= _modelDefinition.GetDtoName() #>>> Handle(<#= _modelDefinition.GetDtoName() #>GetByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ResultModel<<#= _model.GetDtoName() #>>> Handle(<#= _model.GetDtoName() #>GetByIdQuery request, CancellationToken cancellationToken)
         {
-            IQueryable<<#= _modelDefinition.Name #>> efQuery = _context.Set<<#= _modelDefinition.Name #>>();
+            IQueryable<<#= _model.Name #>> efQuery = _context.Set<<#= _model.Name #>>();
 
-<#    if (QueryableExtensionsTemplate.RequiresIncludes(_modelDefinition))
+<#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
     { #>
             efQuery = efQuery.AddIncludes();
 
@@ -39,9 +39,9 @@ namespace <#= _modelDefinition.GetDataAccessModelNamespace(_namespace) #>.Querie
                     .AsNoTracking()
                     .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);
 
-            var result = new ResultModel<<#= _modelDefinition.GetDtoName() #>>
+            var result = new ResultModel<<#= _model.GetDtoName() #>>
             {
-                Data = data.Adapt<<#= _modelDefinition.GetDtoName() #>>()
+                Data = data.Adapt<<#= _model.GetDtoName() #>>()
             };
 
             return result;

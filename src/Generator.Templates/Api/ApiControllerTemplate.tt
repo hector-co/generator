@@ -9,31 +9,31 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using <#= _modelDefinition.GetDtoNamespace(_moduleDefinition.Name) #>;
+using <#= _module.GetDtoNamespace(_model) #>;
 
-namespace <#= _moduleDefinition.GetApiNamespace() #>
+namespace <#= _module.GetApiNamespace() #>
 {
-    [Route("<#= _moduleDefinition.ApiPrefix #>/<#= _modelDefinition.GetApiRouteName() #>")]
-    public class <#= _modelDefinition.PluralName #>Controller : ControllerBase
+    [Route("<#= _module.ApiPrefix #>/<#= _model.GetApiRouteName() #>")]
+    public class <#= _model.PluralName #>Controller : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public <#= _modelDefinition.PluralName #>Controller(IMediator mediator)
+        public <#= _model.PluralName #>Controller(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpGet("{id}", Name = "Get<#= _modelDefinition.Name #>ById")]
-        public async Task<IActionResult> Get(<#= _modelDefinition.IdentifierProperty.TypeName #> id, CancellationToken cancellationToken)
+        [HttpGet("{id}", Name = "Get<#= _model.Name #>ById")]
+        public async Task<IActionResult> Get(<#= _model.IdentifierProperty.TypeName #> id, CancellationToken cancellationToken)
         {
-            var getByIdQuery = new <#= _modelDefinition.GetDtoName() #>GetByIdQuery(id);
+            var getByIdQuery = new <#= _model.GetDtoName() #>GetByIdQuery(id);
             var result = await _mediator.Send(getByIdQuery, cancellationToken);
             if (result.Data == null) return NotFound();
             return Ok(result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] <#= _modelDefinition.GetDtoName() #>PagedQuery query, CancellationToken cancellationToken)
+        public async Task<IActionResult> Get([FromQuery] <#= _model.GetDtoName() #>PagedQuery query, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);

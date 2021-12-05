@@ -5,10 +5,7 @@ namespace Generator.Templates.Api
     public static class ApiExtensions
     {
         public static string GetApiNamespace(this ModuleDefinition moduleDefinition)
-            => moduleDefinition.Name.GetApiNamespace();
-
-        public static string GetApiNamespace(this string @namespace)
-            => $"{@namespace}.Api.Controllers";
+            => $"{moduleDefinition.Name}.{moduleDefinition.Settings.ApiControllersNamespace}";
 
         public static string GetApiRouteName(this ModelDefinition modelDefinition)
         {

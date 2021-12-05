@@ -32,28 +32,28 @@ namespace Generator.Templates.DataAccessEf
                     "\r\n\r\nnamespace ");
             
             #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetDataAccessNamespace()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessNamespace()));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    internal class ");
             
             #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
             this.Write("Factory : IDesignTimeDbContextFactory<");
             
             #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
             this.Write(">\r\n    {\r\n        public ");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
@@ -61,7 +61,7 @@ namespace Generator.Templates.DataAccessEf
                     "DbContextOptionsBuilder<");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
@@ -69,7 +69,7 @@ namespace Generator.Templates.DataAccessEf
                     "base=");
             
             #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.Name.GetExtension()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.Name.GetExtension()));
             
             #line default
             #line hidden
@@ -77,14 +77,14 @@ namespace Generator.Templates.DataAccessEf
                     "able(\"__EFMigrationsHistory\", ");
             
             #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
             this.Write(".DbSchema));\r\n\r\n            return new ");
             
             #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_moduleDefinition.GetContextName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden

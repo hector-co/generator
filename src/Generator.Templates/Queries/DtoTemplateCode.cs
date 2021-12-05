@@ -6,16 +6,16 @@ namespace Generator.Templates.Queries
 {
     public partial class DtoTemplate
     {
-        private readonly string _namespace;
-        private readonly ModelDefinition _modelDefinition;
+        private readonly ModuleDefinition _module;
+        private readonly ModelDefinition _model;
 
-        public DtoTemplate(string @namespace, ModelDefinition modelDefinition)
+        public DtoTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            _namespace = @namespace;
-            _modelDefinition = modelDefinition;
+            _module = moduleDefinition;
+            _model = modelDefinition;
         }
 
-        public static List<string> GetRelatedEntitiesUsings(ModelDefinition modelDefinition, string @namespace)
+        public static List<string> GetRelatedEntitiesUsings(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
         {
             var result = new List<string>();
 
@@ -23,7 +23,7 @@ namespace Generator.Templates.Queries
                 => (p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model.Parent != modelDefinition && p.CastTargetType<ModelTypeDefinition>().Model != modelDefinition)
                     || p.IsValueObjectType).Select(p => p.CastTargetType<ModelTypeDefinition>().Model).Distinct())
             {
-                result.Add($"{model.GetDtoNamespace(@namespace)}");
+                result.Add($"{moduleDefinition.GetDtoNamespace(model)}");
             }
 
             return result;

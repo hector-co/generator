@@ -6,21 +6,21 @@
 <#@ import namespace="Generator.Metadata" #>
 using System;
 using System.Collections.Generic;
-<# foreach(var relType in GetRelatedEntitiesUsings(_modelDefinition, _namespace))
+<# foreach(var relType in GetRelatedEntitiesUsings(_model, _module))
    { 
 #>
 using <#= relType #>;
 <# } #>
 
-namespace <#= _modelDefinition.GetDtoNamespace(_namespace) #>
+namespace <#= _module.GetDtoNamespace(_model) #>
 {
-    public class <#= _modelDefinition.GetDtoName() #>
+    public class <#= _model.GetDtoName() #>
     {
-        public <#= _modelDefinition.GetDtoName() #>()
+        public <#= _model.GetDtoName() #>()
         {
         }
 
-<#  foreach(var propInfo in GetPropertiesInfo(_modelDefinition))
+<#  foreach(var propInfo in GetPropertiesInfo(_model))
     { #>
         <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
 <#  } #>

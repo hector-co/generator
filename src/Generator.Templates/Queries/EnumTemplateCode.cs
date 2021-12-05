@@ -4,13 +4,13 @@ namespace Generator.Templates.Queries
 {
     public partial class EnumTemplate
     {
-        private readonly string _namespace;
-        private readonly EnumDefinition _enumDefinition;
+        private readonly ModuleDefinition _module;
+        private readonly EnumDefinition _enum;
 
-        public EnumTemplate(string @namespace, EnumDefinition enumDefinition)
+        public EnumTemplate(ModuleDefinition moduleDefinition, EnumDefinition enumDefinition)
         {
-            _namespace = @namespace;
-            _enumDefinition = enumDefinition;
+            _module = moduleDefinition;
+            _enum = enumDefinition;
         }
     }
 }
