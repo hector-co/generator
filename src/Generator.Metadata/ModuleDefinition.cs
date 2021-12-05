@@ -1,26 +1,16 @@
-﻿using Humanizer;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Generator.Metadata
 {
     public class ModuleDefinition
     {
-        private string _apiPrefix;
-
         public ModuleDefinition()
         {
             Settings = new Settings();
         }
 
         public string Name { get; set; }
-        public string ApiPrefix
-        {
-            set => _apiPrefix = value;
-            get => !string.IsNullOrEmpty(_apiPrefix)
-                      ? _apiPrefix
-                      : Name.Camelize();
-        }
 
         public Settings Settings { get; set; } = new Settings();
         public Dictionary<string, ModelDefinition> Model { get; set; } = new Dictionary<string, ModelDefinition>();
@@ -44,6 +34,9 @@ namespace Generator.Metadata
 
             foreach (var enumName in Enums.Keys)
                 Enums[enumName].Init(enumName);
+
+            if (Settings == null) Settings = new Settings();
+            Settings.ModuleName = Name;
         }
     }
 }

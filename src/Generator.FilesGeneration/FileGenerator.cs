@@ -1,4 +1,5 @@
 ﻿using Generator.Metadata;
+using Generator.Templates;
 using Generator.Templates.Api;
 using Generator.Templates.DataAccessEf;
 using Generator.Templates.Domain;
@@ -80,10 +81,11 @@ namespace Generator.FilesGeneration
             {
                 var dataAccessEfDirectory = $"{_outputDir}.{_module.Settings.DataAccessEfFolder}";
 
-                var dataAccessEfContextFileName = $"{dataAccessEfDirectory}/{_module.Name}Context.cs";
+                var dataAccessEfContextFileName = $"{dataAccessEfDirectory}/{_module.Name.GetExtension()}Context.cs";
                 SaveText(dataAccessEfContextFileName, new ContextTemplate(_module).TransformText(), _forceRegen);
 
-                var dataAccessEfContextFactoryFileName = $"{dataAccessEfDirectory}/{_module.Name}ContextFactory.cs";
+                var dataAccessEfContextFactoryFileName = $"{dataAccessEfDirectory}/{_module.Name.GetExtension()}ContextFactory.cs";
+                if (File.Exists(dataAccessEfContextFactoryFileName)) return;
                 SaveText(dataAccessEfContextFactoryFileName, new ContextFactoryTemplate(_module).TransformText(), _forceRegen);
             }
         }
@@ -122,7 +124,7 @@ namespace Generator.FilesGeneration
             {
                 if (!model.IsOwnedEntity)
                 {
-                    var getByIdFileName = $"{queryDirectory}/{model.PluralName}/{model.Name}DtoGetById.cs";
+                    var getByIdFileName = $"{queryDirectory}/{model.PluralName}/{model.Name}DtoGetByIdQuery.cs";
                     SaveText(getByIdFileName, new GetByIdQueryTemplate(_module, model).TransformText(), _forceRegen);
 
                     var pagedFileName = $"{queryDirectory}/{model.PluralName}/{model.Name}DtoPagedQuery.cs";

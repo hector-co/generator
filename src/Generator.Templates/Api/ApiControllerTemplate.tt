@@ -13,7 +13,7 @@ using <#= _module.GetDtoNamespace(_model) #>;
 
 namespace <#= _module.GetApiNamespace() #>
 {
-    [Route("<#= _module.ApiPrefix #>/<#= _model.GetApiRouteName() #>")]
+    [Route("<#= _module.Settings.ApiPrefix #>/<#= _model.GetApiRouteName() #>")]
     public class <#= _model.PluralName #>Controller : ControllerBase
     {
         private readonly IMediator _mediator;

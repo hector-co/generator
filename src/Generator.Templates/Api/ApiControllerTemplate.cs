@@ -47,7 +47,7 @@ namespace Generator.Templates.Api
             this.Write("\r\n{\r\n    [Route(\"");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.ApiPrefix));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.Settings.ApiPrefix));
             
             #line default
             #line hidden

@@ -8,7 +8,7 @@ namespace Generator.Templates.DataAccessEf
             => $"{moduleDefinition.Name}.{moduleDefinition.Settings.DataAccessEfNamespace}";
 
         public static string GetContextName(this ModuleDefinition moduleDefinition)
-            => $"{moduleDefinition.Name}Context";
+            => $"{moduleDefinition.Name.GetExtension()}Context";
 
         public static string GetDataAccessModelNamespace(this ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
             => $"{moduleDefinition.GetDataAccessNamespace()}.{(modelDefinition.Parent ?? modelDefinition).PluralName}";

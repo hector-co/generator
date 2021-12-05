@@ -41,7 +41,7 @@ namespace Generator.Templates.Queries
             else if (propertyDefinition.IsEntityType)
             {
                 var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
-                return ResolvePropertyInternalType(propertyDefinition, entityType.Model.IdentifierType);
+                return ResolvePropertyInternalType(propertyDefinition, entityType.Model.IdentifierType + (propertyDefinition.TargetType.IsNullable ? "?" : ""));
             }
             else if (propertyDefinition.IsEnumType)
             {
