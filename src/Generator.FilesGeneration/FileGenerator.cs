@@ -29,7 +29,7 @@ namespace Generator.FilesGeneration
             _module = JsonConvert.DeserializeObject<ModuleDefinition>(File.ReadAllText(file));
             _module.Init();
 
-            _outputDir = outputDir + "/" + _module.Name;
+            _outputDir = outputDir;
         }
 
         public void Generate()
@@ -60,7 +60,7 @@ namespace Generator.FilesGeneration
 
             if (domain)
             {
-                var modelDirectory = $"{_outputDir}.{_module.Settings.DomainModelFolder}";
+                var modelDirectory = GetFolderPath(_module.Settings.DomainModelFolder);
 
                 var dataAccessEfFileName = $"{modelDirectory}/_DataAccessEf.cs";
                 SaveText(dataAccessEfFileName, new DataAccessTemplateEf(_module).TransformText(), _forceRegen);
@@ -68,7 +68,7 @@ namespace Generator.FilesGeneration
 
             if (query)
             {
-                var queryDirectory = $"{_outputDir}.{_module.Settings.QueriesFolder}";
+                var queryDirectory = GetFolderPath(_module.Settings.QueriesFolder);
 
                 foreach (var @enum in _module.Enums)
                 {
@@ -79,7 +79,7 @@ namespace Generator.FilesGeneration
 
             if (dataAccessEf)
             {
-                var dataAccessEfDirectory = $"{_outputDir}.{_module.Settings.DataAccessEfFolder}";
+                var dataAccessEfDirectory = GetFolderPath(_module.Settings.DataAccessEfFolder);
 
                 var dataAccessEfContextFileName = $"{dataAccessEfDirectory}/{_module.Name.GetExtension()}Context.cs";
                 SaveText(dataAccessEfContextFileName, new ContextTemplate(_module).TransformText(), _forceRegen);
@@ -104,7 +104,7 @@ namespace Generator.FilesGeneration
 
             var model = _module.Model[modelName];
 
-            var modelDirectory = $"{_outputDir}.{_module.Settings.DomainModelFolder}";
+            var modelDirectory = GetFolderPath(_module.Settings.DomainModelFolder);
             var modelFileName = $"{modelDirectory}/{model.Name}.cs";
             SaveText(modelFileName, new ModelTemplate(_module, model).TransformText(), _forceRegen);
         }
@@ -115,7 +115,7 @@ namespace Generator.FilesGeneration
 
             var model = _module.Model[modelName];
 
-            var queryDirectory = $"{_outputDir}.{_module.Settings.QueriesFolder}";
+            var queryDirectory = GetFolderPath(_module.Settings.QueriesFolder);
 
             var dtoFileName = $"{queryDirectory}/{(model.Parent ?? model).PluralName}/{model.Name}Dto.cs";
             SaveText(dtoFileName, new DtoTemplate(_module, model).TransformText(), _forceRegen);
@@ -141,7 +141,7 @@ namespace Generator.FilesGeneration
 
             if (!model.IsEntity) return;
 
-            var dataAccessEfDirectory = $"{_outputDir}.{_module.Settings.DataAccessEfFolder}";
+            var dataAccessEfDirectory = GetFolderPath(_module.Settings.DataAccessEfFolder);
 
             if (!model.IsOwnedEntity)
             {
@@ -169,9 +169,16 @@ namespace Generator.FilesGeneration
 
             if (!model.IsRoot) return;
 
-            var ctrlDirectory = $"{_outputDir}.{_module.Settings.ApiControllersFolder}";
+            var ctrlDirectory = GetFolderPath(_module.Settings.ApiControllersFolder);
             var ctrlFileName = $"{ctrlDirectory}/{model.PluralName}Controller.cs";
             SaveText(ctrlFileName, new ApiControllerTemplate(_module, model).TransformText(), _forceRegen);
+        }
+
+        private string GetFolderPath(string folderName)
+        {
+            if (folderName.StartsWith(_module.Name))
+                return $"{_outputDir}/{folderName}";
+            return $"{_outputDir}/{_module.Name}.{folderName}";
         }
 
         private static void SaveText(string fileName, string text, bool forceRegen)

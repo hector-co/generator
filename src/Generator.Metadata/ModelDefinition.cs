@@ -75,7 +75,7 @@ namespace Generator.Metadata
                         .Where(p => p.Model == this);
                     if (modelProps.Any())
                     {
-                        Parent = model;
+                        Parent = model.Parent ?? model;
                         break;
                     }
                 }
