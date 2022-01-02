@@ -94,5 +94,12 @@ namespace Generator.Metadata
         {
             return Properties.Values.Where(p => p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model == modelDefinition && p.IsGeneric == isGeneric).Count() > 1;
         }
+
+        public ModelDefinition GetParent()
+        {
+            if (Parent == null) return Parent;
+            if (!Parent.IsRoot) return Parent.GetParent();
+            return Parent;
+        }
     }
 }

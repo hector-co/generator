@@ -36,6 +36,8 @@ namespace Generator.Metadata
 
         public string DomainModelFolder { get; set; } = "Domain/Model";
         public string DomainModelNamespace { get; set; } = "Domain.Model";
+        public string CommandsFolder { get; set; } = "Commands";
+        public string CommandsNamespace { get; set; } = "Commands";
         public string QueriesFolder { get; set; } = "Queries";
         public string QueriesNamespace { get; set; } = "Queries";
         public string DataAccessEfFolder { get; set; } = "DataAccess.Ef";

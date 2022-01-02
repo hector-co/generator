@@ -1,6 +1,7 @@
 ﻿using Generator.Metadata;
 using Generator.Templates;
 using Generator.Templates.Api;
+using Generator.Templates.Commands;
 using Generator.Templates.DataAccessEf;
 using Generator.Templates.Domain;
 using Generator.Templates.Queries;
@@ -93,6 +94,7 @@ namespace Generator.FilesGeneration
         private void GenerateFiles(string modelName, TemplateGenerationOption option)
         {
             GenerateDomainFiles(modelName, option);
+            GenerateCommandFiles(modelName, option);
             GenerateQueryFiles(modelName, option);
             GenerateDataAccessEfFiles(modelName, option);
             GenerateApiFiles(modelName, option);
@@ -107,6 +109,23 @@ namespace Generator.FilesGeneration
             var modelDirectory = GetFolderPath(_module.Settings.DomainModelFolder);
             var modelFileName = $"{modelDirectory}/{model.Name}.cs";
             SaveText(modelFileName, new ModelTemplate(_module, model).TransformText(), _forceRegen);
+        }
+
+        private void GenerateCommandFiles(string modelName, TemplateGenerationOption option)
+        {
+            if (!option.Command) return;
+
+            var model = _module.Model[modelName];
+
+            if (!model.IsRoot) return;
+
+            var commandDirectory = GetFolderPath(_module.Settings.CommandsFolder);
+
+            var registerCommandFileName = $"{commandDirectory}/{model.PluralName}/Register{model.Name}Command.cs";
+            SaveText(registerCommandFileName, new RegisterCommandTemplate(_module, model).TransformText(), _forceRegen);
+
+            var registerCommandValidatorFileName = $"{commandDirectory}/{model.PluralName}/Register{model.Name}CommandValidator.cs";
+            SaveText(registerCommandValidatorFileName, new RegisterCommandValidatorTemplate(_module, model).TransformText(), _forceRegen);
         }
 
         private void GenerateQueryFiles(string modelName, TemplateGenerationOption option)

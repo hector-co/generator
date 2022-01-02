@@ -25,6 +25,7 @@ namespace Generator.Cli
                     tplOpts.Add("*", new TemplateGenerationOption
                     {
                         Domain = true,
+                        Command = true,
                         Query = true,
                         DataAccessEf = true,
                         Api = true
@@ -55,6 +56,7 @@ namespace Generator.Cli
             {
                 DataAccessEf = VerifyAndRemove(ref value, "da"),
                 Domain = VerifyAndRemove(ref value, "d"),
+                Command = VerifyAndRemove(ref value, "c"),
                 Query = VerifyAndRemove(ref value, "q"),
                 Api = VerifyAndRemove(ref value, "a")
             };

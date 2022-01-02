@@ -31,6 +31,7 @@ namespace Generator.Gui
                 var node = treeModel.Nodes.Add(modelName);
 
                 AddNode(node, "Domain", "d");
+                AddNode(node, "Commands", "c");
                 AddNode(node, "Queries", "q");
                 AddNode(node, "DataAccessEf", "da");
                 AddNode(node, "Api", "a");
@@ -63,6 +64,8 @@ namespace Generator.Gui
 
             checkDomain.CheckState = CheckState.Unchecked;
             checkDomain.Checked = @checked;
+            checkCommands.CheckState = CheckState.Unchecked;
+            checkCommands.Checked = @checked;
             checkQueries.CheckState = CheckState.Unchecked;
             checkQueries.Checked = @checked;
             checkDataAccessEf.CheckState = CheckState.Unchecked;
@@ -77,6 +80,9 @@ namespace Generator.Gui
             {
                 case "Domain":
                     checkDomain.Checked = @checked;
+                    break;
+                case "Commands":
+                    checkCommands.Checked = @checked;
                     break;
                 case "Queries":
                     checkQueries.Checked = @checked;
@@ -95,7 +101,7 @@ namespace Generator.Gui
 
         private void UpdateMainOptionsCheckedState()
         {
-            (int domain, int queries, int dataAccessEf, int api) result = (-1, -1, -1, -1);
+            (int domain, int commands, int queries, int dataAccessEf, int api) result = (-1, -1, -1, -1, -1);
             foreach (TreeNode node in treeModel.Nodes)
             {
                 foreach (TreeNode childNode in node.Nodes)
@@ -104,6 +110,9 @@ namespace Generator.Gui
                     {
                         case "Domain":
                             result.domain = GetcheckState(result.domain, childNode.Checked);
+                            break;
+                        case "Commands":
+                            result.commands = GetcheckState(result.commands, childNode.Checked);
                             break;
                         case "Queries":
                             result.queries = GetcheckState(result.queries, childNode.Checked);
@@ -119,6 +128,7 @@ namespace Generator.Gui
             }
 
             SetCheckBoxState(checkDomain, result.domain);
+            SetCheckBoxState(checkDomain, result.commands);
             SetCheckBoxState(checkQueries, result.queries);
             SetCheckBoxState(checkDataAccessEf, result.dataAccessEf);
             SetCheckBoxState(checkApi, result.api);
@@ -150,6 +160,7 @@ namespace Generator.Gui
         {
             checkSelectAll.Checked =
                 checkDomain.Checked && checkDomain.CheckState == CheckState.Checked
+                && checkCommands.Checked && checkCommands.CheckState == CheckState.Checked
                 && checkQueries.Checked && checkQueries.CheckState == CheckState.Checked
                 && checkDataAccessEf.Checked && checkDataAccessEf.CheckState == CheckState.Checked
                 && checkApi.Checked && checkApi.CheckState == CheckState.Checked;
@@ -246,6 +257,7 @@ namespace Generator.Gui
             checkSelectAll.CheckedChanged -= SelectAll_CheckedChanged;
 
             checkDomain.CheckedChanged -= MainOption_CheckedChanged;
+            checkCommands.CheckedChanged -= MainOption_CheckedChanged;
             checkQueries.CheckedChanged -= MainOption_CheckedChanged;
             checkDataAccessEf.CheckedChanged -= MainOption_CheckedChanged;
             checkApi.CheckedChanged -= MainOption_CheckedChanged;
@@ -258,6 +270,7 @@ namespace Generator.Gui
             checkSelectAll.CheckedChanged += SelectAll_CheckedChanged;
 
             checkDomain.CheckedChanged += MainOption_CheckedChanged;
+            checkCommands.CheckedChanged += MainOption_CheckedChanged;
             checkQueries.CheckedChanged += MainOption_CheckedChanged;
             checkDataAccessEf.CheckedChanged += MainOption_CheckedChanged;
             checkApi.CheckedChanged += MainOption_CheckedChanged;
@@ -270,6 +283,7 @@ namespace Generator.Gui
             checkSelectAll.Enabled = enabled;
 
             checkDomain.Enabled = enabled;
+            checkCommands.Enabled = enabled;
             checkQueries.Enabled = enabled;
             checkDataAccessEf.Enabled = enabled;
             checkApi.Enabled = enabled;
@@ -295,6 +309,9 @@ namespace Generator.Gui
                         {
                             case "Domain":
                                 tplOption.Domain = true;
+                                break;
+                            case "Commands":
+                                tplOption.Command = true;
                                 break;
                             case "Queries":
                                 tplOption.Query = true;
