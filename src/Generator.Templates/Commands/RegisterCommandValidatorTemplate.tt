@@ -27,7 +27,7 @@ namespace <#= _module.GetCommandsNamespace(_model) #>
 <#      } #>
         }
 
-<#      foreach(var model in GetModelsForValidations(_model))
+<#      foreach(var model in GetModelsForValidations(_module, _model))
         { #>
         public class <#= model.Name #>Validator : AbstractValidator<<#= RegisterCommandTemplate.GetCommandName(_model) #>.<#= model.Name #>>
         {

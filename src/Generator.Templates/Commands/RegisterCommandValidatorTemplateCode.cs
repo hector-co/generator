@@ -29,7 +29,9 @@ namespace Generator.Templates.Commands
                 var validations = new List<string>();
                 if (!property.IsGeneric && property.IsRootType && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
                     validations.Add("NotEmpty()");
-                if (!property.IsGeneric && (property.IsOwnedEntity || property.IsValueObjectType))
+                if (!property.IsGeneric && property.IsOwnedEntity && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
+                    validations.Add("NotEmpty()");
+                if (!property.IsGeneric && property.IsValueObjectType)
                     validations.Add($"SetValidator(new {property.CastTargetType<ModelTypeDefinition>().Model.Name}Validator())");
                 if (property.Required ?? false)
                     validations.Add("NotEmpty()");
@@ -39,7 +41,7 @@ namespace Generator.Templates.Commands
                 if (validations.Any())
                 {
                     validations[validations.Count - 1] = validations[validations.Count - 1] + ";";
-                    result.Add(GetPropertyName(modelDefinition, property), validations);
+                    result.Add(GetPropertyName(modelDefinition.GetParent() ?? modelDefinition, property), validations);
                 }
             }
             return result;
@@ -51,22 +53,21 @@ namespace Generator.Templates.Commands
 
             foreach (var property in modelDefinition.Properties.Values)
             {
-                if (property.IsCollection && (property.IsEntityType || property.IsValueObjectType))
-                    result.Add(GetPropertyName(modelDefinition, property), property.CastTargetType<ModelTypeDefinition>().Model.Name);
+                if (property.IsCollection && ((property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model != modelDefinition) || property.IsValueObjectType))
+                    result.Add(GetPropertyName(modelDefinition.GetParent() ?? modelDefinition, property), property.CastTargetType<ModelTypeDefinition>().Model.Name);
             }
             return result;
         }
 
-        private static List<ModelDefinition> GetModelsForValidations(ModelDefinition modelDefinition)
+        private static List<ModelDefinition> GetModelsForValidations(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            var result = new List<ModelDefinition>();
+            var entities = moduleDefinition.EntityModels.Where(e => e.GetParent() == modelDefinition);
+            var valueObjects = modelDefinition.Properties.Values
+                .Where(p => p.IsValueObjectType)
+                .Select(p => p.CastTargetType<ModelTypeDefinition>().Model)
+                .Distinct();
 
-            foreach (var property in modelDefinition.Properties.Values)
-            {
-                if (property.IsOwnedEntity || property.IsValueObjectType)
-                    result.Add(property.CastTargetType<ModelTypeDefinition>().Model);
-            }
-            return result.Distinct().ToList();
+            return entities.Concat(valueObjects).Distinct().ToList();
         }
 
         private static string GetPropertyName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)

@@ -130,7 +130,7 @@ namespace Generator.Templates.Commands
             this.Write("        }\r\n\r\n");
             
             #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-      foreach(var model in GetModelsForValidations(_model))
+      foreach(var model in GetModelsForValidations(_module, _model))
         { 
             
             #line default
