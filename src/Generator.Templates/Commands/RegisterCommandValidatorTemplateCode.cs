@@ -53,7 +53,7 @@ namespace Generator.Templates.Commands
 
             foreach (var property in modelDefinition.Properties.Values)
             {
-                if (property.IsCollection && ((property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model != modelDefinition) || property.IsValueObjectType))
+                if (property.IsCollection && ((!property.IsRootType && property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model != modelDefinition) || property.IsValueObjectType))
                     result.Add(GetPropertyName(modelDefinition.GetParent() ?? modelDefinition, property), property.CastTargetType<ModelTypeDefinition>().Model.Name);
             }
             return result;
