@@ -33,7 +33,7 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>
     { #>
             builder.Property(m => m.<#= propertyName #>_Serialized);
 <#    } #>
-<#    foreach(var property in _model.Properties.Values.Where(p => p.Size.HasValue || (p.Required.HasValue && !p.IsCollection)))
+<#    foreach(var property in _model.Properties.Values.Where(p => !p.IsCollection && (p.Size.HasValue || p.Required.HasValue && p.Required.Value)))
     { #>
             builder.Property(m => m.<#= property.Name #>)
 <#        if(property.Required.HasValue && property.Required.Value) 
