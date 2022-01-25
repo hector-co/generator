@@ -51,7 +51,7 @@
             this.treeModel.Location = new System.Drawing.Point(12, 91);
             this.treeModel.Name = "treeModel";
             this.treeModel.Size = new System.Drawing.Size(393, 312);
-            this.treeModel.TabIndex = 7;
+            this.treeModel.TabIndex = 8;
             // 
             // textFile
             // 
@@ -101,7 +101,7 @@
             this.checkQueries.Location = new System.Drawing.Point(180, 66);
             this.checkQueries.Name = "checkQueries";
             this.checkQueries.Size = new System.Drawing.Size(66, 19);
-            this.checkQueries.TabIndex = 4;
+            this.checkQueries.TabIndex = 5;
             this.checkQueries.Tag = "";
             this.checkQueries.Text = "Queries";
             this.checkQueries.UseVisualStyleBackColor = true;
@@ -112,7 +112,7 @@
             this.checkDataAccessEf.Location = new System.Drawing.Point(252, 66);
             this.checkDataAccessEf.Name = "checkDataAccessEf";
             this.checkDataAccessEf.Size = new System.Drawing.Size(96, 19);
-            this.checkDataAccessEf.TabIndex = 5;
+            this.checkDataAccessEf.TabIndex = 6;
             this.checkDataAccessEf.Tag = "";
             this.checkDataAccessEf.Text = "DataAccessEf";
             this.checkDataAccessEf.UseVisualStyleBackColor = true;
@@ -123,7 +123,7 @@
             this.checkApi.Location = new System.Drawing.Point(354, 66);
             this.checkApi.Name = "checkApi";
             this.checkApi.Size = new System.Drawing.Size(44, 19);
-            this.checkApi.TabIndex = 6;
+            this.checkApi.TabIndex = 7;
             this.checkApi.Tag = "";
             this.checkApi.Text = "Api";
             this.checkApi.UseVisualStyleBackColor = true;
@@ -146,7 +146,7 @@
             this.checkForceRegen.Location = new System.Drawing.Point(223, 416);
             this.checkForceRegen.Name = "checkForceRegen";
             this.checkForceRegen.Size = new System.Drawing.Size(101, 19);
-            this.checkForceRegen.TabIndex = 8;
+            this.checkForceRegen.TabIndex = 9;
             this.checkForceRegen.Text = "Overwrite files";
             this.checkForceRegen.UseVisualStyleBackColor = true;
             // 
@@ -161,7 +161,7 @@
             this.checkCommands.Location = new System.Drawing.Point(86, 66);
             this.checkCommands.Name = "checkCommands";
             this.checkCommands.Size = new System.Drawing.Size(88, 19);
-            this.checkCommands.TabIndex = 10;
+            this.checkCommands.TabIndex = 4;
             this.checkCommands.Tag = "";
             this.checkCommands.Text = "Commands";
             this.checkCommands.UseVisualStyleBackColor = true;

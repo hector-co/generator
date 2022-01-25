@@ -128,7 +128,7 @@ namespace Generator.Gui
             }
 
             SetCheckBoxState(checkDomain, result.domain);
-            SetCheckBoxState(checkDomain, result.commands);
+            SetCheckBoxState(checkCommands, result.commands);
             SetCheckBoxState(checkQueries, result.queries);
             SetCheckBoxState(checkDataAccessEf, result.dataAccessEf);
             SetCheckBoxState(checkApi, result.api);
