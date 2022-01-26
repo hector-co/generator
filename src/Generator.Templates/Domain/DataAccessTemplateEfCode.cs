@@ -66,7 +66,7 @@ namespace Generator.Templates.Domain
                             : model.IdentifierProperty.TargetType.Name + (property.Required.HasValue ? (property.Required.Value ? "" : "?") : ""),
                         Name = properties.Count() == 1
                             ? property.WithMany
-                                ? model.PluralName
+                                ? $"{model.Name}{property.Name}"
                                 : model.Name + ModelDefinition.IdPropertyName
                             : property.Name + (property.WithMany ? model.PluralName : (model.Name + ModelDefinition.IdPropertyName))
                     };

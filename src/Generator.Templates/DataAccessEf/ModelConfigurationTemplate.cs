@@ -301,7 +301,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write(")\r\n                .WithMany(r => r.");
             
             #line 70 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
+            this.Write(this.ToStringHelper.ToStringWithCulture($"{_model.Name}{property.Name}"));
             
             #line default
             #line hidden
@@ -309,13 +309,7 @@ namespace Generator.Templates.DataAccessEf
                     " \"");
             
             #line 72 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
-            
-            #line default
-            #line hidden
-            
-            #line 72 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(property.CastTargetType<ModelTypeDefinition>().Model.PluralName));
+            this.Write(this.ToStringHelper.ToStringWithCulture($"{_model.Name}{property.Name}"));
             
             #line default
             #line hidden

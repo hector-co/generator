@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Humanizer;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,20 @@ namespace Generator.Metadata
         public const string GenericTypeExp = @"\w+<(.*)?>";
         public static readonly IEnumerable<string> ValidSystemTypes = new[] { "byte", "bool", "int", "long", "float", "double", "char", "string", "DateTime", "DateTimeOffset", "TimeSpan", "object", "DayOfWeek", "Guid" };
 
+        private string _pluralName;
+
         public string Name { get; set; }
-        public string PluralName { get; set; }
+        public string PluralName
+        {
+            get
+            {
+                return string.IsNullOrEmpty(_pluralName) ? Name.Pluralize() : _pluralName;
+            }
+            set
+            {
+                _pluralName = value;
+            }
+        }
         public bool WithMany { get; set; }
         public FilterDefinition Filter { get; set; }
         public int? Size { get; set; }

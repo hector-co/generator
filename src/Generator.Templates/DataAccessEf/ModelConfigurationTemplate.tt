@@ -67,9 +67,9 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>
 <#    foreach(var property in _model.Properties.Values.Where(p => p.WithMany))
     { #>
             builder.HasMany(m => m.<#= property.Name #>)
-                .WithMany(r => r.<#= _model.PluralName #>)
+                .WithMany(r => r.<#= $"{_model.Name}{property.Name}"#>)
                 .UsingEntity<Dictionary<string, object>>(
-                    "<#= _model.Name #><#= property.CastTargetType<ModelTypeDefinition>().Model.PluralName #>",
+                    "<#= $"{_model.Name}{property.Name}" #>",
                     j => j
                         .HasOne<<#= property.CastTargetType<ModelTypeDefinition>().Model.Name #>>()
                         .WithMany()
