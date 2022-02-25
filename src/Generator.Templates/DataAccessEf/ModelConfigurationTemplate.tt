@@ -5,6 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Metadata" #>
 <#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Humanizer" #>
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
@@ -69,11 +70,11 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>
             builder.HasMany(m => m.<#= property.Name #>)
                 .WithMany(r => r.<#= $"{_model.Name}{property.Name}"#>)
                 .UsingEntity<Dictionary<string, object>>(
-                    "<#= $"{_model.Name}{property.Name}" #>",
+                    "<#= $"{_model.Name}{property.Name.Singularize()}" #>",
                     j => j
                         .HasOne<<#= property.CastTargetType<ModelTypeDefinition>().Model.Name #>>()
                         .WithMany()
-                        .HasForeignKey("<#= property.CastTargetType<ModelTypeDefinition>().Model.Name #>Id"),
+                        .HasForeignKey("<#= property.Name.Singularize() #>Id"),
                     j => j
                         .HasOne<<#= _model.Name #>>()
                         .WithMany()
