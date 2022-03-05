@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using CommandLine.Text;
 using Generator.FilesGeneration;
 using System;
 using System.Collections.Generic;
@@ -75,15 +76,25 @@ namespace Generator.Cli
 
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<GenOptions>(args)
-                   .WithParsed(o =>
-                   {
-                       GenerateFiles(o);
-                   })
-                   .WithNotParsed(errs =>
-                   {
-                       Console.WriteLine(errs);
-                   });
+            var result = Parser.Default.ParseArguments<GenOptions>(args);
+
+            result.WithParsed(o =>
+                {
+                    try
+                    {
+                        GenerateFiles(o);
+                        Console.WriteLine("Generation completed");
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        Console.WriteLine("File not found");
+                        Console.WriteLine(HelpText.AutoBuild(result, x => x, x => x));
+                    }
+                    catch
+                    {
+                        Console.WriteLine(HelpText.AutoBuild(result, x => x, x => x));
+                    }
+                });
         }
     }
 }
