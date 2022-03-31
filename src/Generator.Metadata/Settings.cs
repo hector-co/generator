@@ -40,8 +40,8 @@ namespace Generator.Metadata
         public string CommandsNamespace { get; set; } = "Commands";
         public string QueriesFolder { get; set; } = "Queries";
         public string QueriesNamespace { get; set; } = "Queries";
-        public string DataAccessEfFolder { get; set; } = "DataAccess.Ef";
-        public string DataAccessEfNamespace { get; set; } = "DataAccess.Ef";
+        public string DataAccessEfFolder { get; set; } = "DataAccess.EF";
+        public string DataAccessEfNamespace { get; set; } = "DataAccess.EF";
         public string ApiControllersFolder { get; set; } = "Api/Controllers";
         public string ApiControllersNamespace { get; set; } = "Api.Controllers";
     }
