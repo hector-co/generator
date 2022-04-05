@@ -22,12 +22,12 @@ namespace Generator.Templates.DataAccessEf
 
         public static bool RequiresIncludes(ModelDefinition modelDefinition)
         {
-            return modelDefinition.Properties.Values.Any(p => p.IsEntityType);
+            return modelDefinition.EvalProperties.Values.Any(p => p.IsEntityType);
         }
 
         public static List<string> GetRelatedEntitiesPropertyNames(ModelDefinition modelDefinition)
         {
-            return modelDefinition.Properties.Values
+            return modelDefinition.EvalProperties.Values
                 .Where(p => p.IsEntityType)
                 .Select(p => p.Name)
                 .ToList();

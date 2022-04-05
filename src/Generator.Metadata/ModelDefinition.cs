@@ -27,8 +27,10 @@ namespace Generator.Metadata
         }
         public bool IsRoot { get; set; } = true;
         public bool IsEntity { get; set; } = true;
+        public bool IsAbstract { get; set; }
+        public string InheritsFrom { get; set; }
         [JsonIgnore]
-        public ModelDefinition Parent { get; set; }
+        public ModelDefinition RootEntity { get; set; }
         [JsonIgnore]
         public PropertyDefinition IdentifierProperty { get; set; }
         public Dictionary<string, PropertyDefinition> Properties { get; set; }
@@ -36,6 +38,9 @@ namespace Generator.Metadata
         public bool IsOwnedEntity => !IsRoot && IsEntity;
         public bool IsValueObject => !IsRoot && !IsEntity;
         public bool RequiresDataAccessClass { get; private set; }
+        public bool IsChildClass => !string.IsNullOrEmpty(InheritsFrom);
+        [JsonIgnore]
+        public Dictionary<string, PropertyDefinition> EvalProperties { get; private set; } = new Dictionary<string, PropertyDefinition>();
 
         public void Init(ModuleDefinition moduleDefinition, string name)
         {
@@ -62,9 +67,6 @@ namespace Generator.Metadata
 
         public void AdjustRelationships(ModuleDefinition moduleDefinition)
         {
-            foreach (var propertyName in Properties.Keys)
-                Properties[propertyName].Init(moduleDefinition, propertyName);
-
             if (IsOwnedEntity)
             {
                 foreach (var model in moduleDefinition.Model.Values)
@@ -75,19 +77,32 @@ namespace Generator.Metadata
                         .Where(p => p.Model == this);
                     if (modelProps.Any())
                     {
-                        Parent = model.Parent ?? model;
+                        RootEntity = model.RootEntity ?? model;
                         break;
                     }
                 }
 
-                if (Parent == null)
-                    throw new ArgumentException(null, nameof(Parent));
+                if (RootEntity == null)
+                    throw new ArgumentException(null, nameof(RootEntity));
             }
 
             RequiresDataAccessClass = IdentifierProperty != null &&
                 (Properties.Any(p => p.Value.IsEntityType && !p.Value.IsGeneric) ||
                 Properties.Any(p => p.Value.IsSystemType && p.Value.IsGeneric) ||
                 moduleDefinition.Model.Values.Any(m => m.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == this)));
+
+            if (IsChildClass)
+            {
+                var parent = moduleDefinition.EntityModels.FirstOrDefault(m => m.Name == InheritsFrom);
+                foreach (var property in parent.Properties)
+                {
+                    EvalProperties.Add(property.Key, property.Value);
+                }
+            }
+            foreach (var property in Properties)
+            {
+                EvalProperties.Add(property.Key, property.Value);
+            }
         }
 
         public bool HasMultiplePropertiesWithModelType(ModelDefinition modelDefinition, bool isGeneric)
@@ -95,11 +110,11 @@ namespace Generator.Metadata
             return Properties.Values.Where(p => p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model == modelDefinition && p.IsGeneric == isGeneric).Count() > 1;
         }
 
-        public ModelDefinition GetParent()
+        public ModelDefinition GetRootEntity()
         {
-            if (Parent == null) return Parent;
-            if (!Parent.IsRoot) return Parent.GetParent();
-            return Parent;
+            if (RootEntity == null) return RootEntity;
+            if (!RootEntity.IsRoot) return RootEntity.GetRootEntity();
+            return RootEntity;
         }
     }
 }

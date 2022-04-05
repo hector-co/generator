@@ -14,11 +14,11 @@ using <#= @using #>;
 
 namespace <#= _module.GetDomainModelNamespace() #>
 {
-    public partial class <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>
+    public <#= _model.IsAbstract? "abstract " : "" #>partial class <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>
     {
 <# if (HasPropertiesForInit(_model))
    { #>
-        public <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>()
+        public <#= _model.Name #>()
         {
 <#      foreach(var propInfo in GetPropertiesForInitInfo(_model))
         { #>
@@ -27,7 +27,7 @@ namespace <#= _module.GetDomainModelNamespace() #>
         }
 
 <# } #>
-<#  if (_model.IsEntity && _module.Settings.GenerateIdProperties)
+<#  if (_model.IsEntity && _module.Settings.GenerateIdProperties && !_model.IsChildClass)
     { #>
         public <#= _model.IdentifierProperty.TypeName #> <#= _model.IdentifierProperty.Name #> { get; set; }
 <#  } #>

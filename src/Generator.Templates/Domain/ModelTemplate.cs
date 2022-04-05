@@ -64,7 +64,14 @@ namespace Generator.Templates.Domain
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public partial class ");
+            this.Write("\r\n{\r\n    public ");
+            
+            #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\ModelTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IsAbstract? "abstract " : ""));
+            
+            #line default
+            #line hidden
+            this.Write("partial class ");
             
             #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
@@ -90,13 +97,6 @@ namespace Generator.Templates.Domain
             
             #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\ModelTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetBaseClassName(_model, _module)));
             
             #line default
             #line hidden
@@ -138,7 +138,7 @@ namespace Generator.Templates.Domain
             #line hidden
             
             #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\ModelTemplate.tt"
-  if (_model.IsEntity && _module.Settings.GenerateIdProperties)
+  if (_model.IsEntity && _module.Settings.GenerateIdProperties && !_model.IsChildClass)
     { 
             
             #line default

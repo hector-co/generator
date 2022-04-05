@@ -117,7 +117,7 @@ namespace Generator.FilesGeneration
 
             var model = _module.Model[modelName];
 
-            if (!model.IsRoot) return;
+            if (!model.IsRoot || model.IsAbstract) return;
 
             var commandDirectory = GetFolderPath(_module.Settings.CommandsFolder);
 
@@ -134,9 +134,11 @@ namespace Generator.FilesGeneration
 
             var model = _module.Model[modelName];
 
+            if (model.IsAbstract) return;
+
             var queryDirectory = GetFolderPath(_module.Settings.QueriesFolder);
 
-            var dtoFileName = $"{queryDirectory}/{(model.Parent ?? model).PluralName}/{model.Name}Dto.cs";
+            var dtoFileName = $"{queryDirectory}/{(model.RootEntity ?? model).PluralName}/{model.Name}Dto.cs";
             SaveText(dtoFileName, new DtoTemplate(_module, model).TransformText(), _forceRegen);
 
             if (model.IsEntity)
@@ -158,7 +160,7 @@ namespace Generator.FilesGeneration
 
             var model = _module.Model[modelName];
 
-            if (!model.IsEntity) return;
+            if (!model.IsEntity || model.IsAbstract) return;
 
             var dataAccessEfDirectory = GetFolderPath(_module.Settings.DataAccessEfFolder);
 
@@ -176,7 +178,7 @@ namespace Generator.FilesGeneration
                     SaveText(extensionsFileName, new QueryableExtensionsTemplate(_module, model).TransformText(), _forceRegen);
                 }
             }
-            var configFileName = $"{dataAccessEfDirectory}/{(model.Parent ?? model).PluralName}/{model.Name}Configuration.cs";
+            var configFileName = $"{dataAccessEfDirectory}/{(model.RootEntity ?? model).PluralName}/{model.Name}Configuration.cs";
             SaveText(configFileName, new ModelConfigurationTemplate(_module, model).TransformText(), _forceRegen);
         }
 
@@ -186,7 +188,7 @@ namespace Generator.FilesGeneration
 
             var model = _module.Model[modelName];
 
-            if (!model.IsRoot) return;
+            if (!model.IsRoot || model.IsAbstract) return;
 
             var ctrlDirectory = GetFolderPath(_module.Settings.ApiControllersFolder);
             var ctrlFileName = $"{ctrlDirectory}/{model.PluralName}Controller.cs";

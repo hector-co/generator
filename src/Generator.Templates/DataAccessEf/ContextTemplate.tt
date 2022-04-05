@@ -6,7 +6,7 @@
 <#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.DataAccessEf" #>
 using Microsoft.EntityFrameworkCore;
-<#    foreach(var model in _module.Model.Values.Where(m => m.IsRoot))
+<#    foreach(var model in _module.Model.Values.Where(m => m.IsRoot && !m.IsAbstract))
     { #>
 using <#= _module.GetDataAccessModelNamespace(model) #>;
 <#    } #>
@@ -28,7 +28,7 @@ namespace <#= _module.GetDataAccessNamespace() #>
 
         public static void Configure(ModelBuilder modelBuilder, string dbSchema = DbSchema)
         {
-<#    foreach(var model in _module.Model.Values.Where(m => m.IsEntity))
+<#    foreach(var model in _module.Model.Values.Where(m => m.IsEntity && !m.IsAbstract))
     { #>
             modelBuilder.ApplyConfiguration(new <#= model.Name #>Configuration(dbSchema));
 <#    } #>

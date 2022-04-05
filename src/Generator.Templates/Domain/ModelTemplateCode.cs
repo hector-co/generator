@@ -17,6 +17,9 @@ namespace Generator.Templates.Domain
 
         public static string GetBaseClassName(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
         {
+            if (!string.IsNullOrEmpty(modelDefinition.InheritsFrom))
+                return $": {modelDefinition.InheritsFrom}";
+
             if (modelDefinition.IsRoot)
                 return string.IsNullOrEmpty(moduleDefinition.Settings.RootBaseClass)
                     ? ""

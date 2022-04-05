@@ -28,12 +28,15 @@ namespace Generator.Templates.Commands
         public static List<PropertyInfo> GetPropertiesForInitInfo(ModelDefinition modelDefinition)
         {
             var result = new List<PropertyInfo>();
-            foreach (var property in modelDefinition.Properties.Values.Where(p => p.IsGeneric))
+            foreach (var property in modelDefinition.EvalProperties.Values.Where(p => p.IsGeneric))
             {
+                if (property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
+                    continue;
+
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "public",
-                    TypeName = GetPropertyTypeName(modelDefinition.GetParent() ?? modelDefinition, property),
+                    TypeName = GetPropertyTypeName(modelDefinition.GetRootEntity() ?? modelDefinition, property),
                     Name = GetPropertyName(modelDefinition, property)
                 };
                 result.Add(propInfo);
@@ -43,8 +46,8 @@ namespace Generator.Templates.Commands
 
         public static Dictionary<string, List<PropertyInfo>> GetSubClasses(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            var entities = moduleDefinition.EntityModels.Where(e => e.GetParent() == modelDefinition);
-            var valueObjects = modelDefinition.Properties.Values
+            var entities = moduleDefinition.EntityModels.Where(e => e.GetRootEntity() == modelDefinition);
+            var valueObjects = modelDefinition.EvalProperties.Values
                 .Where(p => p.IsValueObjectType)
                 .Select(p => p.CastTargetType<ModelTypeDefinition>().Model)
                 .Distinct();
@@ -55,15 +58,18 @@ namespace Generator.Templates.Commands
                     {
                         Visibility = "public",
                         Name = GetPropertyName(modelDefinition, p),
-                        TypeName = GetPropertyTypeName(modelDefinition.GetParent() ?? modelDefinition, p)
+                        TypeName = GetPropertyTypeName(modelDefinition.GetRootEntity() ?? modelDefinition, p)
                     }).ToList());
         }
 
         public static List<PropertyInfo> GetPropertiesInfo(ModelDefinition modelDefinition)
         {
             var result = new List<PropertyInfo>();
-            foreach (var property in modelDefinition.Properties.Values)
+            foreach (var property in modelDefinition.EvalProperties.Values)
             {
+                if (property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
+                    continue;
+
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "public",
@@ -81,7 +87,7 @@ namespace Generator.Templates.Commands
             {
                 return ResolvePropertyInternalType(propertyDefinition, propertyDefinition.TargetType.Name);
             }
-            else if (propertyDefinition.IsRootType || (propertyDefinition.IsEntityType && propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.GetParent() != modelDefinition))
+            else if (propertyDefinition.IsRootType || (propertyDefinition.IsEntityType && propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.GetRootEntity() != modelDefinition))
             {
                 var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
                 return ResolvePropertyInternalType(propertyDefinition, entityType.Model.IdentifierType + (propertyDefinition.TargetType.IsNullable ? "?" : ""));
@@ -106,7 +112,7 @@ namespace Generator.Templates.Commands
 
         private static string GetPropertyName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
         {
-            return propertyDefinition.IsRootType || (propertyDefinition.IsEntityType && propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.GetParent() != modelDefinition)
+            return propertyDefinition.IsRootType || (propertyDefinition.IsEntityType && propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.GetRootEntity() != modelDefinition)
                 ? propertyDefinition.Name + ModelDefinition.IdPropertyName
                 : propertyDefinition.Name;
         }

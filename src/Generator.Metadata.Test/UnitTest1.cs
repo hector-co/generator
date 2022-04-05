@@ -11,7 +11,7 @@ namespace Generator.Metadata.Test
         {
             var str = @"
   {
-    'models': {
+    'model': {
       'Model1': {
         'properties': {
           'Prop1': {
@@ -38,7 +38,7 @@ namespace Generator.Metadata.Test
         {
             var str = @"
   {
-    'models': {
+    'model': {
       'Model1': {
         'properties': {
           'Prop1': {
@@ -75,7 +75,7 @@ namespace Generator.Metadata.Test
         {
             var str = @"
   {
-    'models': {
+    'model': {
       'Model1': {
         'properties': {
           'Prop1': {
@@ -113,7 +113,7 @@ namespace Generator.Metadata.Test
         {
             var str = @"
   {
-    'models': {
+    'model': {
       'Model1': {
         'properties': {
           'Prop1': {
@@ -138,7 +138,7 @@ namespace Generator.Metadata.Test
         {
             var str = @"
   {
-    'models': {
+    'model': {
       'Model1': {
         'properties': {
           'Prop1': {
@@ -167,8 +167,8 @@ namespace Generator.Metadata.Test
             module.Model["Model2"].Properties.ContainsKey("Model1Rels").Should().BeTrue();
             module.Model["Model2"].Properties["Model1Rels"].TargetTypes.Any(p => p is ModelTypeDefinition).Should().BeTrue();
             module.Model["Model2"].Properties["Model1Rels"].TargetType.Cast<ModelTypeDefinition>().Should().NotBeNull();
-            module.Model["Model1"].Parent.Should().NotBeNull();
-            module.Model["Model1"].Parent.Should().Be(module.Model["Model2"]);
+            module.Model["Model1"].RootEntity.Should().NotBeNull();
+            module.Model["Model1"].RootEntity.Should().Be(module.Model["Model2"]);
         }
 
         [Fact]
@@ -176,7 +176,7 @@ namespace Generator.Metadata.Test
         {
             var str = @"
   {
-    'models': {
+    'model': {
       'Model1': {
         'properties': {
           'Prop1': {
@@ -214,7 +214,7 @@ namespace Generator.Metadata.Test
         {
             var str = @"
   {
-    'models': {
+    'model': {
       'Model1': {
         'properties': {
           'Prop1': {
@@ -252,7 +252,7 @@ namespace Generator.Metadata.Test
         {
             var str = @"
   {
-    'models': {
+    'model': {
       'Model1': {
         'properties': {
           'Prop1': {

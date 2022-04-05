@@ -11,6 +11,6 @@ namespace Generator.Templates.DataAccessEf
             => $"{moduleDefinition.Name.GetExtension()}Context";
 
         public static string GetDataAccessModelNamespace(this ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
-            => $"{moduleDefinition.GetDataAccessNamespace()}.{(modelDefinition.Parent ?? modelDefinition).PluralName}";
+            => $"{moduleDefinition.GetDataAccessNamespace()}.{(modelDefinition.RootEntity ?? modelDefinition).PluralName}";
     }
 }

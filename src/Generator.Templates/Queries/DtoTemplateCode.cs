@@ -19,8 +19,10 @@ namespace Generator.Templates.Queries
         {
             var result = new List<string>();
 
-            foreach (var model in modelDefinition.Properties.Values.Where(p
-                => (p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model.Parent != modelDefinition && p.CastTargetType<ModelTypeDefinition>().Model != modelDefinition)
+            foreach (var model in modelDefinition.EvalProperties.Values.Where(p
+                => (p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model.RootEntity != modelDefinition
+                    && p.CastTargetType<ModelTypeDefinition>().Model != modelDefinition
+                    && !p.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
                     || p.IsValueObjectType).Select(p => p.CastTargetType<ModelTypeDefinition>().Model).Distinct())
             {
                 result.Add($"{moduleDefinition.GetDtoNamespace(model)}");
@@ -31,15 +33,18 @@ namespace Generator.Templates.Queries
 
         public static bool HasPropertiesForInit(ModelDefinition modelDefinition)
         {
-            return modelDefinition.Properties.Values.Where(p => p.IsGeneric).Any();
+            return modelDefinition.EvalProperties.Values.Where(p => p.IsGeneric).Any();
         }
 
         public static List<PropertyInfo> GetPropertiesForInitInfo(ModelDefinition modelDefinition)
         {
             var result = new List<PropertyInfo>();
 
-            foreach (var property in modelDefinition.Properties.Values.Where(p => p.IsGeneric))
+            foreach (var property in modelDefinition.EvalProperties.Values.Where(p => p.IsGeneric))
             {
+                if (property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
+                    continue;
+
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "public",
@@ -63,8 +68,11 @@ namespace Generator.Templates.Queries
                     Name = ModelDefinition.IdPropertyName
                 });
 
-            foreach (var property in modelDefinition.Properties.Values)
+            foreach (var property in modelDefinition.EvalProperties.Values)
             {
+                if (property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
+                    continue;
+
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "public",

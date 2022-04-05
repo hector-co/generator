@@ -24,8 +24,11 @@ namespace Generator.Templates.Commands
         {
             var result = new Dictionary<string, List<string>>();
 
-            foreach (var property in modelDefinition.Properties.Values)
+            foreach (var property in modelDefinition.EvalProperties.Values)
             {
+                if (property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
+                    continue;
+
                 var validations = new List<string>();
                 if (!property.IsGeneric && property.IsRootType && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
                     validations.Add("NotEmpty()");
@@ -41,7 +44,7 @@ namespace Generator.Templates.Commands
                 if (validations.Any())
                 {
                     validations[validations.Count - 1] = validations[validations.Count - 1] + ";";
-                    result.Add(GetPropertyName(modelDefinition.GetParent() ?? modelDefinition, property), validations);
+                    result.Add(GetPropertyName(modelDefinition.GetRootEntity() ?? modelDefinition, property), validations);
                 }
             }
             return result;
@@ -51,18 +54,21 @@ namespace Generator.Templates.Commands
         {
             var result = new Dictionary<string, string>();
 
-            foreach (var property in modelDefinition.Properties.Values)
+            foreach (var property in modelDefinition.EvalProperties.Values)
             {
+                if (property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
+                    continue;
+
                 if (property.IsCollection && ((!property.IsRootType && property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model != modelDefinition) || property.IsValueObjectType))
-                    result.Add(GetPropertyName(modelDefinition.GetParent() ?? modelDefinition, property), property.CastTargetType<ModelTypeDefinition>().Model.Name);
+                    result.Add(GetPropertyName(modelDefinition.GetRootEntity() ?? modelDefinition, property), property.CastTargetType<ModelTypeDefinition>().Model.Name);
             }
             return result;
         }
 
         private static List<ModelDefinition> GetModelsForValidations(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            var entities = moduleDefinition.EntityModels.Where(e => e.GetParent() == modelDefinition);
-            var valueObjects = modelDefinition.Properties.Values
+            var entities = moduleDefinition.EntityModels.Where(e => e.GetRootEntity() == modelDefinition);
+            var valueObjects = modelDefinition.EvalProperties.Values
                 .Where(p => p.IsValueObjectType)
                 .Select(p => p.CastTargetType<ModelTypeDefinition>().Model)
                 .Distinct();
@@ -72,7 +78,7 @@ namespace Generator.Templates.Commands
 
         private static string GetPropertyName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
         {
-            return propertyDefinition.IsRootType || (propertyDefinition.IsEntityType && propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.GetParent() != modelDefinition)
+            return propertyDefinition.IsRootType || (propertyDefinition.IsEntityType && propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.GetRootEntity() != modelDefinition)
                 ? propertyDefinition.Name + ModelDefinition.IdPropertyName
                 : propertyDefinition.Name;
         }
