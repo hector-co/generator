@@ -46,12 +46,8 @@ namespace Generator.Templates.Commands
 
         public static Dictionary<string, List<PropertyInfo>> GetSubClasses(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            var entities = moduleDefinition.EntityModels.Where(e => e.GetRootEntity() == modelDefinition);
-            var valueObjects = modelDefinition.EvalProperties.Values
-                .Where(p => p.IsValueObjectType)
-                .Select(p => p.CastTargetType<ModelTypeDefinition>().Model)
-                .Distinct();
-            return entities.Concat(valueObjects).ToDictionary(
+            var entities = moduleDefinition.GetSubModels(modelDefinition);
+            return entities.ToDictionary(
                 e => e.Name,
                 e => e.Properties.Values.Select(p =>
                     new PropertyInfo

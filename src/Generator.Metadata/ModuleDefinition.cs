@@ -38,5 +38,23 @@ namespace Generator.Metadata
             if (Settings == null) Settings = new Settings();
             Settings.ModuleName = Name;
         }
+
+        public IEnumerable<ModelDefinition> GetSubModels(ModelDefinition modelDefinition)
+        {
+            var entities = EntityModels.Where(e => e.GetRootEntity() == modelDefinition);
+            var valueObjects = modelDefinition.EvalProperties.Values
+                .Where(p => p.IsValueObjectType)
+                .Select(p => p.CastTargetType<ModelTypeDefinition>().Model)
+                .Distinct();
+
+            entities = entities.Concat(valueObjects);
+
+            var result = new List<ModelDefinition>(entities);
+
+            foreach (var entity in entities)
+                result.AddRange(GetSubModels(entity));
+
+            return result;
+        }
     }
 }

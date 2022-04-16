@@ -65,15 +65,9 @@ namespace Generator.Templates.Commands
             return result;
         }
 
-        private static List<ModelDefinition> GetModelsForValidations(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
+        private static IEnumerable<ModelDefinition> GetModelsForValidations(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            var entities = moduleDefinition.EntityModels.Where(e => e.GetRootEntity() == modelDefinition);
-            var valueObjects = modelDefinition.EvalProperties.Values
-                .Where(p => p.IsValueObjectType)
-                .Select(p => p.CastTargetType<ModelTypeDefinition>().Model)
-                .Distinct();
-
-            return entities.Concat(valueObjects).Distinct().ToList();
+            return moduleDefinition.GetSubModels(modelDefinition);
         }
 
         private static string GetPropertyName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
