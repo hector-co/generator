@@ -42,7 +42,14 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write(" : IRequest\r\n    {\r\n");
+            this.Write(" : IRequest<");
+            
+            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
+            
+            #line default
+            #line hidden
+            this.Write(">\r\n    {\r\n");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandTemplate.tt"
  if (HasPropertiesForInit(_model))
