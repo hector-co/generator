@@ -9,11 +9,11 @@ using System.Collections.Generic;
 
 namespace <#= _module.GetCommandsNamespace(_model) #>
 {
-    public class <#= GetCommandName(_model) #> : IRequest<<#= _model.IdentifierType #>>
+    public class <#= _model.GetRegisterCommandClassName() #> : IRequest<<#= _model.IdentifierType #>>
     {
 <# if (HasPropertiesForInit(_model))
    { #>
-        public Register<#= _model.Name #>Command()
+        public <#= _model.GetRegisterCommandClassName() #>()
         {
 <#      foreach(var propInfo in GetPropertiesForInitInfo(_model))
         { #>

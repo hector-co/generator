@@ -121,11 +121,11 @@ namespace Generator.FilesGeneration
 
             var commandDirectory = GetFolderPath(_module.Settings.CommandsFolder);
 
-            var registerCommandFileName = $"{commandDirectory}/{model.PluralName}/Register{model.Name}Command.cs";
-            SaveText(registerCommandFileName, new RegisterCommandTemplate(_module, model).TransformText(), _forceRegen);
+            var registerCommandFileName = $"{commandDirectory}/{model.PluralName}/{model.GetRegisterCommandClassName()}.cs";
+            SaveText(registerCommandFileName, new RegisterTemplate(_module, model).TransformText(), _forceRegen);
 
-            var registerCommandValidatorFileName = $"{commandDirectory}/{model.PluralName}/Register{model.Name}CommandValidator.cs";
-            SaveText(registerCommandValidatorFileName, new RegisterCommandValidatorTemplate(_module, model).TransformText(), _forceRegen);
+            var registerCommandValidatorFileName = $"{commandDirectory}/{model.PluralName}/{model.GetRegisterCommandValidatorClassName()}.cs";
+            SaveText(registerCommandValidatorFileName, new RegisterValidatorTemplate(_module, model).TransformText(), _forceRegen);
         }
 
         private void GenerateQueryFiles(string modelName, TemplateGenerationOption option)
@@ -174,8 +174,8 @@ namespace Generator.FilesGeneration
 
                 if (option.Command)
                 {
-                    var registerCommandHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Commands/Register{model.Name}CommandHandler.cs";
-                    SaveText(registerCommandHandlerFileName, new RegisterCommandHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                    var registerCommandHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Commands/{model.GetRegisterCommandClassName()}Handler.cs";
+                    SaveText(registerCommandHandlerFileName, new RegisterHandlerTemplate(_module, model).TransformText(), _forceRegen);
                 }
 
                 if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model))

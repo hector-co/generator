@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Commands\RegisterCommandValidatorTemplate.cs">
+    <None Include="Commands\RegisterValidatorTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>RegisterCommandValidatorTemplate.tt</DependentUpon>
+      <DependentUpon>RegisterValidatorTemplate.tt</DependentUpon>
     </None>
     <None Include="DataAccessEf\ContextFactoryTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -46,15 +46,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ApiControllerTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="Commands\RegisterCommandTemplate.cs">
+    <Compile Update="Commands\RegisterTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>RegisterCommandTemplate.tt</DependentUpon>
+      <DependentUpon>RegisterTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="Commands\RegisterCommandValidatorTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>RegisterCommandValidatorTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Commands\RegisterValidatorTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RegisterValidatorTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="DataAccessEf\ContextFactoryTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -86,10 +91,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QueryableExtensionsTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="DataAccessEf\RegisterCommandHAndlerTemplate.cs">
+    <Compile Update="DataAccessEf\RegisterHandlerTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>RegisterCommandHandlerTemplate.tt</DependentUpon>
+      <DependentUpon>RegisterHandlerTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="DataAccessEf\WithManyConfigurationTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -133,13 +138,13 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ApiControllerTemplate.cs</LastGenOutput>
     </None>
-    <None Update="Commands\RegisterCommandTemplate.tt">
+    <None Update="Commands\RegisterTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>RegisterCommandTemplate.cs</LastGenOutput>
+      <LastGenOutput>RegisterTemplate.cs</LastGenOutput>
     </None>
-    <None Update="Commands\RegisterCommandValidatorTemplate.tt">
+    <None Update="Commands\RegisterValidatorTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>RegisterCommandValidatorTemplate.cs</LastGenOutput>
+      <LastGenOutput>RegisterValidatorTemplate.cs</LastGenOutput>
     </None>
     <None Update="DataAccessEf\ContextFactoryTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -165,9 +170,9 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>QueryableExtensionsTemplate.cs</LastGenOutput>
     </None>
-    <None Update="DataAccessEf\RegisterCommandHandlerTemplate.tt">
+    <None Update="DataAccessEf\RegisterHandlerTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>RegisterCommandHAndlerTemplate.cs</LastGenOutput>
+      <LastGenOutput>RegisterHandlerTemplate.cs</LastGenOutput>
     </None>
     <None Update="Domain\DataAccessTemplateEf.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

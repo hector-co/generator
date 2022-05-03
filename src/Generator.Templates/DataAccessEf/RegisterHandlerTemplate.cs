@@ -7,20 +7,19 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Generator.Templates.Commands
+namespace Generator.Templates.DataAccessEf
 {
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Generic;
+    using Generator.Templates.Domain;
+    using Generator.Templates.Commands;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
+    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class RegisterCommandValidatorTemplate : RegisterCommandValidatorTemplateBase
+    public partial class RegisterHandlerTemplate : RegisterHandlerTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,220 +27,240 @@ namespace Generator.Templates.Commands
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using FluentValidation;\r\n\r\nnamespace ");
+            this.Write("using Mapster;\r\nusing MediatR;\r\nusing ");
             
-            #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
+            #line 5 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\nusing ");
+            
+            #line 6 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class ");
+            this.Write(";\r\n\r\nnamespace ");
             
-            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetCommandValidatorName(_model)));
-            
-            #line default
-            #line hidden
-            this.Write(" : AbstractValidator<");
-            
-            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(RegisterCommandTemplate.GetCommandName(_model)));
+            #line 8 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write(">\r\n    {\r\n        public ");
+            this.Write(".Commands\r\n{\r\n    public class ");
             
-            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetCommandValidatorName(_model)));
-            
-            #line default
-            #line hidden
-            this.Write("()\r\n        {\r\n");
-            
-            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-      foreach(var prop in GetPropertiesValidations(_model))
-        { 
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
             #line hidden
-            this.Write("            RuleFor(c => c.");
+            this.Write("Handler : IRequestHandler<");
             
-            #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Key));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n");
-            
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-          foreach(var validation in prop.Value)
-            { 
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
             #line hidden
-            this.Write("                .");
+            this.Write(", ");
             
-            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(validation));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-          } 
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
+            this.Write(">\r\n    {\r\n        private readonly ");
             
-            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-      } 
-            
-            #line default
-            #line hidden
-            
-            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-      foreach(var prop in GetCollectionPropertiesValidations(_model))
-        { 
+            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write("            RuleForEach(c => c.");
+            this.Write(" _context;\r\n\r\n        public ");
             
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Key));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n                .SetValidator(new ");
-            
-            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Value));
+            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
             #line hidden
-            this.Write("Validator());\r\n");
+            this.Write("Handler(");
             
-            #line 27 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-      } 
-            
-            #line default
-            #line hidden
-            this.Write("        }\r\n\r\n");
-            
-            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-      foreach(var model in GetModelsForValidations(_module, _model))
-        { 
+            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write("        public class ");
+            this.Write(" context)\r\n        {\r\n            _context = context;\r\n        }\r\n\r\n        publi" +
+                    "c async Task<");
             
-            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
+            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
-            this.Write("TypeValidator : AbstractValidator<");
+            this.Write("> Handle(");
             
-            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(RegisterCommandTemplate.GetCommandName(_model)));
+            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
+            
+            #line default
+            #line hidden
+            this.Write(" request, CancellationToken cancellationToken)\r\n        {\r\n            var ");
+            
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(" = new ");
+            
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("();\r\n");
+            
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+  foreach(var propInfo in GetScalarPropertiesInfo(_model))
+    { 
+            
+            #line default
+            #line hidden
+            this.Write("            ");
+            
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
-            this.Write("Type>\r\n        {\r\n            public ");
+            this.Write(" = request.");
             
-            #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
-            
-            #line default
-            #line hidden
-            this.Write("TypeValidator()\r\n            {\r\n");
-            
-            #line 36 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-          foreach(var prop in GetPropertiesValidations(model))
-            { 
-            
-            #line default
-            #line hidden
-            this.Write("                RuleFor(c => c.");
-            
-            #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Key));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n");
-            
-            #line 39 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-              foreach(var validation in prop.Value)
-                { 
-            
-            #line default
-            #line hidden
-            this.Write("                    .");
-            
-            #line 41 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(validation));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 42 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-              } 
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             
-            #line 43 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-          } 
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.NameSuffix));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
+            
+            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+  } 
             
             #line default
             #line hidden
             
-            #line 44 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-          foreach(var prop in GetCollectionPropertiesValidations(model))
-            { 
+            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+  foreach(var entity in GetSingleOwnedEntities(_model))
+    { 
             
             #line default
             #line hidden
-            this.Write("                RuleForEach(c => c.");
+            this.Write("            ");
             
-            #line 46 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Key));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n                    .SetValidator(new ");
-            
-            #line 47 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Value));
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
-            this.Write("Validator());\r\n");
+            this.Write(".");
             
-            #line 48 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
-          } 
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
             
             #line default
             #line hidden
-            this.Write("            }\r\n        }\r\n");
+            this.Write(" = new ");
             
-            #line 51 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(entity.Value.Name));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n            {\r\n");
+            
+            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
+        { 
+            
+            #line default
+            #line hidden
+            this.Write("                ");
+            
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = request.");
+            
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
+            
+            #line default
+            #line hidden
+            
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.NameSuffix));
+            
+            #line default
+            #line hidden
+            this.Write(",\r\n");
+            
+            #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
       } 
             
             #line default
             #line hidden
-            this.Write("    }\r\n}\r\n");
+            this.Write("            };\r\n");
+            
+            #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+  } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n            _context.Add(");
+            
+            #line 37 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n            await _context.SaveChangesAsync(cancellationToken);\r\n            " +
+                    "return ");
+            
+            #line 39 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 39 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -253,7 +272,7 @@ namespace Generator.Templates.Commands
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class RegisterCommandValidatorTemplateBase
+    public class RegisterHandlerTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

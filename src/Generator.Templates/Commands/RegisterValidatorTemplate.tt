@@ -8,9 +8,9 @@ using FluentValidation;
 
 namespace <#= _module.GetCommandsNamespace(_model) #>
 {
-    public class <#= GetCommandValidatorName(_model) #> : AbstractValidator<<#= RegisterCommandTemplate.GetCommandName(_model) #>>
+    public class <#= _model.GetRegisterCommandValidatorClassName() #> : AbstractValidator<<#= _model.GetRegisterCommandClassName() #>>
     {
-        public <#= GetCommandValidatorName(_model) #>()
+        public <#= _model.GetRegisterCommandValidatorClassName() #>()
         {
 <#      foreach(var prop in GetPropertiesValidations(_model))
         { #>
@@ -29,7 +29,7 @@ namespace <#= _module.GetCommandsNamespace(_model) #>
 
 <#      foreach(var model in GetModelsForValidations(_module, _model))
         { #>
-        public class <#= model.Name #>TypeValidator : AbstractValidator<<#= RegisterCommandTemplate.GetCommandName(_model) #>.<#= model.Name #>Type>
+        public class <#= model.Name #>TypeValidator : AbstractValidator<<#= _model.GetRegisterCommandClassName() #>.<#= model.Name #>Type>
         {
             public <#= model.Name #>TypeValidator()
             {

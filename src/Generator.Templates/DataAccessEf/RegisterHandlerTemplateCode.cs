@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Generator.Templates.DataAccessEf
 {
-    public partial class RegisterCommandHandlerTemplate
+    public partial class RegisterHandlerTemplate
     {
         private readonly ModuleDefinition _module;
         private readonly ModelDefinition _model;
 
-        public RegisterCommandHandlerTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
+        public RegisterHandlerTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
             _module = moduleDefinition;
             _model = modelDefinition;

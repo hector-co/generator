@@ -4,20 +4,15 @@ using System.Linq;
 
 namespace Generator.Templates.Commands
 {
-    public partial class RegisterCommandValidatorTemplate
+    public partial class RegisterValidatorTemplate
     {
         private readonly ModuleDefinition _module;
         private readonly ModelDefinition _model;
 
-        public RegisterCommandValidatorTemplate(ModuleDefinition module, ModelDefinition model)
+        public RegisterValidatorTemplate(ModuleDefinition module, ModelDefinition model)
         {
             _module = module;
             _model = model;
-        }
-
-        public static string GetCommandValidatorName(ModelDefinition modelDefinition)
-        {
-            return $"{RegisterCommandTemplate.GetCommandName(modelDefinition)}Validator";
         }
 
         private static Dictionary<string, List<string>> GetPropertiesValidations(ModelDefinition modelDefinition)

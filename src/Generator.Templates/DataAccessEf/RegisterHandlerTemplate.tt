@@ -7,16 +7,16 @@ using <#= _module.GetCommandsNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands
 {
-    public class Register<#= _model.Name #>CommandHandler : IRequestHandler<Register<#= _model.Name #>Command, <#= _model.IdentifierType #>>
+    public class <#= _model.GetRegisterCommandClassName() #>Handler : IRequestHandler<<#= _model.GetRegisterCommandClassName() #>, <#= _model.IdentifierType #>>
     {
         private readonly <#= _module.GetContextName() #> _context;
 
-        public Register<#= _model.Name #>CommandHandler(<#= _module.GetContextName() #> context)
+        public <#= _model.GetRegisterCommandClassName() #>Handler(<#= _module.GetContextName() #> context)
         {
             _context = context;
         }
 
-        public async Task<<#= _model.IdentifierType #>> Handle(Register<#= _model.Name #>Command request, CancellationToken cancellationToken)
+        public async Task<<#= _model.IdentifierType #>> Handle(<#= _model.GetRegisterCommandClassName() #> request, CancellationToken cancellationToken)
         {
             var <#= _model.Name.GetVariableName() #> = new <#= _model.Name #>();
 <#  foreach(var propInfo in GetScalarPropertiesInfo(_model))

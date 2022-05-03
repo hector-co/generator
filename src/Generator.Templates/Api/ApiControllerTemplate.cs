@@ -125,16 +125,16 @@ namespace Generator.Templates.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] Register");
+        public async Task<IActionResult> Register([FromBody] ");
             
             #line 45 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
             #line hidden
-            this.Write("Command command, CancellationToken cancellationToken)\r\n        {\r\n            var" +
-                    " id = await _mediator.Send(command, cancellationToken);\r\n            var result " +
-                    "= await _mediator.Send(new ");
+            this.Write(" command, CancellationToken cancellationToken)\r\n        {\r\n            var id = a" +
+                    "wait _mediator.Send(command, cancellationToken);\r\n            var result = await" +
+                    " _mediator.Send(new ");
             
             #line 48 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));

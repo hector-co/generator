@@ -4,20 +4,15 @@ using System.Linq;
 
 namespace Generator.Templates.Commands
 {
-    public partial class RegisterCommandTemplate
+    public partial class RegisterTemplate
     {
         private readonly ModuleDefinition _module;
         private readonly ModelDefinition _model;
 
-        public RegisterCommandTemplate(ModuleDefinition module, ModelDefinition model)
+        public RegisterTemplate(ModuleDefinition module, ModelDefinition model)
         {
             _module = module;
             _model = model;
-        }
-
-        public static string GetCommandName(ModelDefinition modelDefinition)
-        {
-            return $"Register{modelDefinition.Name}Command";
         }
 
         public static bool HasPropertiesForInit(ModelDefinition modelDefinition)
