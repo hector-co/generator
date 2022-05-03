@@ -1,13 +1,13 @@
 ﻿using Generator.Metadata;
 
-namespace Generator.Templates.Queries
+namespace Generator.Templates.DataAccessEf
 {
-    public partial class GetByIdQueryTemplate
+    public partial class GetDtoByIdHandlerTemplate
     {
         private readonly ModuleDefinition _module;
         private readonly ModelDefinition _model;
 
-        public GetByIdQueryTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
+        public GetDtoByIdHandlerTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
             _module = moduleDefinition;
             _model = modelDefinition;

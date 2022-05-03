@@ -145,11 +145,11 @@ namespace Generator.FilesGeneration
             {
                 if (!model.IsOwnedEntity)
                 {
-                    var getByIdFileName = $"{queryDirectory}/{model.PluralName}/{model.Name}DtoGetByIdQuery.cs";
-                    SaveText(getByIdFileName, new GetByIdQueryTemplate(_module, model).TransformText(), _forceRegen);
+                    var getByIdFileName = $"{queryDirectory}/{model.PluralName}/{model.GetDtoByIdClassName()}.cs";
+                    SaveText(getByIdFileName, new GetDtoByIdTemplate(_module, model).TransformText(), _forceRegen);
 
-                    var pagedFileName = $"{queryDirectory}/{model.PluralName}/{model.Name}DtoPagedQuery.cs";
-                    SaveText(pagedFileName, new PagedQueryTemplate(_module, model).TransformText(), _forceRegen);
+                    var listFileName = $"{queryDirectory}/{model.PluralName}/{model.ListDtoClassName()}.cs";
+                    SaveText(listFileName, new ListDtoTemplate(_module, model).TransformText(), _forceRegen);
                 }
             }
         }
@@ -166,11 +166,11 @@ namespace Generator.FilesGeneration
 
             if (!model.IsOwnedEntity)
             {
-                var getByIdHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.Name}DtoGetByIdQueryHandler.cs";
-                SaveText(getByIdHandlerFileName, new GetByIdQueryHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                var getByIdHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.GetDtoByIdClassName()}Handler.cs";
+                SaveText(getByIdHandlerFileName, new GetDtoByIdHandlerTemplate(_module, model).TransformText(), _forceRegen);
 
-                var pagedHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.Name}DtoPagedQueryHandler.cs";
-                SaveText(pagedHandlerFileName, new PagedQueryHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                var listHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.ListDtoClassName()}Handler.cs";
+                SaveText(listHandlerFileName, new ListDtoHandlerTemplate(_module, model).TransformText(), _forceRegen);
 
                 if (option.Command)
                 {

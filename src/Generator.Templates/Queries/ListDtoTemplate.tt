@@ -11,9 +11,9 @@ using Qurl;
 
 namespace <#= _module.GetDtoNamespace(_model) #>
 {
-    public class <#= _model.GetDtoName() #>PagedQuery : Query<<#= _model.GetDtoName() #>PagedQuery.FilterProperties>, IRequest<ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>>
+    public class <#= _model.ListDtoClassName() #> : Query<<#= _model.ListDtoClassName() #>.FilterProperties>, IRequest<ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>>
     {
-        public <#= _model.GetDtoName() #>PagedQuery() : base(new SortValue("<#= ModelDefinition.IdPropertyName #>", SortDirection.Ascending))
+        public <#= _model.ListDtoClassName() #>() : base(new SortValue("<#= ModelDefinition.IdPropertyName #>", SortDirection.Ascending))
         {
         }
 

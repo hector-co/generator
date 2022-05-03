@@ -8,7 +8,8 @@
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using Qurl.Queryable;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using <#= _module.GetDomainModelNamespace() #>;
@@ -17,32 +18,33 @@ using <#= _module.GetDtoNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries
 {
-    public class <#= _model.GetDtoName() #>GetByIdQueryHandler : IRequestHandler<<#= _model.GetDtoName() #>GetByIdQuery, ResultModel<<#= _model.GetDtoName() #>>>
+    public class <#= _model.ListDtoClassName() #>Handler : IRequestHandler<<#= _model.ListDtoClassName() #>, ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>>
     {
         private readonly <#= _module.GetContextName() #> _context;
 
-        public <#= _model.GetDtoName() #>GetByIdQueryHandler(<#= _module.GetContextName() #> context)
+        public <#= _model.ListDtoClassName() #>Handler(<#= _module.GetContextName() #> context)
         {
             _context = context;
         }
 
-        public async Task<ResultModel<<#= _model.GetDtoName() #>>> Handle(<#= _model.GetDtoName() #>GetByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>> Handle(<#= _model.ListDtoClassName() #> request, CancellationToken cancellationToken)
         {
-            IQueryable<<#= _model.Name #>> efQuery = _context.Set<<#= _model.Name #>>();
+            var result = new ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>();
+
+            var efQuery = _context.Set<<#= _model.Name #>>().ApplyQuery(request, false);
+            result.TotalCount = await efQuery.CountAsync(cancellationToken);
+            efQuery = efQuery.ApplySortAndPaging(request);
 
 <#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
     { #>
             efQuery = efQuery.AddIncludes();
-
+            
 <#    } #>
             var data = await efQuery
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);
-
-            var result = new ResultModel<<#= _model.GetDtoName() #>>
-            {
-                Data = data.Adapt<<#= _model.GetDtoName() #>>()
-            };
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+           
+            result.Data = data.Adapt<List<<#= _model.GetDtoName() #>>>();
 
             return result;
         }

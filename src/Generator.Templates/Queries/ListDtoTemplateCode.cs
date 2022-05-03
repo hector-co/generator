@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Generator.Templates.Queries
 {
-    public partial class PagedQueryTemplate
+    public partial class ListDtoTemplate
     {
         private readonly ModuleDefinition _module;
         private readonly ModelDefinition _model;
 
-        public PagedQueryTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
+        public ListDtoTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
             _module = moduleDefinition;
             _model = modelDefinition;

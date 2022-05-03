@@ -71,15 +71,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ModelConfigurationTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="DataAccessEf\PagedQueryHandlerTemplate.cs">
-      <DependentUpon>PagedQueryHandlerTemplate.tt</DependentUpon>
+    <Compile Update="DataAccessEf\ListDtoHandlerTemplate.cs">
+      <DependentUpon>ListDtoHandlerTemplate.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="DataAccessEf\GetByIdQueryHandlerTemplate.cs">
+    <Compile Update="DataAccessEf\GetDtoByIdHandlerTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>GetByIdQueryHandlerTemplate.tt</DependentUpon>
+      <DependentUpon>GetDtoByIdHandlerTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="DataAccessEf\QueryableExtensionsTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -116,15 +116,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>EnumTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="Queries\GetByIdQueryTemplate.cs">
+    <Compile Update="Queries\GetDtoByIdTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>GetByIdQueryTemplate.tt</DependentUpon>
+      <DependentUpon>GetDtoByIdTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="Queries\PagedQueryTemplate.cs">
+    <Compile Update="Queries\ListDtoTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>PagedQueryTemplate.tt</DependentUpon>
+      <DependentUpon>ListDtoTemplate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -153,13 +153,13 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ModelConfigurationTemplate.cs</LastGenOutput>
     </None>
-    <None Update="DataAccessEf\PagedQueryHandlerTemplate.tt">
-      <LastGenOutput>PagedQueryHandlerTemplate.cs</LastGenOutput>
+    <None Update="DataAccessEf\ListDtoHandlerTemplate.tt">
+      <LastGenOutput>ListDtoHandlerTemplate.cs</LastGenOutput>
       <Generator>TextTemplatingFilePreprocessor</Generator>
     </None>
-    <None Update="DataAccessEf\GetByIdQueryHandlerTemplate.tt">
+    <None Update="DataAccessEf\GetDtoByIdHandlerTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>GetByIdQueryHandlerTemplate.cs</LastGenOutput>
+      <LastGenOutput>GetDtoByIdHandlerTemplate.cs</LastGenOutput>
     </None>
     <None Update="DataAccessEf\QueryableExtensionsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -185,13 +185,13 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>EnumTemplate.cs</LastGenOutput>
     </None>
-    <None Update="Queries\PagedQueryTemplate.tt">
-      <LastGenOutput>PagedQueryTemplate.cs</LastGenOutput>
+    <None Update="Queries\ListDtoTemplate.tt">
+      <LastGenOutput>ListDtoTemplate.cs</LastGenOutput>
       <Generator>TextTemplatingFilePreprocessor</Generator>
     </None>
-    <None Update="Queries\GetByIdQueryTemplate.tt">
+    <None Update="Queries\GetDtoByIdTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>GetByIdQueryTemplate.cs</LastGenOutput>
+      <LastGenOutput>GetDtoByIdTemplate.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

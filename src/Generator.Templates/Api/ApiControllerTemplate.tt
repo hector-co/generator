@@ -28,14 +28,14 @@ namespace <#= _module.GetApiNamespace() #>
         [HttpGet("{id}", Name = "Get<#= _model.Name #>ById")]
         public async Task<IActionResult> Get(<#= _model.IdentifierProperty.TypeName #> id, CancellationToken cancellationToken)
         {
-            var getByIdQuery = new <#= _model.GetDtoName() #>GetByIdQuery(id);
+            var getByIdQuery = new <#= _model.GetDtoByIdClassName() #>(id);
             var result = await _mediator.Send(getByIdQuery, cancellationToken);
             if (result.Data == null) return NotFound();
             return Ok(result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] <#= _model.GetDtoName() #>PagedQuery query, CancellationToken cancellationToken)
+        public async Task<IActionResult> Get([FromQuery] <#= _model.ListDtoClassName() #> query, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);
@@ -45,7 +45,7 @@ namespace <#= _module.GetApiNamespace() #>
         public async Task<IActionResult> Register([FromBody] Register<#= _model.Name #>Command command, CancellationToken cancellationToken)
         {
             var id = await _mediator.Send(command, cancellationToken);
-            var result = await _mediator.Send(new <#= _model.GetDtoName() #>GetByIdQuery(id), cancellationToken);
+            var result = await _mediator.Send(new <#= _model.GetDtoByIdClassName() #>(id), cancellationToken);
             return CreatedAtRoute("Get<#= _model.Name #>ById", new { id }, result);
         }
     }

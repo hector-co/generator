@@ -100,11 +100,11 @@ namespace Generator.Templates.Api
                     "y = new ");
             
             #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
             #line hidden
-            this.Write(@"GetByIdQuery(id);
+            this.Write(@"(id);
             var result = await _mediator.Send(getByIdQuery, cancellationToken);
             if (result.Data == null) return NotFound();
             return Ok(result);
@@ -114,11 +114,11 @@ namespace Generator.Templates.Api
         public async Task<IActionResult> Get([FromQuery] ");
             
             #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
-            this.Write(@"PagedQuery query, CancellationToken cancellationToken)
+            this.Write(@" query, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);
@@ -137,11 +137,11 @@ namespace Generator.Templates.Api
                     "= await _mediator.Send(new ");
             
             #line 48 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
             #line hidden
-            this.Write("GetByIdQuery(id), cancellationToken);\r\n            return CreatedAtRoute(\"Get");
+            this.Write("(id), cancellationToken);\r\n            return CreatedAtRoute(\"Get");
             
             #line 49 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));

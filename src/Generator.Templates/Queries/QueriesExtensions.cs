@@ -14,5 +14,11 @@ namespace Generator.Templates.Queries
 
         public static string GetDtoName(this ModelDefinition modelDefinition)
             => $"{modelDefinition.Name}Dto";
+
+        public static string GetDtoByIdClassName(this ModelDefinition modelDefinition)
+            => $"Get{modelDefinition.GetDtoName()}ById";
+
+        public static string ListDtoClassName(this ModelDefinition modelDefinition)
+            => $"List{modelDefinition.GetDtoName()}";
     }
 }

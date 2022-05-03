@@ -1,0 +1,50 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Generator.Templates.Queries" #>
+using Mapster;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using <#= _module.GetDomainModelNamespace() #>;
+using <#= _module.GetQueriesNamespace() #>;
+using <#= _module.GetDtoNamespace(_model) #>;
+
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries
+{
+    public class <#= _model.GetDtoByIdClassName() #>Handler : IRequestHandler<<#= _model.GetDtoByIdClassName() #>, ResultModel<<#= _model.GetDtoName() #>>>
+    {
+        private readonly <#= _module.GetContextName() #> _context;
+
+        public <#= _model.GetDtoByIdClassName() #>Handler(<#= _module.GetContextName() #> context)
+        {
+            _context = context;
+        }
+
+        public async Task<ResultModel<<#= _model.GetDtoName() #>>> Handle(<#= _model.GetDtoByIdClassName() #> request, CancellationToken cancellationToken)
+        {
+            IQueryable<<#= _model.Name #>> efQuery = _context.Set<<#= _model.Name #>>();
+
+<#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
+    { #>
+            efQuery = efQuery.AddIncludes();
+
+<#    } #>
+            var data = await efQuery
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);
+
+            var result = new ResultModel<<#= _model.GetDtoName() #>>
+            {
+                Data = data.Adapt<<#= _model.GetDtoName() #>>()
+            };
+
+            return result;
+        }
+    }
+}

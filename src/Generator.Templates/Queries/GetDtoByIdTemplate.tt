@@ -9,13 +9,13 @@ using MediatR;
 
 namespace <#= _module.GetDtoNamespace(_model) #>
 {
-    public class <#= _model.GetDtoName() #>GetByIdQuery : IRequest<ResultModel<<#= _model.GetDtoName() #>>>
+    public class <#= _model.GetDtoByIdClassName() #> : IRequest<ResultModel<<#= _model.GetDtoName() #>>>
     {
-        public <#= _model.GetDtoName() #>GetByIdQuery()
+        public <#= _model.GetDtoByIdClassName() #>()
         {
         }
 
-        public <#= _model.GetDtoName() #>GetByIdQuery(<#= _model.IdentifierType #> id)
+        public <#= _model.GetDtoByIdClassName() #>(<#= _model.IdentifierType #> id)
         {
             Id = id;
         }
