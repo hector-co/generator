@@ -48,7 +48,7 @@ namespace Generator.Templates.Commands
         {
             var entities = moduleDefinition.GetSubModels(modelDefinition);
             return entities.ToDictionary(
-                e => e.Name,
+                e => e.Name + "Type",
                 e => e.Properties.Values.Select(p =>
                     new PropertyInfo
                     {
@@ -91,7 +91,7 @@ namespace Generator.Templates.Commands
             else if (propertyDefinition.IsEntityType || propertyDefinition.IsValueObjectType)
             {
                 var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
-                return ResolvePropertyInternalType(propertyDefinition, entityType.Model.Name);
+                return ResolvePropertyInternalType(propertyDefinition, entityType.Model.Name + "Type");
             }
             else if (propertyDefinition.IsEnumType)
             {

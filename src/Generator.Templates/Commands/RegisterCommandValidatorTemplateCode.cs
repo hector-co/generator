@@ -60,7 +60,7 @@ namespace Generator.Templates.Commands
                     continue;
 
                 if (property.IsCollection && ((!property.IsRootType && property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model != modelDefinition) || property.IsValueObjectType))
-                    result.Add(GetPropertyName(modelDefinition.GetRootEntity() ?? modelDefinition, property), property.CastTargetType<ModelTypeDefinition>().Model.Name);
+                    result.Add(GetPropertyName(modelDefinition.GetRootEntity() ?? modelDefinition, property), property.CastTargetType<ModelTypeDefinition>().Model.Name + "Type");
             }
             return result;
         }

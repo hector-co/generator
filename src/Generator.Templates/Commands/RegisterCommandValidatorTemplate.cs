@@ -142,7 +142,7 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write("Validator : AbstractValidator<");
+            this.Write("TypeValidator : AbstractValidator<");
             
             #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(RegisterCommandTemplate.GetCommandName(_model)));
@@ -156,14 +156,14 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write(">\r\n        {\r\n            public ");
+            this.Write("Type>\r\n        {\r\n            public ");
             
             #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
             
             #line default
             #line hidden
-            this.Write("Validator()\r\n            {\r\n");
+            this.Write("TypeValidator()\r\n            {\r\n");
             
             #line 36 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterCommandValidatorTemplate.tt"
           foreach(var prop in GetPropertiesValidations(model))
