@@ -35,7 +35,7 @@ namespace Generator.Templates.Commands
                 if (!property.IsGeneric && property.IsOwnedEntity && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
                     validations.Add("NotEmpty()");
                 if (!property.IsGeneric && property.IsValueObjectType)
-                    validations.Add($"SetValidator(new {property.CastTargetType<ModelTypeDefinition>().Model.Name}Validator())");
+                    validations.Add($"SetValidator(new {property.CastTargetType<ModelTypeDefinition>().Model.Name}TypeValidator())");
                 if (property.Required ?? false)
                     validations.Add("NotEmpty()");
                 if ((property.Size ?? 0) > 0)

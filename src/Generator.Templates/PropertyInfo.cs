@@ -5,5 +5,6 @@
         public string Visibility { get; set; }
         public string TypeName { get; set; }
         public string Name { get; set; }
+        public string NameSuffix { get; set; } = "";
     }
 }

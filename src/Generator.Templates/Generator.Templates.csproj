@@ -86,6 +86,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QueryableExtensionsTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="DataAccessEf\RegisterCommandHAndlerTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RegisterCommandHandlerTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Update="DataAccessEf\WithManyConfigurationTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -159,6 +164,10 @@
     <None Update="DataAccessEf\QueryableExtensionsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>QueryableExtensionsTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="DataAccessEf\RegisterCommandHandlerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>RegisterCommandHAndlerTemplate.cs</LastGenOutput>
     </None>
     <None Update="Domain\DataAccessTemplateEf.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

@@ -1,0 +1,42 @@
+﻿<#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Generator.Templates.Commands" #>
+using Mapster;
+using MediatR;
+using <#= _module.GetDomainModelNamespace() #>;
+using <#= _module.GetCommandsNamespace(_model) #>;
+
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands
+{
+    public class Register<#= _model.Name #>CommandHandler : IRequestHandler<Register<#= _model.Name #>Command, <#= _model.IdentifierType #>>
+    {
+        private readonly <#= _module.GetContextName() #> _context;
+
+        public Register<#= _model.Name #>CommandHandler(<#= _module.GetContextName() #> context)
+        {
+            _context = context;
+        }
+
+        public async Task<<#= _model.IdentifierType #>> Handle(Register<#= _model.Name #>Command request, CancellationToken cancellationToken)
+        {
+            var <#= _model.Name.GetVariableName() #> = new <#= _model.Name #>();
+<#  foreach(var propInfo in GetScalarPropertiesInfo(_model))
+    { #>
+            <#= _model.Name.GetVariableName() #>.<#= propInfo.Name #> = request.<#= propInfo.Name #><#= propInfo.NameSuffix #>;
+<#  } #>
+<#  foreach(var entity in GetSingleOwnedEntities(_model))
+    { #>
+            <#= _model.Name.GetVariableName() #>.<#= entity.Key #> = new <#= entity.Value.Name #>
+            {
+<#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
+        { #>
+                <#= propInfo.Name #> = request.<#= entity.Key #>.<#= propInfo.Name #><#= propInfo.NameSuffix #>,
+<#      } #>
+            };
+<#  } #>
+
+            _context.Add(<#= _model.Name.GetVariableName() #>);
+            await _context.SaveChangesAsync(cancellationToken);
+            return <#= _model.Name.GetVariableName() #>.<#= _model.IdentifierProperty.Name #>;
+        }
+    }
+}

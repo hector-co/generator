@@ -172,6 +172,12 @@ namespace Generator.FilesGeneration
                 var pagedHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.Name}DtoPagedQueryHandler.cs";
                 SaveText(pagedHandlerFileName, new PagedQueryHandlerTemplate(_module, model).TransformText(), _forceRegen);
 
+                if (option.Command)
+                {
+                    var registerCommandHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Commands/Register{model.Name}CommandHandler.cs";
+                    SaveText(registerCommandHandlerFileName, new RegisterCommandHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                }
+
                 if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model))
                 {
                     var extensionsFileName = $"{dataAccessEfDirectory}/{model.PluralName}/{model.Name}QueryableExtensions.cs";

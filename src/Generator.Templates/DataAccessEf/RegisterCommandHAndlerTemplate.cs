@@ -7,12 +7,9 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Generator.Templates.Api
+namespace Generator.Templates.DataAccessEf
 {
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Generic;
-    using Generator.Templates.Queries;
+    using Generator.Templates.Domain;
     using Generator.Templates.Commands;
     using System;
     
@@ -20,9 +17,9 @@ namespace Generator.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class ApiControllerTemplate : ApiControllerTemplateBase
+    public partial class RegisterCommandHandlerTemplate : RegisterCommandHandlerTemplateBase
     {
 #line hidden
         /// <summary>
@@ -30,125 +27,241 @@ namespace Generator.Templates.Api
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Micr" +
-                    "osoft.AspNetCore.Mvc;\r\nusing MediatR;\r\nusing ");
+            this.Write("using Mapster;\r\nusing MediatR;\r\nusing ");
             
-            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
+            #line 5 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 6 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetApiNamespace()));
+            #line 8 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    [Route(\"");
+            this.Write(".Commands\r\n{\r\n    public class Register");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.Settings.ApiPrefix));
-            
-            #line default
-            #line hidden
-            this.Write("/");
-            
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetApiRouteName()));
-            
-            #line default
-            #line hidden
-            this.Write("\")]\r\n    public class ");
-            
-            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
-            
-            #line default
-            #line hidden
-            this.Write("Controller : ControllerBase\r\n    {\r\n        private readonly IMediator _mediator;" +
-                    "\r\n\r\n        public ");
-            
-            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
-            
-            #line default
-            #line hidden
-            this.Write("Controller(IMediator mediator)\r\n        {\r\n            _mediator = mediator;\r\n   " +
-                    "     }\r\n\r\n        [HttpGet(\"{id}\", Name = \"Get");
-            
-            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
-            this.Write("ById\")]\r\n        public async Task<IActionResult> Get(");
+            this.Write("CommandHandler : IRequestHandler<Register");
             
-            #line 29 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write(" id, CancellationToken cancellationToken)\r\n        {\r\n            var getByIdQuer" +
-                    "y = new ");
-            
-            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
-            
-            #line default
-            #line hidden
-            this.Write(@"GetByIdQuery(id);
-            var result = await _mediator.Send(getByIdQuery, cancellationToken);
-            if (result.Data == null) return NotFound();
-            return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] ");
-            
-            #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
-            
-            #line default
-            #line hidden
-            this.Write(@"PagedQuery query, CancellationToken cancellationToken)
-        {
-            var result = await _mediator.Send(query, cancellationToken);
-            return Ok(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Register([FromBody] Register");
-            
-            #line 45 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
-            this.Write("Command command, CancellationToken cancellationToken)\r\n        {\r\n            var" +
-                    " id = await _mediator.Send(command, cancellationToken);\r\n            var result " +
-                    "= await _mediator.Send(new ");
+            this.Write("Command, ");
             
-            #line 48 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
-            this.Write("GetByIdQuery(id), cancellationToken);\r\n            return CreatedAtRoute(\"Get");
+            this.Write(">\r\n    {\r\n        private readonly ");
             
-            #line 49 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
+            
+            #line default
+            #line hidden
+            this.Write(" _context;\r\n\r\n        public Register");
+            
+            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
-            this.Write("ById\", new { id }, result);\r\n        }\r\n    }\r\n}\r\n");
+            this.Write("CommandHandler(");
+            
+            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
+            
+            #line default
+            #line hidden
+            this.Write(" context)\r\n        {\r\n            _context = context;\r\n        }\r\n\r\n        publi" +
+                    "c async Task<");
+            
+            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
+            
+            #line default
+            #line hidden
+            this.Write("> Handle(Register");
+            
+            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Command request, CancellationToken cancellationToken)\r\n        {\r\n            var" +
+                    " ");
+            
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(" = new ");
+            
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("();\r\n");
+            
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+  foreach(var propInfo in GetScalarPropertiesInfo(_model))
+    { 
+            
+            #line default
+            #line hidden
+            this.Write("            ");
+            
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = request.");
+            
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
+            
+            #line default
+            #line hidden
+            
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.NameSuffix));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
+            
+            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+  } 
+            
+            #line default
+            #line hidden
+            
+            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+  foreach(var entity in GetSingleOwnedEntities(_model))
+    { 
+            
+            #line default
+            #line hidden
+            this.Write("            ");
+            
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
+            
+            #line default
+            #line hidden
+            this.Write(" = new ");
+            
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(entity.Value.Name));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n            {\r\n");
+            
+            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
+        { 
+            
+            #line default
+            #line hidden
+            this.Write("                ");
+            
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = request.");
+            
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
+            
+            #line default
+            #line hidden
+            
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.NameSuffix));
+            
+            #line default
+            #line hidden
+            this.Write(",\r\n");
+            
+            #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+      } 
+            
+            #line default
+            #line hidden
+            this.Write("            };\r\n");
+            
+            #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+  } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n            _context.Add(");
+            
+            #line 37 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n            await _context.SaveChangesAsync(cancellationToken);\r\n            " +
+                    "return ");
+            
+            #line 39 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(".");
+            
+            #line 39 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\RegisterCommandHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -160,7 +273,7 @@ namespace Generator.Templates.Api
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class ApiControllerTemplateBase
+    public class RegisterCommandHandlerTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

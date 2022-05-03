@@ -4,12 +4,14 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Templates.Queries" #>
+<#@ import namespace="Generator.Templates.Commands" #>
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using <#= _module.GetDtoNamespace(_model) #>;
+using <#= _module.GetCommandsNamespace(_model) #>;
 
 namespace <#= _module.GetApiNamespace() #>
 {
@@ -37,6 +39,14 @@ namespace <#= _module.GetApiNamespace() #>
         {
             var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] Register<#= _model.Name #>Command command, CancellationToken cancellationToken)
+        {
+            var id = await _mediator.Send(command, cancellationToken);
+            var result = await _mediator.Send(new <#= _model.GetDtoName() #>GetByIdQuery(id), cancellationToken);
+            return CreatedAtRoute("Get<#= _model.Name #>ById", new { id }, result);
         }
     }
 }
