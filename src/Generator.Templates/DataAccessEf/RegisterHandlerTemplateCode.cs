@@ -49,5 +49,13 @@ namespace Generator.Templates.DataAccessEf
             return modelDefinition.Properties.Values
                 .Where(p => !p.IsCollection && p.IsEntityType && p.IsOwnedEntity).ToDictionary(p => p.Name, p => p.CastTargetType<ModelTypeDefinition>().Model);
         }
+
+        public Dictionary<string, ModelDefinition> GetCollectionOwnedEntities(ModelDefinition modelDefinition)
+        {
+            var result = new List<PropertyInfo>();
+
+            return modelDefinition.Properties.Values
+                .Where(p => p.IsCollection && p.IsEntityType && p.IsOwnedEntity).ToDictionary(p => p.Name, p => p.CastTargetType<ModelTypeDefinition>().Model);
+        }
     }
 }
