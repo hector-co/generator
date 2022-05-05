@@ -2,6 +2,7 @@
 <#@ import namespace="Generator.Templates.Commands" #>
 using Mapster;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using <#= _module.GetDomainModelNamespace() #>;
 using <#= _module.GetCommandsNamespace(_model) #>;
 
@@ -22,7 +23,7 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands
             {
 <#  foreach(var propInfo in GetScalarPropertiesInfo(_model))
     { #>
-                <#= propInfo.Name #> = request.<#= propInfo.Name #><#= propInfo.NameSuffix #>,
+                <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + propInfo.Name : propInfo.NameOverride #>,
 <#  } #>
 <#  foreach(var entity in GetSingleOwnedEntities(_model))
     { #>
@@ -30,7 +31,7 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands
                 {
 <#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
         { #>
-                    <#= propInfo.Name #> = request.<#= entity.Key #>.<#= propInfo.Name #><#= propInfo.NameSuffix #>,
+                    <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + entity.Key + "." + propInfo.Name : propInfo.NameOverride #>,
 <#      } #>
                 },
 <#  } #>
@@ -38,9 +39,9 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands
     { #>
                 <#= entity.Key #> = request.<#= entity.Key #>.Select(r => new <#= entity.Value.Name #>
                 {
-<#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
+<#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value, "r"))
         { #>
-                    <#= propInfo.Name #> = r.<#= propInfo.Name #><#= propInfo.NameSuffix #>,
+                    <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "r." + propInfo.Name : propInfo.NameOverride #>,
 <#      } #>
                 }).ToList(),
 <#  } #>

@@ -15,7 +15,7 @@ namespace Generator.Templates.DataAccessEf
             _model = modelDefinition;
         }
 
-        public List<PropertyInfo> GetScalarPropertiesInfo(ModelDefinition modelDefinition)
+        public List<PropertyInfo> GetScalarPropertiesInfo(ModelDefinition modelDefinition, string prefix = "request")
         {
             var result = new List<PropertyInfo>();
             result.AddRange(modelDefinition.Properties.Values
@@ -27,7 +27,7 @@ namespace Generator.Templates.DataAccessEf
                 .Where(p => p.IsValueObjectType).Select(p => new PropertyInfo
                 {
                     Name = p.Name,
-                    NameSuffix = $".Adapt<{p.TypeName}>()"
+                    NameOverride = $"{prefix}.{p.Name}.Adapt<{p.TypeName}>()"
                 }));
             result.AddRange(modelDefinition.Properties.Values
                 .Where(p => p.IsRootType).Select(p => new PropertyInfo
@@ -35,8 +35,8 @@ namespace Generator.Templates.DataAccessEf
                     Name = p.Name + (p.IsCollection
                         ? ""
                         : p.CastTargetType<ModelTypeDefinition>().Model.IdentifierProperty.Name),
-                    NameSuffix = p.IsCollection
-                        ? $"{p.CastTargetType<ModelTypeDefinition>().Model.IdentifierProperty.Name}.SelectMany(id => _context.Set<{p.CastTargetType<ModelTypeDefinition>().Model.Name}>().Where(r => r.Id == id)).ToList()"
+                    NameOverride = p.IsCollection
+                        ? $"await _context.Set<{p.CastTargetType<ModelTypeDefinition>().Model.Name}>().Where(er => {prefix}.{p.Name}{p.CastTargetType<ModelTypeDefinition>().Model.IdentifierProperty.Name}.Contains(er.{p.CastTargetType<ModelTypeDefinition>().Model.IdentifierProperty.Name})).ToListAsync(cancellationToken)"
                         : ""
                 }));
             return result;
