@@ -1,4 +1,6 @@
-﻿namespace Generator.Metadata
+﻿using Newtonsoft.Json;
+
+namespace Generator.Metadata
 {
     public enum FilterType
     {
@@ -9,6 +11,7 @@
         Contains
     }
 
+    [JsonConverter(typeof(FilterDefinitionConverter))]
     public class FilterDefinition
     {
         public bool Apply { get; set; }

@@ -19,6 +19,14 @@ namespace Generator.Templates.Queries
         {
             var result = new List<PropertyInfo>();
 
+            if (modelDefinition.IdentifierProperty.Filter?.Apply ?? false)
+                result.Add(new PropertyInfo
+                {
+                    Visibility = "public",
+                    TypeName = GetPropertyTypeName(modelDefinition.IdentifierProperty),
+                    Name = modelDefinition.IdentifierProperty.Name
+                });
+
             foreach (var property in modelDefinition.EvalProperties.Values.Where(p => p.Filter?.Apply ?? false))
             {
                 if (property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)

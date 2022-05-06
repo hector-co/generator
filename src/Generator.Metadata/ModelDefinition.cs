@@ -53,7 +53,11 @@ namespace Generator.Metadata
             {
                 IdentifierProperty = new PropertyDefinition
                 {
-                    TypeName = IdentifierType
+                    TypeName = IdentifierType,
+                    Filter = new FilterDefinition
+                    {
+                        Apply = true
+                    }
                 };
                 IdentifierProperty.Init(moduleDefinition, IdPropertyName);
             }
