@@ -89,7 +89,7 @@ namespace Generator.Templates.Api
             
             #line default
             #line hidden
-            this.Write("ById\")]\r\n        public async Task<IActionResult> Get(");
+            this.Write("ById\")]\r\n        public async Task<IActionResult> GetById(");
             
             #line 29 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
@@ -111,7 +111,7 @@ namespace Generator.Templates.Api
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] ");
+        public async Task<IActionResult> List([FromQuery] ");
             
             #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));

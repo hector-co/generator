@@ -30,7 +30,7 @@ namespace Generator.Templates.Commands
                 if (!property.IsGeneric && property.IsOwnedEntity && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
                     validations.Add("NotEmpty()");
                 if (!property.IsGeneric && property.IsValueObjectType)
-                    validations.Add($"SetValidator(new {property.CastTargetType<ModelTypeDefinition>().Model.Name}TypeValidator())");
+                    validations.Add($"SetValidator(new Register{property.CastTargetType<ModelTypeDefinition>().Model.Name}Validator())");
                 if (property.Required ?? false)
                     validations.Add("NotEmpty()");
                 if ((property.Size ?? 0) > 0)
@@ -55,7 +55,7 @@ namespace Generator.Templates.Commands
                     continue;
 
                 if (property.IsCollection && ((!property.IsRootType && property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model != modelDefinition) || property.IsValueObjectType))
-                    result.Add(GetPropertyName(modelDefinition.GetRootEntity() ?? modelDefinition, property), property.CastTargetType<ModelTypeDefinition>().Model.Name + "Type");
+                    result.Add(GetPropertyName(modelDefinition.GetRootEntity() ?? modelDefinition, property), "Register" + property.CastTargetType<ModelTypeDefinition>().Model.Name);
             }
             return result;
         }

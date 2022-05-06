@@ -26,7 +26,7 @@ namespace <#= _module.GetApiNamespace() #>
         }
 
         [HttpGet("{id}", Name = "Get<#= _model.Name #>ById")]
-        public async Task<IActionResult> Get(<#= _model.IdentifierProperty.TypeName #> id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetById(<#= _model.IdentifierProperty.TypeName #> id, CancellationToken cancellationToken)
         {
             var getByIdQuery = new <#= _model.GetDtoByIdClassName() #>(id);
             var result = await _mediator.Send(getByIdQuery, cancellationToken);
@@ -35,7 +35,7 @@ namespace <#= _module.GetApiNamespace() #>
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] <#= _model.ListDtoClassName() #> query, CancellationToken cancellationToken)
+        public async Task<IActionResult> List([FromQuery] <#= _model.ListDtoClassName() #> query, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);

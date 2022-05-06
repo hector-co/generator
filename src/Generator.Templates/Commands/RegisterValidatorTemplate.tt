@@ -29,9 +29,9 @@ namespace <#= _module.GetCommandsNamespace(_model) #>
 
 <#      foreach(var model in GetModelsForValidations(_module, _model))
         { #>
-        public class <#= model.Name #>TypeValidator : AbstractValidator<<#= _model.GetRegisterCommandClassName() #>.<#= model.Name #>Type>
+        public class Register<#= model.Name #>Validator : AbstractValidator<<#= _model.GetRegisterCommandClassName() #>.Register<#= model.Name #>>
         {
-            public <#= model.Name #>TypeValidator()
+            public Register<#= model.Name #>Validator()
             {
 <#          foreach(var prop in GetPropertiesValidations(model))
             { #>
@@ -48,6 +48,7 @@ namespace <#= _module.GetCommandsNamespace(_model) #>
 <#          } #>
             }
         }
+
 <#      } #>
     }
 }
