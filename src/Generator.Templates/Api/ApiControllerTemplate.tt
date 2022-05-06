@@ -48,5 +48,13 @@ namespace <#= _module.GetApiNamespace() #>
             var result = await _mediator.Send(new <#= _model.GetDtoByIdClassName() #>(id), cancellationToken);
             return CreatedAtRoute("Get<#= _model.Name #>ById", new { id }, result);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(<#= _model.IdentifierType #> id, [FromBody] <#= _model.GetUpdateCommandClassName() #> command, CancellationToken cancellationToken)
+        {
+            command.<#= _model.IdentifierProperty.Name #> = id;
+            await _mediator.Send(command, cancellationToken);
+            return Accepted();
+        }
     }
 }

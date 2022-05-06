@@ -126,6 +126,12 @@ namespace Generator.FilesGeneration
 
             var registerCommandValidatorFileName = $"{commandDirectory}/{model.PluralName}/{model.GetRegisterCommandValidatorClassName()}.cs";
             SaveText(registerCommandValidatorFileName, new RegisterValidatorTemplate(_module, model).TransformText(), _forceRegen);
+
+            var updateCommandFileName = $"{commandDirectory}/{model.PluralName}/{model.GetUpdateCommandClassName()}.cs";
+            SaveText(updateCommandFileName, new UpdateTemplate(_module, model).TransformText(), _forceRegen);
+
+            var updateCommandValidatorFileName = $"{commandDirectory}/{model.PluralName}/{model.GetUpdateCommandValidatorClassName()}.cs";
+            SaveText(updateCommandValidatorFileName, new UpdateValidatorTemplate(_module, model).TransformText(), _forceRegen);
         }
 
         private void GenerateQueryFiles(string modelName, TemplateGenerationOption option)
@@ -176,6 +182,9 @@ namespace Generator.FilesGeneration
                 {
                     var registerCommandHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Commands/{model.GetRegisterCommandClassName()}Handler.cs";
                     SaveText(registerCommandHandlerFileName, new RegisterHandlerTemplate(_module, model).TransformText(), _forceRegen);
+
+                    var updateCommandHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Commands/{model.GetUpdateCommandClassName()}Handler.cs";
+                    SaveText(updateCommandHandlerFileName, new UpdateHandlerTemplate(_module, model).TransformText(), _forceRegen);
                 }
 
                 if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model))

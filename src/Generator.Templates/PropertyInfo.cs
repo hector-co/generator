@@ -6,5 +6,6 @@
         public string TypeName { get; set; }
         public string Name { get; set; }
         public string NameOverride { get; set; }
+        public string Attribute { get; set; }
     }
 }

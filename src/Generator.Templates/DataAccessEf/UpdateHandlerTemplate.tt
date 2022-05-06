@@ -1,0 +1,59 @@
+﻿<#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Generator.Templates.Commands" #>
+using Mapster;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using <#= _module.GetDomainModelNamespace() #>;
+using <#= _module.GetCommandsNamespace(_model) #>;
+
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands
+{
+    public class <#= _model.GetUpdateCommandClassName() #>Handler : IRequestHandler<<#= _model.GetUpdateCommandClassName() #>>
+    {
+        private readonly <#= _module.GetContextName() #> _context;
+
+        public <#= _model.GetUpdateCommandClassName() #>Handler(<#= _module.GetContextName() #> context)
+        {
+            _context = context;
+        }
+
+        public async Task<Unit> Handle(<#= _model.GetUpdateCommandClassName() #> request, CancellationToken cancellationToken)
+        {
+            var <#= _model.Name.GetVariableName() #> = await _context.Set<<#= _model.Name #>>()
+<#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
+    { #>
+                .AddIncludes()
+<#    } #>
+                .FirstOrDefaultAsync(m => m.<#= _model.IdentifierProperty.Name #> == request.<#= _model.IdentifierProperty.Name #>, cancellationToken);
+
+            if (<#= _model.Name.GetVariableName() #> == null)
+                throw new NullReferenceException(nameof(<#= _model.Name.GetVariableName() #>));
+
+<#  foreach(var propInfo in GetScalarPropertiesInfo(_model))
+    { #>
+            <#= _model.Name.GetVariableName() #>.<#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + propInfo.Name : propInfo.NameOverride #>;
+<#  } #>
+<#  foreach(var entity in GetSingleOwnedEntities(_model))
+    { #>
+<#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
+        { #>
+            <#= _model.Name.GetVariableName() #>.<#= entity.Key #>.<#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + entity.Key + "." + propInfo.Name : propInfo.NameOverride #>;
+<#      } #>
+<#  } #>
+<#  foreach(var entity in GetCollectionOwnedEntities(_model))
+    { #>
+            <#= _model.Name.GetVariableName() #>.<#= entity.Key #> = request.<#= entity.Key #>.Select(r => new <#= entity.Value.Name #>
+            {
+                <#= entity.Value.IdentifierProperty.Name #> = r.<#= entity.Value.IdentifierProperty.Name #>,
+<#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value, "r"))
+        { #>
+                <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "r." + propInfo.Name : propInfo.NameOverride #>,
+<#      } #>
+            }).ToList();
+<#  } #>
+
+            await _context.SaveChangesAsync(cancellationToken);
+            return await Unit.Task;
+        }
+    }
+}

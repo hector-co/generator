@@ -1,0 +1,54 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+using FluentValidation;
+
+namespace <#= _module.GetCommandsNamespace(_model) #>
+{
+    public class <#= _model.GetUpdateCommandValidatorClassName() #> : AbstractValidator<<#= _model.GetUpdateCommandClassName() #>>
+    {
+        public <#= _model.GetUpdateCommandValidatorClassName() #>()
+        {
+<#      foreach(var prop in GetPropertiesValidations(_model))
+        { #>
+            RuleFor(c => c.<#= prop.Key #>)
+<#          foreach(var validation in prop.Value)
+            { #>
+                .<#= validation #>
+<#          } #>
+<#      } #>
+<#      foreach(var prop in GetCollectionPropertiesValidations(_model))
+        { #>
+            RuleForEach(c => c.<#= prop.Key #>)
+                .SetValidator(new <#= prop.Value #>Validator());
+<#      } #>
+        }
+
+<#      foreach(var model in GetModelsForValidations(_module, _model))
+        { #>
+        public class Update<#= model.Name #>Validator : AbstractValidator<<#= _model.GetUpdateCommandClassName() #>.Update<#= model.Name #>>
+        {
+            public Update<#= model.Name #>Validator()
+            {
+<#          foreach(var prop in GetPropertiesValidations(model))
+            { #>
+                RuleFor(c => c.<#= prop.Key #>)
+<#              foreach(var validation in prop.Value)
+                { #>
+                    .<#= validation #>
+<#              } #>
+<#          } #>
+<#          foreach(var prop in GetCollectionPropertiesValidations(model))
+            { #>
+                RuleForEach(c => c.<#= prop.Key #>)
+                    .SetValidator(new <#= prop.Value #>Validator());
+<#          } #>
+            }
+        }
+
+<#      } #>
+    }
+}

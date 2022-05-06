@@ -1,0 +1,46 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+namespace <#= _module.GetCommandsNamespace(_model) #>
+{
+    public class <#= _model.GetUpdateCommandClassName() #> : IRequest
+    {
+<# if (HasPropertiesForInit(_model))
+   { #>
+        public <#= _model.GetUpdateCommandClassName() #>()
+        {
+<#      foreach(var propInfo in GetPropertiesForInitInfo(_model))
+        { #>
+            <#= propInfo.Name #> = new <#= propInfo.TypeName #>();
+<#      } #>
+        }
+
+<# } #>
+<#  foreach(var propInfo in GetPropertiesInfo(_model, true))
+    { #>
+<#      if (!string.IsNullOrEmpty(propInfo.Attribute))
+        { #>
+        <#= propInfo.Attribute #>
+<#      } #>
+        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+<#  } #>
+<#  foreach(var subClass in GetSubClasses(_module, _model))
+    { #>
+
+        public class <#= subClass.Key #>
+        {
+<#      foreach(var propInfo in subClass.Value)
+        { #>
+            <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+<#      } #>
+        }
+<#  } #>
+    }
+}
