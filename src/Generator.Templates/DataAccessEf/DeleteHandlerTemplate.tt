@@ -1,0 +1,33 @@
+﻿<#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Generator.Templates.Commands" #>
+using Mapster;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using <#= _module.GetDomainModelNamespace() #>;
+using <#= _module.GetCommandsNamespace(_model) #>;
+
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands
+{
+    public class <#= _model.GetDeleteCommandClassName() #>Handler : IRequestHandler<<#= _model.GetDeleteCommandClassName() #>>
+    {
+        private readonly <#= _module.GetContextName() #> _context;
+
+        public <#= _model.GetDeleteCommandClassName() #>Handler(<#= _module.GetContextName() #> context)
+        {
+            _context = context;
+        }
+
+        public async Task<Unit> Handle(<#= _model.GetDeleteCommandClassName() #> request, CancellationToken cancellationToken)
+        {
+            var <#= _model.Name.GetVariableName() #> = await _context.Set<<#= _model.Name #>>()
+                .FirstOrDefaultAsync(m => m.<#= _model.IdentifierProperty.Name #> == request.<#= _model.IdentifierProperty.Name #>, cancellationToken);
+
+            if (<#= _model.Name.GetVariableName() #> == null)
+                throw new NullReferenceException(nameof(<#= _model.Name.GetVariableName() #>));
+
+            _context.Remove(<#= _model.Name.GetVariableName() #>);
+            await _context.SaveChangesAsync(cancellationToken);
+            return await Unit.Task;
+        }
+    }
+}

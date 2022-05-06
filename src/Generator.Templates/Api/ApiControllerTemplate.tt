@@ -56,5 +56,16 @@ namespace <#= _module.GetApiNamespace() #>
             await _mediator.Send(command, cancellationToken);
             return Accepted();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+        {
+            var command = new <#= _model.GetDeleteCommandClassName() #>
+            {
+                <#= _model.IdentifierProperty.Name #> = id
+            };
+            await _mediator.Send(command, cancellationToken);
+            return Accepted();
+        }
     }
 }

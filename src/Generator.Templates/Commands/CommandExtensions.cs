@@ -13,6 +13,9 @@ namespace Generator.Templates.Commands
         public static string GetUpdateCommandClassName(this ModelDefinition modelDefinition)
             => $"Update{modelDefinition.Name}";
 
+        public static string GetDeleteCommandClassName(this ModelDefinition modelDefinition)
+            => $"Delete{modelDefinition.Name}";
+
         public static string GetRegisterCommandValidatorClassName(this ModelDefinition modelDefinition)
             => $"{modelDefinition.GetRegisterCommandClassName()}Validator";
 

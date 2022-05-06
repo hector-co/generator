@@ -7,12 +7,9 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Generator.Templates.Api
+namespace Generator.Templates.DataAccessEf
 {
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Generic;
-    using Generator.Templates.Queries;
+    using Generator.Templates.Domain;
     using Generator.Templates.Commands;
     using System;
     
@@ -20,9 +17,9 @@ namespace Generator.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class ApiControllerTemplate : ApiControllerTemplateBase
+    public partial class DeleteHandlerTemplate : DeleteHandlerTemplateBase
     {
 #line hidden
         /// <summary>
@@ -30,170 +27,121 @@ namespace Generator.Templates.Api
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\nusing Micr" +
-                    "osoft.AspNetCore.Mvc;\r\nusing MediatR;\r\nusing ");
+            this.Write("using Mapster;\r\nusing MediatR;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing ");
             
-            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
+            #line 6 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 7 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetApiNamespace()));
+            #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    [Route(\"");
+            this.Write(".Commands\r\n{\r\n    public class ");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.Settings.ApiPrefix));
-            
-            #line default
-            #line hidden
-            this.Write("/");
-            
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetApiRouteName()));
-            
-            #line default
-            #line hidden
-            this.Write("\")]\r\n    public class ");
-            
-            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
-            
-            #line default
-            #line hidden
-            this.Write("Controller : ControllerBase\r\n    {\r\n        private readonly IMediator _mediator;" +
-                    "\r\n\r\n        public ");
-            
-            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
-            
-            #line default
-            #line hidden
-            this.Write("Controller(IMediator mediator)\r\n        {\r\n            _mediator = mediator;\r\n   " +
-                    "     }\r\n\r\n        [HttpGet(\"{id}\", Name = \"Get");
-            
-            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
-            
-            #line default
-            #line hidden
-            this.Write("ById\")]\r\n        public async Task<IActionResult> GetById(");
-            
-            #line 29 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write(" id, CancellationToken cancellationToken)\r\n        {\r\n            var getByIdQuer" +
-                    "y = new ");
-            
-            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
-            
-            #line default
-            #line hidden
-            this.Write(@"(id);
-            var result = await _mediator.Send(getByIdQuery, cancellationToken);
-            if (result.Data == null) return NotFound();
-            return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> List([FromQuery] ");
-            
-            #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
-            
-            #line default
-            #line hidden
-            this.Write(@" query, CancellationToken cancellationToken)
-        {
-            var result = await _mediator.Send(query, cancellationToken);
-            return Ok(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Register([FromBody] ");
-            
-            #line 45 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
-            
-            #line default
-            #line hidden
-            this.Write(" command, CancellationToken cancellationToken)\r\n        {\r\n            var id = a" +
-                    "wait _mediator.Send(command, cancellationToken);\r\n            var result = await" +
-                    " _mediator.Send(new ");
-            
-            #line 48 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
-            
-            #line default
-            #line hidden
-            this.Write("(id), cancellationToken);\r\n            return CreatedAtRoute(\"Get");
-            
-            #line 49 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
-            
-            #line default
-            #line hidden
-            this.Write("ById\", new { id }, result);\r\n        }\r\n\r\n        [HttpPut(\"{id}\")]\r\n        publ" +
-                    "ic async Task<IActionResult> Update(");
-            
-            #line 53 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
-            
-            #line default
-            #line hidden
-            this.Write(" id, [FromBody] ");
-            
-            #line 53 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
-            
-            #line default
-            #line hidden
-            this.Write(" command, CancellationToken cancellationToken)\r\n        {\r\n            command.");
-            
-            #line 55 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
-            
-            #line default
-            #line hidden
-            this.Write(@" = id;
-            await _mediator.Send(command, cancellationToken);
-            return Accepted();
-        }
-
-        [HttpDelete(""{id}"")]
-        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
-        {
-            var command = new ");
-            
-            #line 63 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
             
             #line default
             #line hidden
-            this.Write("\r\n            {\r\n                ");
+            this.Write("Handler : IRequestHandler<");
             
-            #line 65 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
+            
+            #line default
+            #line hidden
+            this.Write(">\r\n    {\r\n        private readonly ");
+            
+            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
+            
+            #line default
+            #line hidden
+            this.Write(" _context;\r\n\r\n        public ");
+            
+            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
+            
+            #line default
+            #line hidden
+            this.Write("Handler(");
+            
+            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
+            
+            #line default
+            #line hidden
+            this.Write(" context)\r\n        {\r\n            _context = context;\r\n        }\r\n\r\n        publi" +
+                    "c async Task<Unit> Handle(");
+            
+            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
+            
+            #line default
+            #line hidden
+            this.Write(" request, CancellationToken cancellationToken)\r\n        {\r\n            var ");
+            
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(" = await _context.Set<");
+            
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
+            
+            #line default
+            #line hidden
+            this.Write(">()\r\n                .FirstOrDefaultAsync(m => m.");
+            
+            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default
             #line hidden
-            this.Write(" = id\r\n            };\r\n            await _mediator.Send(command, cancellationToke" +
-                    "n);\r\n            return Accepted();\r\n        }\r\n    }\r\n}\r\n");
+            this.Write(" == request.");
+            
+            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
+            
+            #line default
+            #line hidden
+            this.Write(", cancellationToken);\r\n\r\n            if (");
+            
+            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(" == null)\r\n                throw new NullReferenceException(nameof(");
+            
+            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write("));\r\n\r\n            _context.Remove(");
+            
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n            await _context.SaveChangesAsync(cancellationToken);\r\n            " +
+                    "return await Unit.Task;\r\n        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -205,7 +153,7 @@ namespace Generator.Templates.Api
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class ApiControllerTemplateBase
+    public class DeleteHandlerTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

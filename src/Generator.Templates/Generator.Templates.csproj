@@ -55,6 +55,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ApiControllerTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="Commands\DeleteTemplate.cs">
+      <DependentUpon>DeleteTemplate.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Commands\UpdateTemplate.cs">
       <DependentUpon>UpdateTemplate.tt</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -110,6 +115,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QueryableExtensionsTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="DataAccessEf\DeleteHandlerTemplate.cs">
+      <DependentUpon>DeleteHandlerTemplate.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="DataAccessEf\UpdateHandlerTemplate.cs">
       <DependentUpon>UpdateHandlerTemplate.tt</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -162,6 +172,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ApiControllerTemplate.cs</LastGenOutput>
     </None>
+    <None Update="Commands\DeleteTemplate.tt">
+      <LastGenOutput>DeleteTemplate.cs</LastGenOutput>
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+    </None>
     <None Update="Commands\UpdateValidatorTemplate.tt">
       <LastGenOutput>UpdateValidatorTemplate.cs</LastGenOutput>
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -201,6 +215,10 @@
     <None Update="DataAccessEf\QueryableExtensionsTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>QueryableExtensionsTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="DataAccessEf\DeleteHandlerTemplate.tt">
+      <LastGenOutput>DeleteHandlerTemplate.cs</LastGenOutput>
+      <Generator>TextTemplatingFilePreprocessor</Generator>
     </None>
     <None Update="DataAccessEf\UpdateHandlerTemplate.tt">
       <LastGenOutput>UpdateHandlerTemplate.cs</LastGenOutput>
