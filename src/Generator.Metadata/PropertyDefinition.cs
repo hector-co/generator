@@ -11,7 +11,7 @@ namespace Generator.Metadata
     public class PropertyDefinition
     {
         public const string GenericTypeExp = @"\w+<(.*)?>";
-        public static readonly IEnumerable<string> ValidSystemTypes = new[] { "byte", "bool", "int", "long", "float", "double", "char", "string", "DateTime", "DateTimeOffset", "TimeSpan", "object", "DayOfWeek", "Guid" };
+        public static readonly IEnumerable<string> ValidSystemTypes = new[] { "byte", "bool", "int", "long", "float", "double", "decimal", "char", "string", "DateTime", "DateTimeOffset", "TimeSpan", "object", "DayOfWeek", "Guid" };
 
         private string _pluralName;
 
@@ -31,6 +31,7 @@ namespace Generator.Metadata
         public FilterDefinition Filter { get; set; }
         public int? Size { get; set; }
         public bool? Required { get; set; }
+        public string DbType { get; set; }
 
         [JsonIgnore]
         public bool IsGeneric { get; private set; }

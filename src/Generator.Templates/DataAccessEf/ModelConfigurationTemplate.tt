@@ -34,12 +34,16 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>
     { #>
             builder.Property(m => m.<#= propertyName #>_Serialized);
 <#    } #>
-<#    foreach(var property in _model.Properties.Values.Where(p => !p.IsCollection && (p.Size.HasValue || p.Required.HasValue && p.Required.Value)))
+<#    foreach(var property in _model.Properties.Values.Where(p => !p.IsCollection && (p.Size.HasValue || (p.Required.HasValue && p.Required.Value)) || !string.IsNullOrEmpty(p.DbType)))
     { #>
             builder.Property(m => m.<#= property.Name #>)
 <#        if(property.Required.HasValue && property.Required.Value) 
         { #>
                 .IsRequired()<#= property.Size.HasValue? "" : ";" #>
+<#        } #>
+<#        if(!string.IsNullOrEmpty(property.DbType)) 
+        { #>
+                .HasColumnType("<#= property.DbType #>")<#= property.Size.HasValue? "" : ";" #>
 <#        } #>
 <#        if(property.Size.HasValue) 
         { #>

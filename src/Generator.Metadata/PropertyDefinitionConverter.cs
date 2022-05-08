@@ -47,6 +47,7 @@ namespace Generator.Metadata
             var withMany = jObject["withMany"];
             var required = jObject["required"];
             var size = jObject["size"];
+            var dbType = jObject["dbType"];
             if (typeName == null)
             {
                 propertyDefinition = null;
@@ -64,6 +65,10 @@ namespace Generator.Metadata
             if (size != null && size.Type == JTokenType.Integer)
             {
                 propertyDefinition.Size = size.Value<int>();
+            }
+            if (dbType != null && dbType.Type == JTokenType.String)
+            {
+                propertyDefinition.DbType = dbType.Value<string>();
             }
             if (filter != null) propertyDefinition.Filter = filter;
             if (pluralName != null) propertyDefinition.PluralName = pluralName.Value<string>();
