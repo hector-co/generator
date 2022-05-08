@@ -40,6 +40,8 @@ namespace <#= _module.GetApiNamespace() #>
             var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);
         }
+<#  if (_generateCommands) 
+    { #>
 
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] <#= _model.GetRegisterCommandClassName() #> command, CancellationToken cancellationToken)
@@ -67,5 +69,6 @@ namespace <#= _module.GetApiNamespace() #>
             await _mediator.Send(command, cancellationToken);
             return Accepted();
         }
+<#  } #>
     }
 }

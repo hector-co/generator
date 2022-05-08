@@ -213,7 +213,7 @@ namespace Generator.FilesGeneration
 
             var ctrlDirectory = GetFolderPath(_module.Settings.ApiControllersFolder);
             var ctrlFileName = $"{ctrlDirectory}/{model.PluralName}Controller.cs";
-            SaveText(ctrlFileName, new ApiControllerTemplate(_module, model).TransformText(), _forceRegen);
+            SaveText(ctrlFileName, new ApiControllerTemplate(_module, model, option.Command).TransformText(), _forceRegen);
         }
 
         private string GetFolderPath(string folderName)
