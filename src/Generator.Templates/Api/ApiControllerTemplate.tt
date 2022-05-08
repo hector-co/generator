@@ -11,7 +11,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using <#= _module.GetDtoNamespace(_model) #>;
+<#  if (_generateCommands) 
+    { #>
 using <#= _module.GetCommandsNamespace(_model) #>;
+<#  } #>
 
 namespace <#= _module.GetApiNamespace() #>
 {
