@@ -116,48 +116,41 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(" request, CancellationToken cancellationToken)\r\n        {\r\n            IQueryable" +
-                    "<");
+            this.Write(" request, CancellationToken cancellationToken)\r\n        {\r\n            var data =" +
+                    " await _context.Set<");
             
             #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
-            this.Write("> efQuery = _context.Set<");
+            this.Write(">()\r\n");
             
-            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
-            
-            #line default
-            #line hidden
-            this.Write(">();\r\n\r\n");
-            
-            #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
     if (QueryableExtensionsTemplate.RequiresIncludes(_model))
     { 
             
             #line default
             #line hidden
-            this.Write("            efQuery = efQuery.AddIncludes();\r\n\r\n");
+            this.Write("                    .AddIncludes()\r\n");
             
-            #line 37 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
     } 
             
             #line default
             #line hidden
-            this.Write("            var data = await efQuery\r\n                    .AsNoTracking()\r\n      " +
-                    "              .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);\r" +
-                    "\n\r\n            var result = new ResultModel<");
+            this.Write("                    .AsNoTracking()\r\n                    .FirstOrDefaultAsync(m =" +
+                    "> request.Id == m.Id, cancellationToken);\r\n\r\n            var result = new Result" +
+                    "Model<");
             
-            #line 42 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 39 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write(">\r\n            {\r\n                Data = data.Adapt<");
+            this.Write(">\r\n            {\r\n                Data = data?.Adapt<");
             
-            #line 44 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 41 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default

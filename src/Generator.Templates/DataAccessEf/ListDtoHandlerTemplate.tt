@@ -8,13 +8,13 @@
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Qurl.Queryable;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using <#= _module.GetDomainModelNamespace() #>;
 using <#= _module.GetQueriesNamespace() #>;
 using <#= _module.GetDtoNamespace(_model) #>;
+using QueryX;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries
 {
@@ -31,18 +31,18 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries
         {
             var result = new ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>();
 
-            var efQuery = _context.Set<<#= _model.Name #>>().ApplyQuery(request, false);
-            result.TotalCount = await efQuery.CountAsync(cancellationToken);
-            efQuery = efQuery.ApplySortAndPaging(request);
-
+            var queryable = _context.Set<<#= _model.Name #>>()
 <#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
     { #>
-            efQuery = efQuery.AddIncludes();
-            
+                .AddIncludes() 
 <#    } #>
-            var data = await efQuery
-                .AsNoTracking()
-                .ToListAsync(cancellationToken);
+                .AsNoTracking();
+
+            queryable = queryable.ApplyQuery(request, applyOrderingAndPaging: false);
+            result.TotalCount = await queryable.CountAsync(cancellationToken);
+            queryable = queryable.ApplyOrderingAndPaging(request);
+
+            var data = await queryable.ToListAsync(cancellationToken);
            
             result.Data = data.Adapt<List<<#= _model.GetDtoName() #>>>();
 

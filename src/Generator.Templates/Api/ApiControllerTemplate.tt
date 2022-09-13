@@ -15,6 +15,7 @@ using <#= _module.GetDtoNamespace(_model) #>;
     { #>
 using <#= _module.GetCommandsNamespace(_model) #>;
 <#  } #>
+using QueryX;
 
 namespace <#= _module.GetApiNamespace() #>
 {
@@ -22,10 +23,12 @@ namespace <#= _module.GetApiNamespace() #>
     public class <#= _model.PluralName #>Controller : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly QueryBuilder _queryBuilder;
 
-        public <#= _model.PluralName #>Controller(IMediator mediator)
+        public <#= _model.PluralName #>Controller(IMediator mediator, QueryBuilder queryBuilder)
         {
             _mediator = mediator;
+            _queryBuilder = queryBuilder;
         }
 
         [HttpGet("{id}", Name = "Get<#= _model.Name #>ById")]
@@ -38,8 +41,9 @@ namespace <#= _module.GetApiNamespace() #>
         }
 
         [HttpGet]
-        public async Task<IActionResult> List([FromQuery] <#= _model.ListDtoClassName() #> query, CancellationToken cancellationToken)
+        public async Task<IActionResult> List([FromQuery] QueryModel queryModel, CancellationToken cancellationToken)
         {
+            var query = _queryBuilder.CreateQuery<<#= _model.ListDtoClassName() #>, <#= _model.GetDtoName() #>>(queryModel);
             var result = await _mediator.Send(query, cancellationToken);
             return Ok(result);
         }

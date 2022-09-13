@@ -28,20 +28,17 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries
 
         public async Task<ResultModel<<#= _model.GetDtoName() #>>> Handle(<#= _model.GetDtoByIdClassName() #> request, CancellationToken cancellationToken)
         {
-            IQueryable<<#= _model.Name #>> efQuery = _context.Set<<#= _model.Name #>>();
-
+            var data = await _context.Set<<#= _model.Name #>>()
 <#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
     { #>
-            efQuery = efQuery.AddIncludes();
-
+                    .AddIncludes()
 <#    } #>
-            var data = await efQuery
                     .AsNoTracking()
                     .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);
 
             var result = new ResultModel<<#= _model.GetDtoName() #>>
             {
-                Data = data.Adapt<<#= _model.GetDtoName() #>>()
+                Data = data?.Adapt<<#= _model.GetDtoName() #>>()
             };
 
             return result;

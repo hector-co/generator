@@ -30,30 +30,30 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Mapster;\r\nusing MediatR;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing Qurl." +
-                    "Queryable;\r\nusing System.Collections.Generic;\r\nusing System.Threading;\r\nusing Sy" +
-                    "stem.Threading.Tasks;\r\nusing ");
+            this.Write("using Mapster;\r\nusing MediatR;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing Syste" +
+                    "m.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\n" +
+                    "using ");
             
-            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetQueriesNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
-            #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write(";\r\n\r\nnamespace ");
+            this.Write(";\r\nusing QueryX;\r\n\r\nnamespace ");
             
             #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
@@ -125,33 +125,37 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(">>();\r\n\r\n            var efQuery = _context.Set<");
+            this.Write(">>();\r\n\r\n            var queryable = _context.Set<");
             
             #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
-            this.Write(">().ApplyQuery(request, false);\r\n            result.TotalCount = await efQuery.Co" +
-                    "untAsync(cancellationToken);\r\n            efQuery = efQuery.ApplySortAndPaging(r" +
-                    "equest);\r\n\r\n");
+            this.Write(">()\r\n");
             
-            #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
     if (QueryableExtensionsTemplate.RequiresIncludes(_model))
     { 
             
             #line default
             #line hidden
-            this.Write("            efQuery = efQuery.AddIncludes();\r\n            \r\n");
+            this.Write("                .AddIncludes() \r\n");
             
-            #line 42 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
     } 
             
             #line default
             #line hidden
-            this.Write("            var data = await efQuery\r\n                .AsNoTracking()\r\n          " +
-                    "      .ToListAsync(cancellationToken);\r\n           \r\n            result.Data = d" +
-                    "ata.Adapt<List<");
+            this.Write(@"                .AsNoTracking();
+
+            queryable = queryable.ApplyQuery(request, applyOrderingAndPaging: false);
+            result.TotalCount = await queryable.CountAsync(cancellationToken);
+            queryable = queryable.ApplyOrderingAndPaging(request);
+
+            var data = await queryable.ToListAsync(cancellationToken);
+           
+            result.Data = data.Adapt<List<");
             
             #line 47 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));

@@ -7,23 +7,11 @@
 using System;
 using System.Collections.Generic;
 using MediatR;
-using Qurl;
+using QueryX;
 
 namespace <#= _module.GetDtoNamespace(_model) #>
 {
-    public class <#= _model.ListDtoClassName() #> : Query<<#= _model.ListDtoClassName() #>.FilterProperties>, IRequest<ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>>
+    public class <#= _model.ListDtoClassName() #> : Query<<#= _model.GetDtoName() #>>, IRequest<ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>>
     {
-        public <#= _model.ListDtoClassName() #>() : base(new SortValue("<#= ModelDefinition.IdPropertyName #>", SortDirection.Ascending))
-        {
-        }
-
-        public class FilterProperties
-        {
-<# foreach(var propInfo in GetFilterPropertiesInfo(_model))
-    { 
-#>
-            <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
-<#  } #>
-        }
     }
 }

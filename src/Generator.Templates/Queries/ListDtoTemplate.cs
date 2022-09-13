@@ -29,8 +29,8 @@ namespace Generator.Templates.Queries
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing MediatR;\r\nusing Qurl;\r\n\r\n" +
-                    "namespace ");
+            this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing MediatR;\r\nusing QueryX;\r\n" +
+                    "\r\nnamespace ");
             
             #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
@@ -47,70 +47,18 @@ namespace Generator.Templates.Queries
             this.Write(" : Query<");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write(".FilterProperties>, IRequest<ResultModel<IEnumerable<");
+            this.Write(">, IRequest<ResultModel<IEnumerable<");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write(">>>\r\n    {\r\n        public ");
-            
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
-            
-            #line default
-            #line hidden
-            this.Write("() : base(new SortValue(\"");
-            
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.IdPropertyName));
-            
-            #line default
-            #line hidden
-            this.Write("\", SortDirection.Ascending))\r\n        {\r\n        }\r\n\r\n        public class Filter" +
-                    "Properties\r\n        {\r\n");
-            
-            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
- foreach(var propInfo in GetFilterPropertiesInfo(_model))
-    { 
-
-            
-            #line default
-            #line hidden
-            this.Write("            ");
-            
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Visibility));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" { get; set; }\r\n");
-            
-            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
-  } 
-            
-            #line default
-            #line hidden
-            this.Write("        }\r\n    }\r\n}\r\n");
+            this.Write(">>>\r\n    {\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
