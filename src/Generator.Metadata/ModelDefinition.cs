@@ -71,12 +71,12 @@ namespace Generator.Metadata
 
         public void AdjustRelationships(ModuleDefinition moduleDefinition)
         {
-            if (IsOwnedEntity)
+            if (IsOwnedEntity || IsValueObject)
             {
                 foreach (var model in moduleDefinition.Model.Values)
                 {
                     var modelProps = model.Properties
-                        .Where(p => p.Value.IsEntityType)
+                        .Where(p => p.Value.IsEntityType || p.Value.IsValueObjectType)
                         .Select(p => p.Value.TargetType.Cast<ModelTypeDefinition>())
                         .Where(p => p.Model == this);
                     if (modelProps.Any())
