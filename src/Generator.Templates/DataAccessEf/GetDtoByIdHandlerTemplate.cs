@@ -132,16 +132,15 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write("                    .AddIncludes()\r\n");
+            this.Write("                .AddIncludes()\r\n");
             
             #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
     } 
             
             #line default
             #line hidden
-            this.Write("                    .AsNoTracking()\r\n                    .FirstOrDefaultAsync(m =" +
-                    "> request.Id == m.Id, cancellationToken);\r\n\r\n            var result = new Result" +
-                    "Model<");
+            this.Write("                .AsNoTracking()\r\n                .FirstOrDefaultAsync(m => reques" +
+                    "t.Id == m.Id, cancellationToken);\r\n\r\n            var result = new ResultModel<");
             
             #line 39 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));

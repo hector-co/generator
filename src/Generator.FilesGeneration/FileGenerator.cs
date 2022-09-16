@@ -73,7 +73,7 @@ namespace Generator.FilesGeneration
 
                 foreach (var @enum in _module.Enums)
                 {
-                    var enumFileName = $"{queryDirectory}/{@enum.Key}.cs";
+                    var enumFileName = $"{queryDirectory}/{@enum.Value.GetEnumParent(_module).PluralName}/{@enum.Key}.cs";
                     SaveText(enumFileName, new EnumTemplate(_module, @enum.Value).TransformText(), _forceRegen);
                 }
             }

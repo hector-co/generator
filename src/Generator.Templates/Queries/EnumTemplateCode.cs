@@ -1,4 +1,5 @@
 ﻿using Generator.Metadata;
+using System.Linq;
 
 namespace Generator.Templates.Queries
 {
@@ -11,6 +12,16 @@ namespace Generator.Templates.Queries
         {
             _module = moduleDefinition;
             _enum = enumDefinition;
+        }
+
+        public ModelDefinition GetParentDto()
+        {
+            foreach (var model in _module.Model.Values)
+            {
+                if (model.Properties.Any(p => p.Value.IsEnumType && p.Value.CastTargetType<EnumTypeDefinition>().Enum == _enum))
+                    return model;
+            }
+            return null;
         }
     }
 }

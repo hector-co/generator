@@ -3,7 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-namespace <#= _module.GetQueriesNamespace() #>
+namespace <#= _module.GetDtoNamespace(GetParentDto()) #>
 {
     public enum <#= _enum.Name #>
     {

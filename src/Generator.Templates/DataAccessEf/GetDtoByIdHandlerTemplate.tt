@@ -31,10 +31,10 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries
             var data = await _context.Set<<#= _model.Name #>>()
 <#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
     { #>
-                    .AddIncludes()
+                .AddIncludes()
 <#    } #>
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);
 
             var result = new ResultModel<<#= _model.GetDtoName() #>>
             {

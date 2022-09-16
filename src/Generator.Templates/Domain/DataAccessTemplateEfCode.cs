@@ -29,8 +29,8 @@ namespace Generator.Templates.Domain
         public static List<PropertyInfo> GetEntityPropertiesInfo(ModelDefinition modelDefinition)
         {
             var result = new List<PropertyInfo>();
-            var properties = modelDefinition.Properties.Values.Where(p => !p.IsGeneric && p.IsOwnedEntity)
-                .Concat(modelDefinition.Properties.Values.Where(p => !p.IsGeneric && p.IsEntityType && !p.IsOwnedEntity));
+            var properties = modelDefinition.Properties.Values.Where(p => !p.IsGeneric && p.IsEntityType && !p.IsOwnedEntity)
+                .Concat(modelDefinition.Properties.Values.Where(p => !p.IsGeneric && p.IsOwnedEntity));
             foreach (var property in properties)
             {
                 var propInfo = new PropertyInfo

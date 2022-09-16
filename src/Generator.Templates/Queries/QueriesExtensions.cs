@@ -1,4 +1,6 @@
 ﻿using Generator.Metadata;
+using System.Linq;
+using System.Reflection;
 
 namespace Generator.Templates.Queries
 {
@@ -20,5 +22,15 @@ namespace Generator.Templates.Queries
 
         public static string ListDtoClassName(this ModelDefinition modelDefinition)
             => $"List{modelDefinition.GetDtoName()}";
+
+        public static ModelDefinition GetEnumParent(this EnumDefinition enumDefinition, ModuleDefinition moduleDefinition)
+        {
+            foreach (var model in moduleDefinition.Model.Values)
+            {
+                if (model.Properties.Any(p => p.Value.IsEnumType && p.Value.CastTargetType<EnumTypeDefinition>().Enum == enumDefinition))
+                    return model.RootEntity ?? model;
+            }
+            return null;
+        }
     }
 }
