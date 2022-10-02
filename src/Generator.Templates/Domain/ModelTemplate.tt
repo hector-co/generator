@@ -4,36 +4,35 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Metadata" #>
-using System;
-using System.Collections.Generic;
-<#  if (_model.IsEntity && _module.Settings.EntityUsings.Any()) #>
+<#  if (_model.IsEntity && _module.Settings.EntityUsings.Any()) 
+    { #>
 <#      foreach (var @using in _module.Settings.EntityUsings) 
         { #>
 using <#= @using #>;
 <#      } #>
 
-namespace <#= _module.GetDomainModelNamespace() #>
+<# } #>
+namespace <#= _module.GetDomainModelNamespace() #>;
+
+public <#= _model.IsAbstract? "abstract " : "" #>partial class <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>
 {
-    public <#= _model.IsAbstract? "abstract " : "" #>partial class <#= _model.Name #> <#= GetBaseClassName(_model, _module) #>
-    {
 <# if (HasPropertiesForInit(_model))
-   { #>
-        public <#= _model.Name #>()
-        {
+{ #>
+    public <#= _model.Name #>()
+    {
 <#      foreach(var propInfo in GetPropertiesForInitInfo(_model))
-        { #>
-            <#= propInfo.Name #> = new <#= propInfo.TypeName #>();
+    { #>
+        <#= propInfo.Name #> = new <#= propInfo.TypeName #>();
 <#      } #>
-        }
+    }
 
 <# } #>
 <#  if (_model.IsEntity && _module.Settings.GenerateIdProperties && !_model.IsChildClass)
-    { #>
-        public <#= _model.IdentifierProperty.TypeName #> <#= _model.IdentifierProperty.Name #> { get; set; }
+{ #>
+    public <#= _model.IdentifierProperty.TypeName #> <#= _model.IdentifierProperty.Name #> { get; set; }
 <#  } #>
 <#  foreach(var propInfo in GetPropertiesInfo(_model))
-    { #>
-        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+{ #>
+    <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
 <#  } #>
-    }
 }

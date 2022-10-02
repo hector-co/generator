@@ -11,27 +11,26 @@ using Microsoft.EntityFrameworkCore;
 using <#= _module.GetDataAccessModelNamespace(model) #>;
 <#    } #>
 
-namespace <#= _module.GetDataAccessNamespace() #>
+namespace <#= _module.GetDataAccessNamespace() #>;
+
+public class <#= _module.GetContextName() #> : DbContext
 {
-    public class <#= _module.GetContextName() #> : DbContext
+    public const string DbSchema = "<#= _module.Settings.DatabaseSchema #>";
+
+    public <#= _module.GetContextName() #>(DbContextOptions<<#= _module.GetContextName() #>> options) : base(options)
     {
-        public const string DbSchema = "<#= _module.Settings.DatabaseSchema #>";
+    }
 
-        public <#= _module.GetContextName() #>(DbContextOptions<<#= _module.GetContextName() #>> options) : base(options)
-        {
-        }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        Configure(modelBuilder);
+    }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            Configure(modelBuilder);
-        }
-
-        public static void Configure(ModelBuilder modelBuilder, string dbSchema = DbSchema)
-        {
+    public static void Configure(ModelBuilder modelBuilder, string dbSchema = DbSchema)
+    {
 <#    foreach(var model in _module.Model.Values.Where(m => m.IsEntity && !m.IsAbstract))
-    { #>
-            modelBuilder.ApplyConfiguration(new <#= model.Name #>Configuration(dbSchema));
+{ #>
+        modelBuilder.ApplyConfiguration(new <#= model.Name #>Configuration(dbSchema));
 <#    } #>
-        }
     }
 }

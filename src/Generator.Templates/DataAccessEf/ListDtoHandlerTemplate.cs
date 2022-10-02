@@ -30,139 +30,137 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Mapster;\r\nusing MediatR;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing Syste" +
-                    "m.Collections.Generic;\r\nusing System.Threading;\r\nusing System.Threading.Tasks;\r\n" +
-                    "using ");
+            this.Write("using Mapster;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing ");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
-            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetQueriesNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\nusing QueryX;\r\n\r\nnamespace ");
             
-            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write(".Queries\r\n{\r\n    public class ");
+            this.Write(".Queries;\r\n\r\npublic class ");
             
-            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
-            this.Write("Handler : IRequestHandler<");
+            this.Write("Handler : IQueryHandler<");
             
-            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
-            this.Write(", ResultModel<IEnumerable<");
+            this.Write(", IEnumerable<");
             
-            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write(">>>\r\n    {\r\n        private readonly ");
+            this.Write(">>\r\n{\r\n    private readonly ");
             
-            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write(" _context;\r\n\r\n        public ");
+            this.Write(" _context;\r\n\r\n    public ");
             
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
             this.Write("Handler(");
             
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write(" context)\r\n        {\r\n            _context = context;\r\n        }\r\n\r\n        publi" +
-                    "c async Task<ResultModel<IEnumerable<");
+            this.Write(" context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    public async Task<Res" +
+                    "ult<IEnumerable<");
             
-            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">>> Handle(");
             
-            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
-            this.Write(" request, CancellationToken cancellationToken)\r\n        {\r\n            var result" +
-                    " = new ResultModel<IEnumerable<");
+            this.Write(" request, CancellationToken cancellationToken)\r\n    {\r\n        var queryable = _c" +
+                    "ontext.Set<");
             
-            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
-            
-            #line default
-            #line hidden
-            this.Write(">>();\r\n\r\n            var queryable = _context.Set<");
-            
-            #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write(">()\r\n");
             
-            #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 29 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
     if (QueryableExtensionsTemplate.RequiresIncludes(_model))
-    { 
+{ 
             
             #line default
             #line hidden
-            this.Write("                .AddIncludes() \r\n");
+            this.Write("            .AddIncludes() \r\n");
             
-            #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
     } 
             
             #line default
             #line hidden
-            this.Write(@"                .AsNoTracking();
+            this.Write(@"            .AsNoTracking();
 
-            queryable = queryable.ApplyQuery(request, applyOrderingAndPaging: false);
-            result.TotalCount = await queryable.CountAsync(cancellationToken);
-            queryable = queryable.ApplyOrderingAndPaging(request);
+        queryable = queryable.ApplyQuery(request, applyOrderingAndPaging: false);
+        var totalCount = await queryable.CountAsync(cancellationToken);
+        queryable = queryable.ApplyOrderingAndPaging(request);
 
-            var data = await queryable.ToListAsync(cancellationToken);
-           
-            result.Data = data.Adapt<List<");
+        var data = await queryable.ToListAsync(cancellationToken);
+
+        return new Result<IEnumerable<");
             
-            #line 47 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            #line 41 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write(">>();\r\n\r\n            return result;\r\n        }\r\n    }\r\n}");
+            this.Write(">>(data.Adapt<List<");
+            
+            #line 41 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write(">>(), totalCount);\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

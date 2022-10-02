@@ -15,6 +15,15 @@ namespace Generator.Templates.Queries
             _model = modelDefinition;
         }
 
+        public static bool HasRelatedEntities(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
+        {
+            return modelDefinition.EvalProperties.Values.Where(p
+                    => (p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model.RootEntity != modelDefinition
+                                       && p.CastTargetType<ModelTypeDefinition>().Model != modelDefinition
+                                       && !p.CastTargetType<ModelTypeDefinition>().Model.IsAbstract))
+                .Distinct().Any();
+        }
+
         public static List<string> GetRelatedEntitiesUsings(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
         {
             var result = new List<string>();
@@ -22,37 +31,15 @@ namespace Generator.Templates.Queries
             foreach (var model in modelDefinition.EvalProperties.Values.Where(p
                 => (p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model.RootEntity != modelDefinition
                     && p.CastTargetType<ModelTypeDefinition>().Model != modelDefinition
-                    && !p.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
-                    || p.IsValueObjectType).Select(p => p.CastTargetType<ModelTypeDefinition>().Model).Distinct())
+                    && !p.CastTargetType<ModelTypeDefinition>().Model.IsAbstract))
+                         .Select(p => p.CastTargetType<ModelTypeDefinition>().Model).Distinct())
             {
+                if (model.Name == modelDefinition.Name)
+                    continue;
+
                 result.Add($"{moduleDefinition.GetDtoNamespace(model)}");
             }
 
-            return result;
-        }
-
-        public static bool HasPropertiesForInit(ModelDefinition modelDefinition)
-        {
-            return modelDefinition.EvalProperties.Values.Where(p => p.IsGeneric).Any();
-        }
-
-        public static List<PropertyInfo> GetPropertiesForInitInfo(ModelDefinition modelDefinition)
-        {
-            var result = new List<PropertyInfo>();
-
-            foreach (var property in modelDefinition.EvalProperties.Values.Where(p => p.IsGeneric))
-            {
-                if (property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
-                    continue;
-
-                var propInfo = new PropertyInfo
-                {
-                    Visibility = "public",
-                    TypeName = GetPropertyTypeName(property),
-                    Name = property.Name
-                };
-                result.Add(propInfo);
-            }
             return result;
         }
 

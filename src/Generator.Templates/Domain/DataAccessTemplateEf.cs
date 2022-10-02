@@ -36,30 +36,30 @@ namespace Generator.Templates.Domain
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n");
+            this.Write(";\r\n\r\n");
             
             #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
   foreach(var model in _module.Model.Values.Where(m => m.RequiresDataAccessClass)) 
-    { 
+{ 
             
             #line default
             #line hidden
-            this.Write("    public partial class ");
+            this.Write("public partial class ");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
             
             #line default
             #line hidden
-            this.Write("\r\n    {\r\n");
+            this.Write("\r\n{\r\n");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
       foreach(var propInfo in GetEntityPropertiesInfo(model))
-        { 
+    { 
             
             #line default
             #line hidden
-            this.Write("        ");
+            this.Write("    ");
             
             #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Visibility));
@@ -90,11 +90,11 @@ namespace Generator.Templates.Domain
             
             #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
       foreach(var propInfo in GetSourceEntityPropertiesInfo(_module, model))
-        { 
+    { 
             
             #line default
             #line hidden
-            this.Write("        ");
+            this.Write("    ");
             
             #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Visibility));
@@ -125,26 +125,26 @@ namespace Generator.Templates.Domain
             
             #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
       foreach(var propInfo in GetGenericSystemPropertiesInfo(model))
-        { 
+    { 
             
             #line default
             #line hidden
-            this.Write("        internal string ");
+            this.Write("    internal string ");
             
             #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
-            this.Write("_Serialized\r\n        {\r\n            get { return JsonSerializer.Serialize(");
+            this.Write("_Serialized\r\n    {\r\n        get { return JsonSerializer.Serialize(");
             
             #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
-            this.Write("); }\r\n            set\r\n            {\r\n                if (string.IsNullOrEmpty(va" +
-                    "lue)) return;\r\n                ");
+            this.Write("); }\r\n        set\r\n        {\r\n            if (string.IsNullOrEmpty(value)) return" +
+                    ";\r\n            ");
             
             #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
@@ -158,21 +158,20 @@ namespace Generator.Templates.Domain
             
             #line default
             #line hidden
-            this.Write(">(value);\r\n            }\r\n        }\r\n");
+            this.Write(">(value);\r\n        }\r\n    }\r\n");
             
             #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
       } 
             
             #line default
             #line hidden
-            this.Write("    }\r\n\r\n");
+            this.Write("}\r\n\r\n");
             
             #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Domain\DataAccessTemplateEf.tt"
   } 
             
             #line default
             #line hidden
-            this.Write("}");
             return this.GenerationEnvironment.ToString();
         }
     }

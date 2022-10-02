@@ -3,14 +3,13 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-namespace <#= _module.GetDtoNamespace(GetParentDto()) #>
+namespace <#= _module.GetDtoNamespace(GetParentDto()) #>;
+
+public enum <#= _enum.Name #>
 {
-    public enum <#= _enum.Name #>
-    {
 <# foreach(var value in _enum.Values)
-   {
+{
 #>
-        <#= value #>,
+    <#= value #>,
 <# } #>
-    }
 }

@@ -36,7 +36,7 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    internal class ");
+            this.Write(";\r\n\r\ninternal class ");
             
             #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
@@ -50,45 +50,44 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(">\r\n    {\r\n        public ");
+            this.Write(">\r\n{\r\n    public ");
             
             #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write(" CreateDbContext(string[] args)\r\n        {\r\n            var optionsBuilder = new " +
-                    "DbContextOptionsBuilder<");
+            this.Write(" CreateDbContext(string[] args)\r\n    {\r\n        var optionsBuilder = new DbContex" +
+                    "tOptionsBuilder<");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write(">();\r\n            optionsBuilder.UseNpgsql(\r\n                \"Host=localhost;Data" +
-                    "base=");
+            this.Write(">();\r\n        optionsBuilder.UseNpgsql(\r\n            \"Host=localhost;Database=");
             
             #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.Name.GetExtension()));
             
             #line default
             #line hidden
-            this.Write(";Username=postgres;Password=postgres\",\r\n                o => o.MigrationsHistoryT" +
-                    "able(\"__EFMigrationsHistory\", ");
+            this.Write(";Username=postgres;Password=postgres\",\r\n            o => o.MigrationsHistoryTable" +
+                    "(\"__EFMigrationsHistory\", ");
             
             #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write(".DbSchema));\r\n\r\n            return new ");
+            this.Write(".DbSchema));\r\n\r\n        return new ");
             
             #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextFactoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write("(optionsBuilder.Options);\r\n        }\r\n    }\r\n}");
+            this.Write("(optionsBuilder.Options);\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

@@ -59,21 +59,21 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class ");
+            this.Write(";\r\n\r\npublic class ");
             
             #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write(" : DbContext\r\n    {\r\n        public const string DbSchema = \"");
+            this.Write(" : DbContext\r\n{\r\n    public const string DbSchema = \"");
             
             #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.Settings.DatabaseSchema));
             
             #line default
             #line hidden
-            this.Write("\";\r\n\r\n        public ");
+            this.Write("\";\r\n\r\n    public ");
             
             #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
@@ -88,25 +88,25 @@ namespace Generator.Templates.DataAccessEf
             #line default
             #line hidden
             this.Write(@"> options) : base(options)
-        {
-        }
+    {
+    }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            Configure(modelBuilder);
-        }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        Configure(modelBuilder);
+    }
 
-        public static void Configure(ModelBuilder modelBuilder, string dbSchema = DbSchema)
-        {
+    public static void Configure(ModelBuilder modelBuilder, string dbSchema = DbSchema)
+    {
 ");
             
             #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
     foreach(var model in _module.Model.Values.Where(m => m.IsEntity && !m.IsAbstract))
-    { 
+{ 
             
             #line default
             #line hidden
-            this.Write("            modelBuilder.ApplyConfiguration(new ");
+            this.Write("        modelBuilder.ApplyConfiguration(new ");
             
             #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
@@ -120,7 +120,7 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write("        }\r\n    }\r\n}");
+            this.Write("    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

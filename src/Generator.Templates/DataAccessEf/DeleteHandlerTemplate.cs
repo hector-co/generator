@@ -27,121 +27,128 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Mapster;\r\nusing MediatR;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing ");
+            this.Write("using Microsoft.EntityFrameworkCore;\r\nusing ");
             
-            #line 6 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 4 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Commands;\r\nusing ");
+            
+            #line 5 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
-            #line 7 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 6 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 8 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write(".Commands\r\n{\r\n    public class ");
+            this.Write(".Commands;\r\n\r\npublic class ");
             
-            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
             
             #line default
             #line hidden
-            this.Write("Handler : IRequestHandler<");
+            this.Write("Handler : ICommandHandler<");
             
-            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
             
             #line default
             #line hidden
-            this.Write(">\r\n    {\r\n        private readonly ");
+            this.Write(">\r\n{\r\n    private readonly ");
             
-            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write(" _context;\r\n\r\n        public ");
+            this.Write(" _context;\r\n\r\n    public ");
             
-            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
             
             #line default
             #line hidden
             this.Write("Handler(");
             
-            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write(" context)\r\n        {\r\n            _context = context;\r\n        }\r\n\r\n        publi" +
-                    "c async Task<Unit> Handle(");
+            this.Write(" context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    public async Task<Res" +
+                    "ponse> Handle(");
             
-            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
             
             #line default
             #line hidden
-            this.Write(" request, CancellationToken cancellationToken)\r\n        {\r\n            var ");
+            this.Write(" request, CancellationToken cancellationToken)\r\n    {\r\n        var ");
             
-            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(" = await _context.Set<");
             
-            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
-            this.Write(">()\r\n                .FirstOrDefaultAsync(m => m.");
+            this.Write(">()\r\n            .FirstOrDefaultAsync(m => m.");
             
-            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default
             #line hidden
             this.Write(" == request.");
             
-            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default
             #line hidden
-            this.Write(", cancellationToken);\r\n\r\n            if (");
+            this.Write(", cancellationToken);\r\n\r\n        if (");
+            
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
+            
+            #line default
+            #line hidden
+            this.Write(" == null)\r\n            return Response.Failure(new Error(\"");
             
             #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Delete.NotFound\", \"Entity not found.\"));\r\n\r\n        _context.Remove(");
+            
+            #line 27 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
-            this.Write(" == null)\r\n                throw new NullReferenceException(nameof(");
-            
-            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
-            
-            #line default
-            #line hidden
-            this.Write("));\r\n\r\n            _context.Remove(");
-            
-            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n            await _context.SaveChangesAsync(cancellationToken);\r\n            " +
-                    "return await Unit.Task;\r\n        }\r\n    }\r\n}");
+            this.Write(");\r\n        await _context.SaveChangesAsync(cancellationToken);\r\n        return R" +
+                    "esponse.Success();\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

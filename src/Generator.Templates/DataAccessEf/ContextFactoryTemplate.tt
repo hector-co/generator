@@ -7,18 +7,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace <#= _module.GetDataAccessNamespace() #>
-{
-    internal class <#= _module.GetContextName() #>Factory : IDesignTimeDbContextFactory<<#= _module.GetContextName() #>>
-    {
-        public <#= _module.GetContextName() #> CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<<#= _module.GetContextName() #>>();
-            optionsBuilder.UseNpgsql(
-                "Host=localhost;Database=<#= _module.Name.GetExtension() #>;Username=postgres;Password=postgres",
-                o => o.MigrationsHistoryTable("__EFMigrationsHistory", <#= _module.GetContextName() #>.DbSchema));
+namespace <#= _module.GetDataAccessNamespace() #>;
 
-            return new <#= _module.GetContextName() #>(optionsBuilder.Options);
-        }
+internal class <#= _module.GetContextName() #>Factory : IDesignTimeDbContextFactory<<#= _module.GetContextName() #>>
+{
+    public <#= _module.GetContextName() #> CreateDbContext(string[] args)
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<<#= _module.GetContextName() #>>();
+        optionsBuilder.UseNpgsql(
+            "Host=localhost;Database=<#= _module.Name.GetExtension() #>;Username=postgres;Password=postgres",
+            o => o.MigrationsHistoryTable("__EFMigrationsHistory", <#= _module.GetContextName() #>.DbSchema));
+
+        return new <#= _module.GetContextName() #>(optionsBuilder.Options);
     }
 }

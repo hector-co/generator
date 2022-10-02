@@ -35,7 +35,7 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class ");
+            this.Write(";\r\n\r\npublic class ");
             
             #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandValidatorClassName()));
@@ -49,22 +49,22 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write(">\r\n    {\r\n        public ");
+            this.Write(">\r\n{\r\n    public ");
             
             #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandValidatorClassName()));
             
             #line default
             #line hidden
-            this.Write("()\r\n        {\r\n");
+            this.Write("()\r\n    {\r\n");
             
             #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
       foreach(var prop in GetPropertiesValidations(_model))
-        { 
+    { 
             
             #line default
             #line hidden
-            this.Write("            RuleFor(c => c.");
+            this.Write("        RuleFor(c => c.");
             
             #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Key));
@@ -75,11 +75,11 @@ namespace Generator.Templates.Commands
             
             #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
           foreach(var validation in prop.Value)
-            { 
+        { 
             
             #line default
             #line hidden
-            this.Write("                .");
+            this.Write("            .");
             
             #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(validation));
@@ -102,18 +102,18 @@ namespace Generator.Templates.Commands
             
             #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
       foreach(var prop in GetCollectionPropertiesValidations(_model))
-        { 
+    { 
             
             #line default
             #line hidden
-            this.Write("            RuleForEach(c => c.");
+            this.Write("        RuleForEach(c => c.");
             
             #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Key));
             
             #line default
             #line hidden
-            this.Write(")\r\n                .SetValidator(new ");
+            this.Write(")\r\n            .SetValidator(new ");
             
             #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Value));
@@ -127,15 +127,15 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write("        }\r\n\r\n");
+            this.Write("    }\r\n\r\n");
             
             #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
       foreach(var model in GetModelsForValidations(_module, _model))
-        { 
+    { 
             
             #line default
             #line hidden
-            this.Write("        public class Update");
+            this.Write("    public class Update");
             
             #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
@@ -156,22 +156,22 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write(">\r\n        {\r\n            public Update");
+            this.Write(">\r\n    {\r\n        public Update");
             
             #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
             
             #line default
             #line hidden
-            this.Write("Validator()\r\n            {\r\n");
+            this.Write("Validator()\r\n        {\r\n");
             
             #line 36 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
           foreach(var prop in GetPropertiesValidations(model))
-            { 
+        { 
             
             #line default
             #line hidden
-            this.Write("                RuleFor(c => c.");
+            this.Write("            RuleFor(c => c.");
             
             #line 38 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Key));
@@ -182,11 +182,11 @@ namespace Generator.Templates.Commands
             
             #line 39 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
               foreach(var validation in prop.Value)
-                { 
+            { 
             
             #line default
             #line hidden
-            this.Write("                    .");
+            this.Write("                .");
             
             #line 41 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(validation));
@@ -209,18 +209,18 @@ namespace Generator.Templates.Commands
             
             #line 44 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
           foreach(var prop in GetCollectionPropertiesValidations(model))
-            { 
+        { 
             
             #line default
             #line hidden
-            this.Write("                RuleForEach(c => c.");
+            this.Write("            RuleForEach(c => c.");
             
             #line 46 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Key));
             
             #line default
             #line hidden
-            this.Write(")\r\n                    .SetValidator(new ");
+            this.Write(")\r\n                .SetValidator(new ");
             
             #line 47 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Value));
@@ -234,14 +234,14 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write("            }\r\n        }\r\n\r\n");
+            this.Write("        }\r\n    }\r\n\r\n");
             
             #line 52 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\UpdateValidatorTemplate.tt"
       } 
             
             #line default
             #line hidden
-            this.Write("    }\r\n}\r\n");
+            this.Write("}");
             return this.GenerationEnvironment.ToString();
         }
     }

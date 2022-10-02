@@ -35,23 +35,23 @@ namespace Generator.Templates.Queries
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public enum ");
+            this.Write(";\r\n\r\npublic enum ");
             
             #line 8 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\EnumTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_enum.Name));
             
             #line default
             #line hidden
-            this.Write("\r\n    {\r\n");
+            this.Write("\r\n{\r\n");
             
             #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\EnumTemplate.tt"
  foreach(var value in _enum.Values)
-   {
+{
 
             
             #line default
             #line hidden
-            this.Write("        ");
+            this.Write("    ");
             
             #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\EnumTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(value));
@@ -65,7 +65,7 @@ namespace Generator.Templates.Queries
             
             #line default
             #line hidden
-            this.Write("    }\r\n}\r\n");
+            this.Write("}");
             return this.GenerationEnvironment.ToString();
         }
     }

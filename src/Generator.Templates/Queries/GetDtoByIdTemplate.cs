@@ -29,56 +29,35 @@ namespace Generator.Templates.Queries
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing MediatR;\r\n\r\nnamespace ");
+            this.Write("namespace ");
             
-            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
+            #line 7 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class ");
+            this.Write(";\r\n\r\npublic record ");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
-            
-            #line default
-            #line hidden
-            this.Write(" : IRequest<ResultModel<");
-            
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
-            
-            #line default
-            #line hidden
-            this.Write(">>\r\n    {\r\n        public ");
-            
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
-            
-            #line default
-            #line hidden
-            this.Write("()\r\n        {\r\n        }\r\n\r\n        public ");
-            
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
+            #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
+            #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
-            this.Write(" id)\r\n        {\r\n            Id = id;\r\n        }\r\n\r\n        public ");
+            this.Write(" Id) : IQuery<");
             
-            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
+            #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\GetDtoByIdTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write(" Id { get; set; }\r\n    }\r\n}\r\n");
+            this.Write(">;");
             return this.GenerationEnvironment.ToString();
         }
     }

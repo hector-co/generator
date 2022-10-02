@@ -1,55 +1,54 @@
 ﻿<#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.Commands" #>
 using Mapster;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
+using <#= _module.Name #>.Commands;
 using <#= _module.GetDomainModelNamespace() #>;
 using <#= _module.GetCommandsNamespace(_model) #>;
 
-namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
+
+public class <#= _model.GetRegisterCommandClassName() #>Handler : ICommandHandler<<#= _model.GetRegisterCommandClassName() #>, <#= _model.IdentifierType #>>
 {
-    public class <#= _model.GetRegisterCommandClassName() #>Handler : IRequestHandler<<#= _model.GetRegisterCommandClassName() #>, <#= _model.IdentifierType #>>
+    private readonly <#= _module.GetContextName() #> _context;
+
+    public <#= _model.GetRegisterCommandClassName() #>Handler(<#= _module.GetContextName() #> context)
     {
-        private readonly <#= _module.GetContextName() #> _context;
+        _context = context;
+    }
 
-        public <#= _model.GetRegisterCommandClassName() #>Handler(<#= _module.GetContextName() #> context)
+    public async Task<Response<<#= _model.IdentifierType #>>> Handle(<#= _model.GetRegisterCommandClassName() #> request, CancellationToken cancellationToken)
+    {
+        var <#= _model.Name.GetVariableName() #> = new <#= _model.Name #>
         {
-            _context = context;
-        }
-
-        public async Task<<#= _model.IdentifierType #>> Handle(<#= _model.GetRegisterCommandClassName() #> request, CancellationToken cancellationToken)
-        {
-            var <#= _model.Name.GetVariableName() #> = new <#= _model.Name #>
-            {
 <#  foreach(var propInfo in GetScalarPropertiesInfo(_model))
-    { #>
-                <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + propInfo.Name : propInfo.NameOverride #>,
+{ #>
+            <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + propInfo.Name : propInfo.NameOverride #>,
 <#  } #>
 <#  foreach(var entity in GetSingleOwnedEntities(_model))
-    { #>
-                <#= entity.Key #> = new <#= entity.Value.Name #>
-                {
+{ #>
+            <#= entity.Key #> = new <#= entity.Value.Name #>
+            {
 <#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
-        { #>
-                    <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + entity.Key + "." + propInfo.Name : propInfo.NameOverride #>,
+    { #>
+                <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + entity.Key + "." + propInfo.Name : propInfo.NameOverride #>,
 <#      } #>
-                },
+            },
 <#  } #>
 <#  foreach(var entity in GetCollectionOwnedEntities(_model))
-    { #>
-                <#= entity.Key #> = request.<#= entity.Key #>.Select(r => new <#= entity.Value.Name #>
-                {
+{ #>
+            <#= entity.Key #> = request.<#= entity.Key #>.Select(r => new <#= entity.Value.Name #>
+            {
 <#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value, "r"))
-        { #>
-                    <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "r." + propInfo.Name : propInfo.NameOverride #>,
+    { #>
+                <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "r." + propInfo.Name : propInfo.NameOverride #>,
 <#      } #>
-                }).ToList(),
+            }).ToList(),
 <#  } #>
-            };
+        };
 
-            _context.Add(<#= _model.Name.GetVariableName() #>);
-            await _context.SaveChangesAsync(cancellationToken);
-            return <#= _model.Name.GetVariableName() #>.<#= _model.IdentifierProperty.Name #>;
-        }
+        _context.Add(<#= _model.Name.GetVariableName() #>);
+        await _context.SaveChangesAsync(cancellationToken);
+        return Response.Success(<#= _model.Name.GetVariableName() #>.<#= _model.IdentifierProperty.Name #>);
     }
 }

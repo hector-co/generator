@@ -6,47 +6,38 @@
 <#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.Queries" #>
 using Mapster;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using <#= _module.GetDomainModelNamespace() #>;
 using <#= _module.GetQueriesNamespace() #>;
 using <#= _module.GetDtoNamespace(_model) #>;
 using QueryX;
 
-namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries;
+
+public class <#= _model.ListDtoClassName() #>Handler : IQueryHandler<<#= _model.ListDtoClassName() #>, IEnumerable<<#= _model.GetDtoName() #>>>
 {
-    public class <#= _model.ListDtoClassName() #>Handler : IRequestHandler<<#= _model.ListDtoClassName() #>, ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>>
+    private readonly <#= _module.GetContextName() #> _context;
+
+    public <#= _model.ListDtoClassName() #>Handler(<#= _module.GetContextName() #> context)
     {
-        private readonly <#= _module.GetContextName() #> _context;
+        _context = context;
+    }
 
-        public <#= _model.ListDtoClassName() #>Handler(<#= _module.GetContextName() #> context)
-        {
-            _context = context;
-        }
-
-        public async Task<ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>> Handle(<#= _model.ListDtoClassName() #> request, CancellationToken cancellationToken)
-        {
-            var result = new ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>();
-
-            var queryable = _context.Set<<#= _model.Name #>>()
+    public async Task<Result<IEnumerable<<#= _model.GetDtoName() #>>>> Handle(<#= _model.ListDtoClassName() #> request, CancellationToken cancellationToken)
+    {
+        var queryable = _context.Set<<#= _model.Name #>>()
 <#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
-    { #>
-                .AddIncludes() 
+{ #>
+            .AddIncludes() 
 <#    } #>
-                .AsNoTracking();
+            .AsNoTracking();
 
-            queryable = queryable.ApplyQuery(request, applyOrderingAndPaging: false);
-            result.TotalCount = await queryable.CountAsync(cancellationToken);
-            queryable = queryable.ApplyOrderingAndPaging(request);
+        queryable = queryable.ApplyQuery(request, applyOrderingAndPaging: false);
+        var totalCount = await queryable.CountAsync(cancellationToken);
+        queryable = queryable.ApplyOrderingAndPaging(request);
 
-            var data = await queryable.ToListAsync(cancellationToken);
-           
-            result.Data = data.Adapt<List<<#= _model.GetDtoName() #>>>();
+        var data = await queryable.ToListAsync(cancellationToken);
 
-            return result;
-        }
+        return new Result<IEnumerable<<#= _model.GetDtoName() #>>>(data.Adapt<List<<#= _model.GetDtoName() #>>>(), totalCount);
     }
 }

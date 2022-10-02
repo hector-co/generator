@@ -4,22 +4,6 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Metadata" #>
-using System;
-using MediatR;
+namespace <#= _module.GetDtoNamespace(_model) #>;
 
-namespace <#= _module.GetDtoNamespace(_model) #>
-{
-    public class <#= _model.GetDtoByIdClassName() #> : IRequest<ResultModel<<#= _model.GetDtoName() #>>>
-    {
-        public <#= _model.GetDtoByIdClassName() #>()
-        {
-        }
-
-        public <#= _model.GetDtoByIdClassName() #>(<#= _model.IdentifierType #> id)
-        {
-            Id = id;
-        }
-
-        public <#= _model.IdentifierType #> Id { get; set; }
-    }
-}
+public record <#= _model.GetDtoByIdClassName() #>(<#= _model.IdentifierType #> Id) : IQuery<<#= _model.GetDtoName() #>>;

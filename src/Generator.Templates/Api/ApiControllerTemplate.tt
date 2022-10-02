@@ -5,9 +5,6 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Templates.Queries" #>
 <#@ import namespace="Generator.Templates.Commands" #>
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using <#= _module.GetDtoNamespace(_model) #>;
@@ -17,65 +14,64 @@ using <#= _module.GetCommandsNamespace(_model) #>;
 <#  } #>
 using QueryX;
 
-namespace <#= _module.GetApiNamespace() #>
+namespace <#= _module.GetApiNamespace() #>;
+
+[Route("<#= _module.Settings.ApiPrefix #>/<#= _model.GetApiRouteName() #>")]
+public class <#= _model.PluralName #>Controller : ControllerBase
 {
-    [Route("<#= _module.Settings.ApiPrefix #>/<#= _model.GetApiRouteName() #>")]
-    public class <#= _model.PluralName #>Controller : ControllerBase
+    private readonly IMediator _mediator;
+    private readonly QueryBuilder _queryBuilder;
+
+    public <#= _model.PluralName #>Controller(IMediator mediator, QueryBuilder queryBuilder)
     {
-        private readonly IMediator _mediator;
-        private readonly QueryBuilder _queryBuilder;
-
-        public <#= _model.PluralName #>Controller(IMediator mediator, QueryBuilder queryBuilder)
-        {
-            _mediator = mediator;
-            _queryBuilder = queryBuilder;
-        }
-
-        [HttpGet("{id}", Name = "Get<#= _model.Name #>ById")]
-        public async Task<IActionResult> GetById(<#= _model.IdentifierProperty.TypeName #> id, CancellationToken cancellationToken)
-        {
-            var getByIdQuery = new <#= _model.GetDtoByIdClassName() #>(id);
-            var result = await _mediator.Send(getByIdQuery, cancellationToken);
-            if (result.Data == null) return NotFound();
-            return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> List([FromQuery] QueryModel queryModel, CancellationToken cancellationToken)
-        {
-            var query = _queryBuilder.CreateQuery<<#= _model.ListDtoClassName() #>, <#= _model.GetDtoName() #>>(queryModel);
-            var result = await _mediator.Send(query, cancellationToken);
-            return Ok(result);
-        }
-<#  if (_generateCommands) 
-    { #>
-
-        [HttpPost]
-        public async Task<IActionResult> Register([FromBody] <#= _model.GetRegisterCommandClassName() #> command, CancellationToken cancellationToken)
-        {
-            var id = await _mediator.Send(command, cancellationToken);
-            var result = await _mediator.Send(new <#= _model.GetDtoByIdClassName() #>(id), cancellationToken);
-            return CreatedAtRoute("Get<#= _model.Name #>ById", new { id }, result);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(<#= _model.IdentifierType #> id, [FromBody] <#= _model.GetUpdateCommandClassName() #> command, CancellationToken cancellationToken)
-        {
-            command.<#= _model.IdentifierProperty.Name #> = id;
-            await _mediator.Send(command, cancellationToken);
-            return Accepted();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
-        {
-            var command = new <#= _model.GetDeleteCommandClassName() #>
-            {
-                <#= _model.IdentifierProperty.Name #> = id
-            };
-            await _mediator.Send(command, cancellationToken);
-            return Accepted();
-        }
-<#  } #>
+        _mediator = mediator;
+        _queryBuilder = queryBuilder;
     }
+
+    [HttpGet("{id}", Name = "Get<#= _model.Name #>ById")]
+    public async Task<IActionResult> GetById(<#= _model.IdentifierProperty.TypeName #> id, CancellationToken cancellationToken)
+    {
+        var getByIdQuery = new <#= _model.GetDtoByIdClassName() #>(id);
+        var result = await _mediator.Send(getByIdQuery, cancellationToken);
+        if (result.Data == null) return NotFound();
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> List([FromQuery] QueryModel queryModel, CancellationToken cancellationToken)
+    {
+        var query = _queryBuilder.CreateQuery<<#= _model.ListDtoClassName() #>, <#= _model.GetDtoName() #>>(queryModel);
+        var result = await _mediator.Send(query, cancellationToken);
+        return Ok(result);
+    }
+<#  if (_generateCommands) 
+{ #>
+
+    [HttpPost]
+    public async Task<IActionResult> Register([FromBody] <#= _model.GetRegisterCommandClassName() #> command, CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(command, cancellationToken);
+        response.Verify();
+        var model = await _mediator.Send(new <#= _model.GetDtoByIdClassName() #>(response.Value), cancellationToken);
+        return CreatedAtRoute("Get<#= _model.Name #>ById", new { id = response.Value }, model);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(<#= _model.IdentifierType #> id, [FromBody] <#= _model.GetUpdateCommandClassName() #> command, CancellationToken cancellationToken)
+    {
+        command.<#= _model.IdentifierProperty.Name #> = id;
+        var response = await _mediator.Send(command, cancellationToken);
+        response.Verify();
+        return Accepted();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    {
+        var command = new <#= _model.GetDeleteCommandClassName() #>(id);
+        var response = await _mediator.Send(command, cancellationToken);
+        response.Verify();
+        return Accepted();
+    }
+<#  } #>
 }

@@ -29,36 +29,35 @@ namespace Generator.Templates.Queries
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing MediatR;\r\nusing QueryX;\r\n" +
-                    "\r\nnamespace ");
+            this.Write("using QueryX;\r\n\r\nnamespace ");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class ");
+            this.Write(";\r\n\r\npublic class ");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
             this.Write(" : Query<");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write(">, IRequest<ResultModel<IEnumerable<");
+            this.Write(">, IQuery<IEnumerable<");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write(">>>\r\n    {\r\n    }\r\n}\r\n");
+            this.Write(">>\r\n{\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

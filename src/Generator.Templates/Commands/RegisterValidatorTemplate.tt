@@ -6,49 +6,48 @@
 <#@ output extension=".txt" #>
 using FluentValidation;
 
-namespace <#= _module.GetCommandsNamespace(_model) #>
+namespace <#= _module.GetCommandsNamespace(_model) #>;
+
+public class <#= _model.GetRegisterCommandValidatorClassName() #> : AbstractValidator<<#= _model.GetRegisterCommandClassName() #>>
 {
-    public class <#= _model.GetRegisterCommandValidatorClassName() #> : AbstractValidator<<#= _model.GetRegisterCommandClassName() #>>
+    public <#= _model.GetRegisterCommandValidatorClassName() #>()
     {
-        public <#= _model.GetRegisterCommandValidatorClassName() #>()
-        {
 <#      foreach(var prop in GetPropertiesValidations(_model))
-        { #>
-            RuleFor(c => c.<#= prop.Key #>)
+    { #>
+        RuleFor(c => c.<#= prop.Key #>)
 <#          foreach(var validation in prop.Value)
-            { #>
-                .<#= validation #>
+        { #>
+            .<#= validation #>
 <#          } #>
 <#      } #>
 <#      foreach(var prop in GetCollectionPropertiesValidations(_model))
-        { #>
-            RuleForEach(c => c.<#= prop.Key #>)
-                .SetValidator(new <#= prop.Value #>Validator());
+    { #>
+        RuleForEach(c => c.<#= prop.Key #>)
+            .SetValidator(new <#= prop.Value #>Validator());
 <#      } #>
-        }
+    }
 
 <#      foreach(var model in GetModelsForValidations(_module, _model))
-        { #>
-        public class Register<#= model.Name #>Validator : AbstractValidator<<#= _model.GetRegisterCommandClassName() #>.Register<#= model.Name #>>
+    { #>
+    public class Register<#= model.Name #>Validator : AbstractValidator<<#= _model.GetRegisterCommandClassName() #>.Register<#= model.Name #>>
+    {
+        public Register<#= model.Name #>Validator()
         {
-            public Register<#= model.Name #>Validator()
-            {
 <#          foreach(var prop in GetPropertiesValidations(model))
-            { #>
-                RuleFor(c => c.<#= prop.Key #>)
+        { #>
+            RuleFor(c => c.<#= prop.Key #>)
 <#              foreach(var validation in prop.Value)
-                { #>
-                    .<#= validation #>
+            { #>
+                .<#= validation #>
 <#              } #>
 <#          } #>
 <#          foreach(var prop in GetCollectionPropertiesValidations(model))
-            { #>
-                RuleForEach(c => c.<#= prop.Key #>)
-                    .SetValidator(new <#= prop.Value #>Validator());
+        { #>
+            RuleForEach(c => c.<#= prop.Key #>)
+                .SetValidator(new <#= prop.Value #>Validator());
 <#          } #>
-            }
         }
+    }
 
 <#      } #>
-    }
 }

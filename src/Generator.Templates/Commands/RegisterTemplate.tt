@@ -3,39 +3,24 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-using MediatR;
-using System;
-using System.Collections.Generic;
+namespace <#= _module.GetCommandsNamespace(_model) #>;
 
-namespace <#= _module.GetCommandsNamespace(_model) #>
-{
-    public class <#= _model.GetRegisterCommandClassName() #> : IRequest<<#= _model.IdentifierType #>>
-    {
-<# if (HasPropertiesForInit(_model))
+public record <#= _model.GetRegisterCommandClassName() #>
+(
+<#  foreach(var (propInfo, index, count) in GetPropertiesInfo(_model).WithIndex())
+    { #>
+    <#= propInfo.TypeName #> <#= propInfo.Name #><#= (index == count - 1? "" : ",")#>
+<#  } #>) : ICommand<<#=_model.IdentifierType#>><#= HasSubClasses(_module, _model)? "" : ";" #>
+<# if(HasSubClasses(_module, _model)) 
    { #>
-        public <#= _model.GetRegisterCommandClassName() #>()
-        {
-<#      foreach(var propInfo in GetPropertiesForInitInfo(_model))
-        { #>
-            <#= propInfo.Name #> = new <#= propInfo.TypeName #>();
-<#      } #>
-        }
-
-<# } #>
-<#  foreach(var propInfo in GetPropertiesInfo(_model))
-    { #>
-        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
-<#  } #>
-<#  foreach(var subClass in GetSubClasses(_module, _model))
-    { #>
-
-        public class <#= subClass.Key #>
-        {
-<#      foreach(var propInfo in subClass.Value)
-        { #>
-            <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
-<#      } #>
-        }
-<#  } #>
-    }
+{
+<#     foreach(var subClass in GetSubClasses(_module, _model)) 
+       { #>
+    public record <#= subClass.Key #>(
+<#        foreach(var (propInfo, index, count) in subClass.Value.WithIndex())
+          { #>
+        <#= propInfo.TypeName #> <#= propInfo.Name #><#= (index == count-1? ");" : ",")#>
+<#        } #>
+<#     } #>
 }
+<# } #>

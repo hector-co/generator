@@ -3,14 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-using MediatR;
-using System;
-using System.Collections.Generic;
 
-namespace <#= _module.GetCommandsNamespace(_model) #>
-{
-    public class <#= _model.GetDeleteCommandClassName() #> : IRequest
-    {
-        public <#= _model.IdentifierType #> <#= _model.IdentifierProperty.Name #> { get; set; }
-    }
-}
+namespace <#= _module.GetCommandsNamespace(_model) #>;
+
+public record <#= _model.GetDeleteCommandClassName() #>(<#= _model.IdentifierType #> <#= _model.IdentifierProperty.Name #>) : ICommand;

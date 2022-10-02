@@ -15,28 +15,9 @@ namespace Generator.Templates.Commands
             _model = model;
         }
 
-        public static bool HasPropertiesForInit(ModelDefinition modelDefinition)
+        public static bool HasSubClasses(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
-            return modelDefinition.Properties.Values.Where(p => p.IsGeneric).Any();
-        }
-
-        public static List<PropertyInfo> GetPropertiesForInitInfo(ModelDefinition modelDefinition)
-        {
-            var result = new List<PropertyInfo>();
-            foreach (var property in modelDefinition.EvalProperties.Values.Where(p => p.IsGeneric))
-            {
-                if (property.IsEntityType && property.CastTargetType<ModelTypeDefinition>().Model.IsAbstract)
-                    continue;
-
-                var propInfo = new PropertyInfo
-                {
-                    Visibility = "public",
-                    TypeName = GetPropertyTypeName(modelDefinition.GetRootEntity() ?? modelDefinition, property),
-                    Name = GetPropertyName(modelDefinition, property)
-                };
-                result.Add(propInfo);
-            }
-            return result;
+            return moduleDefinition.GetSubModels(modelDefinition).Any();
         }
 
         public static Dictionary<string, List<PropertyInfo>> GetSubClasses(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
@@ -86,7 +67,7 @@ namespace Generator.Templates.Commands
             else if (propertyDefinition.IsEntityType || propertyDefinition.IsValueObjectType)
             {
                 var entityType = propertyDefinition.CastTargetType<ModelTypeDefinition>();
-                return ResolvePropertyInternalType(propertyDefinition, "Register" + entityType.Model.Name);
+                return ResolvePropertyInternalType(propertyDefinition, "Register" + entityType.Model.Name, "Register" + modelDefinition.Name + ".");
             }
             else if (propertyDefinition.IsEnumType)
             {
@@ -96,9 +77,9 @@ namespace Generator.Templates.Commands
             return "";
         }
 
-        private static string ResolvePropertyInternalType(PropertyDefinition propertyDefinition, string targetType)
+        private static string ResolvePropertyInternalType(PropertyDefinition propertyDefinition, string targetType, string prefix = "")
         {
-            return propertyDefinition.InternalTypeName.Replace($":T0:", targetType);
+            return propertyDefinition.InternalTypeName.Replace($":T0:", prefix + targetType);
         }
 
         private static string GetPropertyName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)

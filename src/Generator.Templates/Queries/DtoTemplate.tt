@@ -4,32 +4,18 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Metadata" #>
-using System;
-using System.Collections.Generic;
-<# foreach(var relType in GetRelatedEntitiesUsings(_model, _module))
-   { 
-#>
+<# if(HasRelatedEntities(_model, _module)) 
+  { #>
+<#     foreach(var relType in GetRelatedEntitiesUsings(_model, _module))
+      { #>
 using <#= relType #>;
-<# } #>
-
-namespace <#= _module.GetDtoNamespace(_model) #>
-{
-    public class <#= _model.GetDtoName() #>
-    {
-<# if (HasPropertiesForInit(_model))
-   { #>
-        public <#= _model.GetDtoName() #>()
-        {
-<#      foreach(var propInfo in GetPropertiesForInitInfo(_model))
-        { #>
-            <#= propInfo.Name #> = new <#= propInfo.TypeName #>();
-<#      } #>
-        }
+<#     } #>
 
 <# } #>
-<#  foreach(var propInfo in GetPropertiesInfo(_model))
+namespace <#= _module.GetDtoNamespace(_model) #>;
+
+public record <#= _model.GetDtoName() #>(
+<#  foreach(var (propInfo, index, count) in GetPropertiesInfo(_model).WithIndex())
     { #>
-        <#= propInfo.Visibility #> <#= propInfo.TypeName #> <#= propInfo.Name #> { get; set; }
+    <#= propInfo.TypeName #> <#= propInfo.Name #><#=(index == count - 1? ");" : ",")#>
 <#  } #>
-    }
-}

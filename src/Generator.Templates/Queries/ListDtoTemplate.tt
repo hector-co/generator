@@ -4,14 +4,10 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Metadata" #>
-using System;
-using System.Collections.Generic;
-using MediatR;
 using QueryX;
 
-namespace <#= _module.GetDtoNamespace(_model) #>
+namespace <#= _module.GetDtoNamespace(_model) #>;
+
+public class <#= _model.ListDtoClassName() #> : Query<<#= _model.GetDtoName() #>>, IQuery<IEnumerable<<#= _model.GetDtoName() #>>>
 {
-    public class <#= _model.ListDtoClassName() #> : Query<<#= _model.GetDtoName() #>>, IRequest<ResultModel<IEnumerable<<#= _model.GetDtoName() #>>>>
-    {
-    }
 }

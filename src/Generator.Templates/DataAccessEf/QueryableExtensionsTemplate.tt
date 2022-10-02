@@ -9,22 +9,21 @@ using System.Collections.Generic;
 using System.Linq;
 using <#= _module.GetDomainModelNamespace() #>;
 
-namespace <#= _module.GetDataAccessModelNamespace(_model) #>
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>;
+
+internal static class <#= _model.Name #>QueryableExtensions
 {
-    internal static class <#= _model.Name #>QueryableExtensions
-    {
 <#    if (RequiresIncludes(_model))
-    { #>
-        internal static IQueryable<<#= _model.Name #>> AddIncludes
-            (this IQueryable<<#= _model.Name #>> queryable)
-        {
-            return queryable
+{ #>
+    internal static IQueryable<<#= _model.Name #>> AddIncludes
+        (this IQueryable<<#= _model.Name #>> queryable)
+    {
+        return queryable
 <#        foreach (var propName in GetRelatedEntitiesPropertyNames(_model))
-        { #>
-                .Include(m => m.<#= propName #>)
+    { #>
+            .Include(m => m.<#= propName #>)
 <#        } #>
-                ;
-        }
-<#    } #>
+            ;
     }
+<#    } #>
 }
