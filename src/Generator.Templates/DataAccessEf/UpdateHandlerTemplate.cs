@@ -27,17 +27,17 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Mapster;\r\nusing ");
+            this.Write("using Mapster;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing ");
             
-            #line 4 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.Name));
+            #line 5 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
-            this.Write(".Commands;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing ");
+            this.Write(";\r\nusing ");
             
             #line 6 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace()));
             
             #line default
             #line hidden

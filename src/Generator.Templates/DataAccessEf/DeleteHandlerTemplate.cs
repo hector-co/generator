@@ -30,14 +30,14 @@ namespace Generator.Templates.DataAccessEf
             this.Write("using Microsoft.EntityFrameworkCore;\r\nusing ");
             
             #line 4 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
-            this.Write(".Commands;\r\nusing ");
+            this.Write(";\r\nusing ");
             
             #line 5 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\DeleteHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace()));
             
             #line default
             #line hidden

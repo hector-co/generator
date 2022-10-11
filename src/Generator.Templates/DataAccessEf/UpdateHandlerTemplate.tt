@@ -1,9 +1,9 @@
 ﻿<#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.Commands" #>
 using Mapster;
-using <#= _module.Name #>.Commands;
 using Microsoft.EntityFrameworkCore;
 using <#= _module.GetDomainModelNamespace() #>;
+using <#= _module.GetCommandsNamespace() #>;
 using <#= _module.GetCommandsNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
