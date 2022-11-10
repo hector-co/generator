@@ -28,23 +28,57 @@ namespace Generator.Templates.Commands
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("namespace ");
             
             #line 6 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+  if (_module.Settings.CommandUsings.Any()) 
+    { 
+            
+            #line default
+            #line hidden
+            
+            #line 8 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+      foreach (var @using in _module.Settings.CommandUsings) 
+        { 
+            
+            #line default
+            #line hidden
+            this.Write("using ");
+            
+            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Name)));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
+            
+            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+      } 
+            
+            #line default
+            #line hidden
+            
+            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+  } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\nnamespace ");
+            
+            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\npublic record ");
             
-            #line 8 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
             #line hidden
             this.Write("\r\n(\r\n");
             
-            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
   foreach(var (propInfo, index, count) in GetPropertiesInfo(_model).WithIndex())
     { 
             
@@ -52,48 +86,48 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("    ");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((index == count - 1? "" : ",")));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
   } 
             
             #line default
             #line hidden
             this.Write(") : ICommand<");
             
-            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
             this.Write(">");
             
-            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 21 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HasSubClasses(_module, _model)? "" : ";"));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
  if(HasSubClasses(_module, _model)) 
    { 
             
@@ -101,7 +135,7 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("{\r\n");
             
-            #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
      foreach(var subClass in GetSubClasses(_module, _model)) 
        { 
             
@@ -109,14 +143,14 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("    public record ");
             
-            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 27 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(subClass.Key));
             
             #line default
             #line hidden
             this.Write("(\r\n");
             
-            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
         foreach(var (propInfo, index, count) in subClass.Value.WithIndex())
           { 
             
@@ -124,40 +158,40 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("        ");
             
-            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             
-            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 30 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((index == count-1? ");" : ",")));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 23 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
         } 
             
             #line default
             #line hidden
             
-            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 32 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
      } 
             
             #line default
             #line hidden
             this.Write("}\r\n");
             
-            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
+            #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Commands\RegisterTemplate.tt"
  } 
             
             #line default

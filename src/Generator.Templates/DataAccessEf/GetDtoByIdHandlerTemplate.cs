@@ -37,65 +37,93 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(";\r\nusing ");
+            this.Write(";\r\n");
             
             #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetQueriesNamespace()));
+  if (_module.Settings.QueryHandlerUsings.Any()) 
+    { 
             
             #line default
             #line hidden
-            this.Write(";\r\nusing ");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+      foreach (var @using in _module.Settings.QueryHandlerUsings) 
+        { 
+            
+            #line default
+            #line hidden
+            this.Write("using ");
+            
+            #line 15 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Name)));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
+            
+            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+      } 
+            
+            #line default
+            #line hidden
+            
+            #line 17 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+  } 
+            
+            #line default
+            #line hidden
+            this.Write("using ");
+            
+            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(".Queries;\r\n\r\npublic class ");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
             #line hidden
             this.Write("Handler : IQueryHandler<");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">\r\n{\r\n    private readonly ");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
             this.Write(" _context;\r\n\r\n    public ");
             
-            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
             #line hidden
             this.Write("Handler(");
             
-            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 26 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
@@ -103,14 +131,14 @@ namespace Generator.Templates.DataAccessEf
             this.Write(" context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    public async Task<Res" +
                     "ult<");
             
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">> Handle(");
             
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
@@ -118,14 +146,14 @@ namespace Generator.Templates.DataAccessEf
             this.Write(" request, CancellationToken cancellationToken)\r\n    {\r\n        var data = await _" +
                     "context.Set<");
             
-            #line 27 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write(">()\r\n");
             
-            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
     if (QueryableExtensionsTemplate.RequiresIncludes(_model))
 { 
             
@@ -133,7 +161,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            .AddIncludes()\r\n");
             
-            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 37 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
     } 
             
             #line default
@@ -141,14 +169,14 @@ namespace Generator.Templates.DataAccessEf
             this.Write("            .AsNoTracking()\r\n            .FirstOrDefaultAsync(m => request.Id == " +
                     "m.Id, cancellationToken);\r\n\r\n        return new Result<");
             
-            #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 41 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">(data?.Adapt<");
             
-            #line 35 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
+            #line 41 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\GetDtoByIdHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default

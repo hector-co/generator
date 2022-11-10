@@ -8,7 +8,13 @@
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using <#= _module.GetDomainModelNamespace() #>;
-using <#= _module.GetQueriesNamespace() #>;
+<#  if (_module.Settings.QueryHandlerUsings.Any()) 
+    { #>
+<#      foreach (var @using in _module.Settings.QueryHandlerUsings) 
+        { #>
+using <#= string.Format(@using, _module.Name) #>;
+<#      } #>
+<#  } #>
 using <#= _module.GetDtoNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries;

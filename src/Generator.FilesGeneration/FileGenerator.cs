@@ -175,11 +175,14 @@ namespace Generator.FilesGeneration
 
             if (!model.IsOwnedEntity)
             {
-                var getByIdHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.GetDtoByIdClassName()}Handler.cs";
-                SaveText(getByIdHandlerFileName, new GetDtoByIdHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                if (option.Query)
+                {
+                    var getByIdHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.GetDtoByIdClassName()}Handler.cs";
+                    SaveText(getByIdHandlerFileName, new GetDtoByIdHandlerTemplate(_module, model).TransformText(), _forceRegen);
 
-                var listHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.ListDtoClassName()}Handler.cs";
-                SaveText(listHandlerFileName, new ListDtoHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                    var listHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Queries/{model.ListDtoClassName()}Handler.cs";
+                    SaveText(listHandlerFileName, new ListDtoHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                }
 
                 if (option.Command)
                 {

@@ -3,6 +3,13 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#  if (_module.Settings.CommandUsings.Any()) 
+    { #>
+<#      foreach (var @using in _module.Settings.CommandUsings) 
+        { #>
+using <#= string.Format(@using, _module.Name) #>;
+<#      } #>
+<#  } #>
 
 namespace <#= _module.GetCommandsNamespace(_model) #>;
 

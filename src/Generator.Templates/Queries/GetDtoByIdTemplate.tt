@@ -4,6 +4,14 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Metadata" #>
+<#  if (_module.Settings.QueryUsings.Any()) 
+    { #>
+<#      foreach (var @using in _module.Settings.QueryUsings) 
+        { #>
+using <#= string.Format(@using, _module.Name) #>;
+<#      } #>
+<#  } #>
+
 namespace <#= _module.GetDtoNamespace(_model) #>;
 
 public record <#= _model.GetDtoByIdClassName() #>(<#= _model.IdentifierType #> Id) : IQuery<<#= _model.GetDtoName() #>>;

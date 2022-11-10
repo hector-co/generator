@@ -1,9 +1,16 @@
-﻿<#@ import namespace="Generator.Templates.Domain" #>
+﻿<#@ import namespace="System.Linq" #>
+<#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.Commands" #>
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using <#= _module.GetDomainModelNamespace() #>;
-using <#= _module.GetCommandsNamespace() #>;
+<#  if (_module.Settings.CommandHandlerUsings.Any()) 
+    { #>
+<#      foreach (var @using in _module.Settings.CommandHandlerUsings) 
+        { #>
+using <#= string.Format(@using, _module.Name) #>;
+<#      } #>
+<#  } #>
 using <#= _module.GetCommandsNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
