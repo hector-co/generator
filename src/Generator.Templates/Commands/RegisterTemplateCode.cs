@@ -23,13 +23,13 @@ namespace Generator.Templates.Commands
         public static Dictionary<string, List<PropertyInfo>> GetSubClasses(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
         {
             var entities = moduleDefinition.GetSubModels(modelDefinition);
-            return entities.ToDictionary(
+            return entities.Distinct().ToDictionary(
                 e => "Register" + e.Name,
-                e => e.Properties.Values.Select(p =>
+                e => e.EvalProperties.Values.Select(p =>
                     new PropertyInfo
                     {
                         Visibility = "public",
-                        Name = GetPropertyName(modelDefinition, p),
+                        Name = GetPropertyName(modelDefinition.GetRootEntity() ?? modelDefinition, p),
                         TypeName = GetPropertyTypeName(modelDefinition.GetRootEntity() ?? modelDefinition, p)
                     }).ToList());
         }
@@ -45,8 +45,8 @@ namespace Generator.Templates.Commands
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "public",
-                    TypeName = GetPropertyTypeName(modelDefinition, property),
-                    Name = GetPropertyName(modelDefinition, property)
+                    Name = GetPropertyName(modelDefinition.GetRootEntity() ?? modelDefinition, property),
+                    TypeName = GetPropertyTypeName(modelDefinition.GetRootEntity() ?? modelDefinition, property)
                 };
                 result.Add(propInfo);
             }

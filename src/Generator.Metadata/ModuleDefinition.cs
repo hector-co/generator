@@ -54,7 +54,7 @@ namespace Generator.Metadata
             foreach (var entity in entities)
                 result.AddRange(GetSubModels(entity));
 
-            return result;
+            return result.Distinct();
         }
     }
 }
