@@ -147,7 +147,7 @@ namespace Generator.FilesGeneration
 
             var queryDirectory = GetFolderPath(_module.Settings.QueriesFolder);
 
-            var dtoFileName = $"{queryDirectory}/{(model.RootEntity ?? model).PluralName}/{model.Name}Dto.cs";
+            var dtoFileName = $"{queryDirectory}/{(model.RootEntity ?? model).PluralName}/Queries/{model.Name}Dto.cs";
             SaveText(dtoFileName, new DtoTemplate(_module, model).TransformText(), _forceRegen);
 
             if (model.IsEntity)
