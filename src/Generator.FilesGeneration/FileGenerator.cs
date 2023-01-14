@@ -121,19 +121,19 @@ namespace Generator.FilesGeneration
 
             var commandDirectory = GetFolderPath(_module.Settings.CommandsFolder);
 
-            var registerCommandFileName = $"{commandDirectory}/{model.PluralName}/{model.GetRegisterCommandClassName()}.cs";
+            var registerCommandFileName = $"{commandDirectory}/{model.PluralName}/Commands/{model.GetRegisterCommandClassName()}.cs";
             SaveText(registerCommandFileName, new RegisterTemplate(_module, model).TransformText(), _forceRegen);
 
-            var registerCommandValidatorFileName = $"{commandDirectory}/{model.PluralName}/{model.GetRegisterCommandValidatorClassName()}.cs";
+            var registerCommandValidatorFileName = $"{commandDirectory}/{model.PluralName}/Commands/{model.GetRegisterCommandValidatorClassName()}.cs";
             SaveText(registerCommandValidatorFileName, new RegisterValidatorTemplate(_module, model).TransformText(), _forceRegen);
 
-            var updateCommandFileName = $"{commandDirectory}/{model.PluralName}/{model.GetUpdateCommandClassName()}.cs";
+            var updateCommandFileName = $"{commandDirectory}/{model.PluralName}/Commands/{model.GetUpdateCommandClassName()}.cs";
             SaveText(updateCommandFileName, new UpdateTemplate(_module, model).TransformText(), _forceRegen);
 
-            var updateCommandValidatorFileName = $"{commandDirectory}/{model.PluralName}/{model.GetUpdateCommandValidatorClassName()}.cs";
+            var updateCommandValidatorFileName = $"{commandDirectory}/{model.PluralName}/Commands/{model.GetUpdateCommandValidatorClassName()}.cs";
             SaveText(updateCommandValidatorFileName, new UpdateValidatorTemplate(_module, model).TransformText(), _forceRegen);
 
-            var deleteCommandFileName = $"{commandDirectory}/{model.PluralName}/{model.GetDeleteCommandClassName()}.cs";
+            var deleteCommandFileName = $"{commandDirectory}/{model.PluralName}/Commands/{model.GetDeleteCommandClassName()}.cs";
             SaveText(deleteCommandFileName, new DeleteTemplate(_module, model).TransformText(), _forceRegen);
         }
 
@@ -154,10 +154,10 @@ namespace Generator.FilesGeneration
             {
                 if (!model.IsOwnedEntity)
                 {
-                    var getByIdFileName = $"{queryDirectory}/{model.PluralName}/{model.GetDtoByIdClassName()}.cs";
+                    var getByIdFileName = $"{queryDirectory}/{model.PluralName}/Queries/{model.GetDtoByIdClassName()}.cs";
                     SaveText(getByIdFileName, new GetDtoByIdTemplate(_module, model).TransformText(), _forceRegen);
 
-                    var listFileName = $"{queryDirectory}/{model.PluralName}/{model.ListDtoClassName()}.cs";
+                    var listFileName = $"{queryDirectory}/{model.PluralName}/Queries/{model.ListDtoClassName()}.cs";
                     SaveText(listFileName, new ListDtoTemplate(_module, model).TransformText(), _forceRegen);
                 }
             }

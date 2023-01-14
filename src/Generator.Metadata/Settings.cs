@@ -35,28 +35,28 @@ namespace Generator.Metadata
         public List<string> EntityUsings { get; set; } = new List<string>();
         public List<string> CommandUsings { get; set; } = new List<string>
         {
-            "{0}.Application.Abstractions.Commands"
+            "{0}.Application.Common.Commands"
         };
         public List<string> QueryUsings { get; set; } = new List<string>
         {
-            "{0}.Application.Abstractions.Queries"
+            "{0}.Application.Common.Queries"
         };
         public List<string> CommandHandlerUsings { get; set; } = new List<string>
         {
-            "{0}.Domain.Abstractions",
-            "{0}.Application.Abstractions.Commands"
+            "{0}.Domain.Common",
+            "{0}.Application.Common.Commands"
         };
         public List<string> QueryHandlerUsings { get; set; } = new List<string>
         {
-            "{0}.Application.Abstractions.Queries"
+            "{0}.Application.Common.Queries"
         };
 
         public string DomainModelFolder { get; set; } = "Domain/Model";
         public string DomainModelNamespace { get; set; } = "Domain.Model";
-        public string CommandsFolder { get; set; } = "Application/Commands";
-        public string CommandsNamespace { get; set; } = "Application.Commands";
-        public string QueriesFolder { get; set; } = "Application/Queries";
-        public string QueriesNamespace { get; set; } = "Application.Queries";
+        public string CommandsFolder { get; set; } = "Application";
+        public string CommandsNamespace { get; set; } = "Application";
+        public string QueriesFolder { get; set; } = "Application";
+        public string QueriesNamespace { get; set; } = "Application";
         public string DataAccessEfFolder { get; set; } = "Infrastructure/DataAccess.EF";
         public string DataAccessEfNamespace { get; set; } = "Infrastructure.DataAccess.EF";
         public string ApiControllersFolder { get; set; } = "WebApi/Controllers";

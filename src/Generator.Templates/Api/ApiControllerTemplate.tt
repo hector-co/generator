@@ -13,6 +13,7 @@ using <#= _module.GetDtoNamespace(_model) #>;
 using <#= _module.GetCommandsNamespace(_model) #>;
 <#  } #>
 using QueryX;
+using <#= _module.Name #>.WebApi.Helpers;
 
 namespace <#= _module.GetApiNamespace() #>;
 
@@ -66,7 +67,7 @@ public class <#= _model.PluralName #>Controller : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete(<#= _model.IdentifierProperty.TypeName #> id, CancellationToken cancellationToken)
     {
         var command = new <#= _model.GetDeleteCommandClassName() #>(id);
         var response = await _mediator.Send(command, cancellationToken);
