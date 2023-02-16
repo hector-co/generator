@@ -16,10 +16,7 @@ namespace Generator.Templates.Domain
 
         private static string ResolveEntityPropertyTypeName(ModelDefinition modelDefinition, PropertyDefinition propertyDefinition)
         {
-            if (propertyDefinition.WithMany)
-                return $"List<{modelDefinition.Name}{propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.Name}DataAccess>";
-
-            var targetType = propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.IdentifierProperty.TypeName;
+            var targetType = propertyDefinition.CastTargetType<ModelTypeDefinition>().Model.Name;
             if (propertyDefinition.IsEntityType && propertyDefinition.TargetType.IsNullable)
                 targetType += "?";
 
@@ -29,7 +26,8 @@ namespace Generator.Templates.Domain
         public static List<PropertyInfo> GetEntityPropertiesInfo(ModelDefinition modelDefinition)
         {
             var result = new List<PropertyInfo>();
-            var properties = modelDefinition.Properties.Values.Where(p => !p.IsGeneric && p.IsEntityType && !p.IsOwnedEntity)
+            var properties = modelDefinition.Properties.Values.Where(p => !p.IsGeneric && p.IsRootType)
+                .Concat(modelDefinition.Properties.Values.Where(p => p.IsCollection && p.IsRootType))
                 .Concat(modelDefinition.Properties.Values.Where(p => !p.IsGeneric && p.IsOwnedEntity));
             foreach (var property in properties)
             {
@@ -37,9 +35,7 @@ namespace Generator.Templates.Domain
                 {
                     Visibility = "internal",
                     TypeName = ResolveEntityPropertyTypeName(modelDefinition, property),
-                    Name = property.WithMany
-                    ? property.Name + "DataAccess"
-                    : property.Name + ModelDefinition.IdPropertyName
+                    Name = property.Name
                 };
                 result.Add(propInfo);
             }
@@ -63,12 +59,12 @@ namespace Generator.Templates.Domain
                         Visibility = "internal",
                         TypeName = property.WithMany
                             ? $"List<{model.Name}>"
-                            : model.IdentifierProperty.TargetType.Name + (property.Required.HasValue ? (property.Required.Value ? "" : "?") : ""),
+                            : model.Name + (property.Required.HasValue ? (property.Required.Value ? "" : "?") : ""),
                         Name = properties.Count() == 1
                             ? property.WithMany
                                 ? $"{model.Name}{property.Name}"
-                                : model.Name + ModelDefinition.IdPropertyName
-                            : property.Name + (property.WithMany ? model.PluralName : (model.Name + ModelDefinition.IdPropertyName))
+                                : model.Name
+                            : property.Name + (property.WithMany ? model.PluralName : (model.Name))
                     };
                     result.Add(propInfo);
                 }
@@ -85,7 +81,7 @@ namespace Generator.Templates.Domain
                 var propInfo = new PropertyInfo
                 {
                     Visibility = "internal",
-                    TypeName = ModelTemplate.GetPropertyTypeName(property),
+                    TypeName = ModelTemplate.GetPropertyTypeAndName(modelDefinition, property).PropType,
                     Name = property.Name
                 };
                 result.Add(propInfo);

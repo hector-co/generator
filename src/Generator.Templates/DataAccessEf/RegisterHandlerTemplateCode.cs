@@ -30,7 +30,8 @@ namespace Generator.Templates.DataAccessEf
                     NameOverride = $"{prefix}.{p.Name}.Adapt<{p.TypeName}>()"
                 }));
             result.AddRange(modelDefinition.Properties.Values
-                .Where(p => p.IsRootType).Select(p => new PropertyInfo
+                .Where(p => p.IsRootType || (p.IsOwnedEntity && p.CastTargetType<ModelTypeDefinition>().Model.RootEntity != modelDefinition))
+                .Select(p => new PropertyInfo
                 {
                     Name = p.Name + (p.IsCollection
                         ? ""
@@ -47,7 +48,9 @@ namespace Generator.Templates.DataAccessEf
             var result = new List<PropertyInfo>();
 
             return modelDefinition.Properties.Values
-                .Where(p => !p.IsCollection && p.IsEntityType && p.IsOwnedEntity).ToDictionary(p => p.Name, p => p.CastTargetType<ModelTypeDefinition>().Model);
+                .Where(p => !p.IsCollection && p.IsEntityType && p.IsOwnedEntity
+                    && p.CastTargetType<ModelTypeDefinition>().Model.RootEntity == modelDefinition)
+                .ToDictionary(p => p.Name, p => p.CastTargetType<ModelTypeDefinition>().Model);
         }
 
         public Dictionary<string, ModelDefinition> GetCollectionOwnedEntities(ModelDefinition modelDefinition)

@@ -40,7 +40,7 @@ namespace Generator.Templates.Queries
                 result.Add($"{moduleDefinition.GetDtoNamespace(model)}");
             }
 
-            return result;
+            return result.Distinct().ToList();
         }
 
         public static List<PropertyInfo> GetPropertiesInfo(ModelDefinition modelDefinition)
