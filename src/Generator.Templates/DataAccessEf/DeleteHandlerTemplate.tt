@@ -29,7 +29,7 @@ public class <#= _model.GetDeleteCommandClassName() #>Handler : ICommandHandler<
             .FirstOrDefaultAsync(m => m.<#= _model.IdentifierProperty.Name #> == request.<#= _model.IdentifierProperty.Name #>, cancellationToken);
 
         if (<#= _model.Name.GetVariableName() #> == null)
-            return Response.Failure(new Error("<#= _model.Name #>.Delete.NotFound", "Entity not found."));
+            return Response.Failure("<#= _model.Name #>.Delete.NotFound", "Entity not found.");
 
         _context.Remove(<#= _model.Name.GetVariableName() #>);
         await _context.SaveChangesAsync(cancellationToken);

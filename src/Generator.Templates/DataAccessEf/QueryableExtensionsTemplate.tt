@@ -4,10 +4,13 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Generator.Templates.Queries" #>
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using <#= _module.GetDomainModelNamespace() #>;
+using <#= _module.GetDtoNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>;
 
@@ -15,6 +18,17 @@ internal static class <#= _model.Name #>QueryableExtensions
 {
 <#    if (RequiresIncludes(_model))
 { #>
+    static <#= _model.Name #>QueryableExtensions()
+    {
+        TypeAdapterConfig<<#= _model.Name #>, <#= _model.GetDtoName() #>>
+            .NewConfig()
+<#        foreach (var propName in GetRelatedEntitiesPropertyNames(_model))
+    { #>
+            .Map(dst => dst.<#= propName #>, src => src.<#= propName #>)
+<#        } #>
+            ;
+    }
+
     internal static IQueryable<<#= _model.Name #>> AddIncludes
         (this IQueryable<<#= _model.Name #>> queryable)
     {

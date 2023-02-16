@@ -13,13 +13,14 @@ namespace Generator.Templates.DataAccessEf
     using System.Text;
     using System.Collections.Generic;
     using Generator.Templates.Domain;
+    using Generator.Templates.Queries;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+    #line 1 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class QueryableExtensionsTemplate : QueryableExtensionsTemplateBase
     {
@@ -29,53 +30,110 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Microsoft.EntityFrameworkCore;\r\nusing System.Collections.Generic;\r\nusing Sy" +
-                    "stem.Linq;\r\nusing ");
+            this.Write("using Mapster;\r\nusing Microsoft.EntityFrameworkCore;\r\nusing System.Collections.Ge" +
+                    "neric;\r\nusing System.Linq;\r\nusing ");
             
-            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 12 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\nusing ");
+            
+            #line 13 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 15 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\ninternal static class ");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("QueryableExtensions\r\n{\r\n");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 19 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
     if (RequiresIncludes(_model))
 { 
             
             #line default
             #line hidden
-            this.Write("    internal static IQueryable<");
+            this.Write("    static ");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 21 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("QueryableExtensions()\r\n    {\r\n        TypeAdapterConfig<");
+            
+            #line 23 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
+            
+            #line default
+            #line hidden
+            this.Write(", ");
+            
+            #line 23 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
+            
+            #line default
+            #line hidden
+            this.Write(">\r\n            .NewConfig()\r\n");
+            
+            #line 25 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+        foreach (var propName in GetRelatedEntitiesPropertyNames(_model))
+    { 
+            
+            #line default
+            #line hidden
+            this.Write("            .Map(dst => dst.");
+            
+            #line 27 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propName));
+            
+            #line default
+            #line hidden
+            this.Write(", src => src.");
+            
+            #line 27 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propName));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n");
+            
+            #line 28 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+        } 
+            
+            #line default
+            #line hidden
+            this.Write("            ;\r\n    }\r\n\r\n    internal static IQueryable<");
+            
+            #line 32 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("> AddIncludes\r\n        (this IQueryable<");
             
-            #line 19 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 33 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("> queryable)\r\n    {\r\n        return queryable\r\n");
             
-            #line 22 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 36 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
         foreach (var propName in GetRelatedEntitiesPropertyNames(_model))
     { 
             
@@ -83,21 +141,21 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            .Include(m => m.");
             
-            #line 24 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 38 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propName));
             
             #line default
             #line hidden
             this.Write(")\r\n");
             
-            #line 25 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 39 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
         } 
             
             #line default
             #line hidden
             this.Write("            ;\r\n    }\r\n");
             
-            #line 28 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
+            #line 42 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\QueryableExtensionsTemplate.tt"
     } 
             
             #line default

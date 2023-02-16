@@ -63,7 +63,7 @@ namespace Generator.Templates.Domain
                         Name = properties.Count() == 1
                             ? property.WithMany
                                 ? $"{model.Name}{property.Name}"
-                                : model.Name
+                                : model.Name + ModelDefinition.IdPropertyName 
                             : property.Name + (property.WithMany ? model.PluralName : (model.Name))
                     };
                     result.Add(propInfo);
