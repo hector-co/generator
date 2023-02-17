@@ -59,7 +59,7 @@ namespace Generator.Templates.Domain
                         Visibility = "internal",
                         TypeName = property.WithMany
                             ? $"List<{model.Name}>"
-                            : model.Name + (property.Required.HasValue ? (property.Required.Value ? "" : "?") : ""),
+                            : model.IdentifierProperty.TargetType.Name + (property.Required.HasValue ? (property.Required.Value ? "" : "?") : ""),
                         Name = properties.Count() == 1
                             ? property.WithMany
                                 ? $"{model.Name}{property.Name}"
