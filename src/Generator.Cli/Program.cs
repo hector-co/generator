@@ -65,6 +65,9 @@ namespace Generator.Cli
 
             static bool VerifyAndRemove(ref string value, string option)
             {
+                if (value == "*")
+                    return true;
+
                 if (value.Contains(option))
                 {
                     value.Replace(option, "");
