@@ -107,29 +107,15 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(">>\r\n{\r\n    private readonly I");
-            
-            #line 25 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
-            
-            #line default
-            #line hidden
-            this.Write(" _context;\r\n\r\n    public ");
+            this.Write(">>\r\n{\r\n    private readonly IDbContext _context;\r\n\r\n    public ");
             
             #line 27 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
-            this.Write("Handler(I");
-            
-            #line 27 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
-            
-            #line default
-            #line hidden
-            this.Write(" context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    public async Task<Res" +
-                    "ult<IEnumerable<");
+            this.Write("Handler(IDbContext context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    pub" +
+                    "lic async Task<Result<IEnumerable<");
             
             #line 32 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));

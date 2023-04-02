@@ -17,9 +17,9 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
 
 public class <#= _model.GetRegisterCommandClassName() #>Handler : ICommandHandler<<#= _model.GetRegisterCommandClassName() #>, <#= _model.IdentifierType #>>
 {
-    private readonly I<#= _module.GetContextName() #> _context;
+    private readonly IDbContext _context;
 
-    public <#= _model.GetRegisterCommandClassName() #>Handler(I<#= _module.GetContextName() #> context)
+    public <#= _model.GetRegisterCommandClassName() #>Handler(IDbContext context)
     {
         _context = context;
     }

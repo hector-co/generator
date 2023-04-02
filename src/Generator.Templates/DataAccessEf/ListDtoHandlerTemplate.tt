@@ -22,9 +22,9 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries;
 
 public class <#= _model.ListDtoClassName() #>Handler : IQueryHandler<<#= _model.ListDtoClassName() #>, IEnumerable<<#= _model.GetDtoName() #>>>
 {
-    private readonly I<#= _module.GetContextName() #> _context;
+    private readonly IDbContext _context;
 
-    public <#= _model.ListDtoClassName() #>Handler(I<#= _module.GetContextName() #> context)
+    public <#= _model.ListDtoClassName() #>Handler(IDbContext context)
     {
         _context = context;
     }

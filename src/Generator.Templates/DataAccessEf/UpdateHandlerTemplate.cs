@@ -98,29 +98,15 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(">\r\n{\r\n    private readonly I");
-            
-            #line 20 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
-            
-            #line default
-            #line hidden
-            this.Write(" _context;\r\n\r\n    public ");
+            this.Write(">\r\n{\r\n    private readonly IDbContext _context;\r\n\r\n    public ");
             
             #line 22 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
             
             #line default
             #line hidden
-            this.Write("Handler(I");
-            
-            #line 22 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
-            
-            #line default
-            #line hidden
-            this.Write(" context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    public async Task<Res" +
-                    "ponse> Handle(");
+            this.Write("Handler(IDbContext context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    pub" +
+                    "lic async Task<Response> Handle(");
             
             #line 27 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));

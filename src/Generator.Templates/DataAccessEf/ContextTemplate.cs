@@ -66,14 +66,7 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(" : DbContext, I");
-            
-            #line 16 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n{\r\n    public const string DbSchema = \"");
+            this.Write(" : DbContext, IDbContext\r\n{\r\n    public const string DbSchema = \"");
             
             #line 18 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.Settings.DatabaseSchema));

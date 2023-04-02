@@ -21,9 +21,9 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries;
 
 public class <#= _model.GetDtoByIdClassName() #>Handler : IQueryHandler<<#= _model.GetDtoByIdClassName() #>, <#= _model.GetDtoName() #>>
 {
-    private readonly I<#= _module.GetContextName() #> _context;
+    private readonly IDbContext _context;
 
-    public <#= _model.GetDtoByIdClassName() #>Handler(I<#= _module.GetContextName() #> context)
+    public <#= _model.GetDtoByIdClassName() #>Handler(IDbContext context)
     {
         _context = context;
     }
