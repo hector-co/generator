@@ -9,8 +9,8 @@
         { #>
 using <#= string.Format(@using, _module.Name) #>;
 <#      } #>
-<#  } #>
 
+<#  } #>
 namespace <#= _module.GetCommandsNamespace(_model) #>;
 
 public record <#= _model.GetRegisterCommandClassName() #>

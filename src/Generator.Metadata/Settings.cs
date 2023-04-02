@@ -33,23 +33,10 @@ namespace Generator.Metadata
 
         public string EntityBaseClass { get; set; }
         public List<string> EntityUsings { get; set; } = new List<string>();
-        public List<string> CommandUsings { get; set; } = new List<string>
-        {
-            "{0}.Application.Common.Commands"
-        };
-        public List<string> QueryUsings { get; set; } = new List<string>
-        {
-            "{0}.Application.Common.Queries"
-        };
-        public List<string> CommandHandlerUsings { get; set; } = new List<string>
-        {
-            "{0}.Domain.Common",
-            "{0}.Application.Common.Commands"
-        };
-        public List<string> QueryHandlerUsings { get; set; } = new List<string>
-        {
-            "{0}.Application.Common.Queries"
-        };
+        public List<string> CommandUsings { get; set; } = new List<string>();
+        public List<string> QueryUsings { get; set; } = new List<string>();
+        public List<string> CommandHandlerUsings { get; set; } = new List<string>();
+        public List<string> QueryHandlerUsings { get; set; } = new List<string>();
 
         public string DomainModelFolder { get; set; } = "Domain/Model";
         public string DomainModelNamespace { get; set; } = "Domain.Model";

@@ -11,8 +11,8 @@ using QueryX;
         { #>
 using <#= string.Format(@using, _module.Name) #>;
 <#      } #>
-<#  } #>
 
+<#  } #>
 namespace <#= _module.GetDtoNamespace(_model) #>;
 
 public class <#= _model.ListDtoClassName() #> : Query<<#= _model.GetDtoName() #>>, IQuery<IEnumerable<<#= _model.GetDtoName() #>>>

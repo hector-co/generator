@@ -10,8 +10,8 @@ using System.Text.Json.Serialization;
         { #>
 using <#= string.Format(@using, _module.Name) #>;
 <#      } #>
-<#  } #>
 
+<#  } #>
 namespace <#= _module.GetCommandsNamespace(_model) #>;
 
 public record <#= _model.GetUpdateCommandClassName() #>

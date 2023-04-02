@@ -19,7 +19,7 @@ namespace Generator.Templates.Queries
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+    #line 1 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class ListDtoTemplate : ListDtoTemplateBase
     {
@@ -31,14 +31,14 @@ namespace Generator.Templates.Queries
         {
             this.Write("using QueryX;\r\n");
             
-            #line 8 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 8 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
   if (_module.Settings.QueryUsings.Any()) 
     { 
             
             #line default
             #line hidden
             
-            #line 10 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 10 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
       foreach (var @using in _module.Settings.QueryUsings) 
         { 
             
@@ -46,48 +46,49 @@ namespace Generator.Templates.Queries
             #line hidden
             this.Write("using ");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 12 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Name)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 13 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 13 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
       } 
             
             #line default
             #line hidden
+            this.Write("\r\n");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 15 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
   } 
             
             #line default
             #line hidden
-            this.Write("\r\nnamespace ");
+            this.Write("namespace ");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 16 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\npublic class ");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 18 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
             this.Write(" : Query<");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 18 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">, IQuery<IEnumerable<");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 18 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
