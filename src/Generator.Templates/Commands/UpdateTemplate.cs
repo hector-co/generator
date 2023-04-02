@@ -46,7 +46,7 @@ namespace Generator.Templates.Commands
             this.Write("using ");
             
             #line 11 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\UpdateTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Name)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Namespace)));
             
             #line default
             #line hidden

@@ -13,7 +13,7 @@ using <#= _module.GetDataAccessModelNamespace(model) #>;
 
 namespace <#= _module.GetDataAccessNamespace() #>;
 
-public class <#= _module.GetContextName() #> : DbContext
+public class <#= _module.GetContextName() #> : DbContext, I<#= _module.GetContextName() #>
 {
     public const string DbSchema = "<#= _module.Settings.DatabaseSchema #>";
 
@@ -32,5 +32,10 @@ public class <#= _module.GetContextName() #> : DbContext
 { #>
         modelBuilder.ApplyConfiguration(new <#= model.Name #>Configuration(dbSchema));
 <#    } #>
+    }
+
+    public async Task MigrateAsync(CancellationToken cancellationToken = default)
+    {
+        await Database.MigrateAsync(cancellationToken);
     }
 }

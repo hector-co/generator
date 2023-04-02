@@ -15,7 +15,7 @@ internal class <#= _module.GetContextName() #>Factory : IDesignTimeDbContextFact
     {
         var optionsBuilder = new DbContextOptionsBuilder<<#= _module.GetContextName() #>>();
         optionsBuilder.UseNpgsql(
-            "Host=localhost;Database=<#= _module.Name.GetExtension() #>;Username=postgres;Password=postgres",
+            "Host=localhost;Database=<#= _module.Name #>;Username=postgres;Password=postgres",
             o => o.MigrationsHistoryTable("__EFMigrationsHistory", <#= _module.GetContextName() #>.DbSchema));
 
         return new <#= _module.GetContextName() #>(optionsBuilder.Options);

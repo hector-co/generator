@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
     { #>
 <#      foreach (var @using in _module.Settings.CommandUsings) 
         { #>
-using <#= string.Format(@using, _module.Name) #>;
+using <#= string.Format(@using, _module.Namespace) #>;
 <#      } #>
 
 <#  } #>

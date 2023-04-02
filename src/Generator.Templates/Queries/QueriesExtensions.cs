@@ -7,7 +7,7 @@ namespace Generator.Templates.Queries
     public static class QueriesExtensions
     {
         public static string GetDtoNamespace(this ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
-           => $"{moduleDefinition.Name}.{moduleDefinition.Settings.QueriesNamespace}.{(modelDefinition.RootEntity ?? modelDefinition).PluralName}.Queries";
+           => $"{moduleDefinition.Namespace}.{moduleDefinition.Settings.QueriesNamespace}.{(modelDefinition.RootEntity ?? modelDefinition).PluralName}.Queries";
 
         public static string GetDtoName(this ModelDefinition modelDefinition)
             => $"{modelDefinition.Name}Dto";

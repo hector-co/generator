@@ -20,7 +20,7 @@ namespace Generator.Templates.DataAccessEf
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+    #line 1 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class ContextTemplate : ContextTemplateBase
     {
@@ -32,7 +32,7 @@ namespace Generator.Templates.DataAccessEf
         {
             this.Write("using Microsoft.EntityFrameworkCore;\r\n");
             
-            #line 9 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 9 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
     foreach(var model in _module.Model.Values.Where(m => m.IsRoot && !m.IsAbstract))
     { 
             
@@ -40,49 +40,56 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("using ");
             
-            #line 11 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 11 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(model)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 12 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 12 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
     } 
             
             #line default
             #line hidden
             this.Write("\r\nnamespace ");
             
-            #line 14 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 14 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\npublic class ");
             
-            #line 16 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 16 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
-            this.Write(" : DbContext\r\n{\r\n    public const string DbSchema = \"");
+            this.Write(" : DbContext, I");
             
-            #line 18 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 16 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n{\r\n    public const string DbSchema = \"");
+            
+            #line 18 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.Settings.DatabaseSchema));
             
             #line default
             #line hidden
             this.Write("\";\r\n\r\n    public ");
             
-            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 20 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
             #line hidden
             this.Write("(DbContextOptions<");
             
-            #line 20 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 20 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
             
             #line default
@@ -100,7 +107,7 @@ namespace Generator.Templates.DataAccessEf
     {
 ");
             
-            #line 31 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 31 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
     foreach(var model in _module.Model.Values.Where(m => m.IsEntity && !m.IsAbstract))
 { 
             
@@ -108,19 +115,21 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("        modelBuilder.ApplyConfiguration(new ");
             
-            #line 33 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 33 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
             
             #line default
             #line hidden
             this.Write("Configuration(dbSchema));\r\n");
             
-            #line 34 "D:\Users\Hector\projects\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
+            #line 34 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\ContextTemplate.tt"
     } 
             
             #line default
             #line hidden
-            this.Write("    }\r\n}");
+            this.Write("    }\r\n\r\n    public async Task MigrateAsync(CancellationToken cancellationToken =" +
+                    " default)\r\n    {\r\n        await Database.MigrateAsync(cancellationToken);\r\n    }" +
+                    "\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

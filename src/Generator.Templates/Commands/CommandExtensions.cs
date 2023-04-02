@@ -5,7 +5,7 @@ namespace Generator.Templates.Commands
     public static class CommandExtensions
     {
         public static string GetCommandsNamespace(this ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
-           => $"{moduleDefinition.Name}.{moduleDefinition.Settings.CommandsNamespace}.{(modelDefinition.RootEntity ?? modelDefinition).PluralName}.Commands";
+           => $"{moduleDefinition.Namespace}.{moduleDefinition.Settings.CommandsNamespace}.{(modelDefinition.RootEntity ?? modelDefinition).PluralName}.Commands";
 
         public static string GetRegisterCommandClassName(this ModelDefinition modelDefinition)
             => $"Register{modelDefinition.Name}";

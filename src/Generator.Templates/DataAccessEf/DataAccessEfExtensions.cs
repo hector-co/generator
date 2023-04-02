@@ -5,10 +5,10 @@ namespace Generator.Templates.DataAccessEf
     public static class DataAccessEfExtensions
     {
         public static string GetDataAccessNamespace(this ModuleDefinition moduleDefinition)
-            => $"{moduleDefinition.Name}.{moduleDefinition.Settings.DataAccessEfNamespace}";
+            => $"{moduleDefinition.Namespace}.{moduleDefinition.Settings.DataAccessEfNamespace}";
 
         public static string GetContextName(this ModuleDefinition moduleDefinition)
-            => $"{moduleDefinition.Name.GetExtension()}Context";
+            => $"{moduleDefinition.Name}Context";
 
         public static string GetDataAccessModelNamespace(this ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
             => $"{moduleDefinition.GetDataAccessNamespace()}.{(modelDefinition.RootEntity ?? modelDefinition).PluralName}";

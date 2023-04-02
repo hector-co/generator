@@ -10,6 +10,7 @@ namespace Generator.Metadata
             Settings = new Settings();
         }
 
+        public string Namespace { get; set; }
         public string Name { get; set; }
 
         public Settings Settings { get; set; } = new Settings();

@@ -53,7 +53,7 @@ namespace Generator.Templates.DataAccessEf
             this.Write("using ");
             
             #line 11 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Name)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Namespace)));
             
             #line default
             #line hidden
@@ -98,7 +98,7 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(">\r\n{\r\n    private readonly ");
+            this.Write(">\r\n{\r\n    private readonly I");
             
             #line 20 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));
@@ -112,7 +112,7 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write("Handler(");
+            this.Write("Handler(I");
             
             #line 22 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetContextName()));

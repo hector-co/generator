@@ -47,7 +47,7 @@ namespace Generator.Templates.Queries
             this.Write("using ");
             
             #line 12 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Queries\ListDtoTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Name)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Namespace)));
             
             #line default
             #line hidden

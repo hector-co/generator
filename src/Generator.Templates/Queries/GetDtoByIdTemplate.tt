@@ -8,7 +8,7 @@
     { #>
 <#      foreach (var @using in _module.Settings.QueryUsings) 
         { #>
-using <#= string.Format(@using, _module.Name) #>;
+using <#= string.Format(@using, _module.Namespace) #>;
 <#      } #>
 
 <#  } #>

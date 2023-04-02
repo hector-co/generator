@@ -8,7 +8,7 @@ using <#= _module.GetDomainModelNamespace() #>;
     { #>
 <#      foreach (var @using in _module.Settings.CommandHandlerUsings) 
         { #>
-using <#= string.Format(@using, _module.Name) #>;
+using <#= string.Format(@using, _module.Namespace) #>;
 <#      } #>
 <#  } #>
 using <#= _module.GetCommandsNamespace(_model) #>;
@@ -17,9 +17,9 @@ namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
 
 public class <#= _model.GetRegisterCommandClassName() #>Handler : ICommandHandler<<#= _model.GetRegisterCommandClassName() #>, <#= _model.IdentifierType #>>
 {
-    private readonly <#= _module.GetContextName() #> _context;
+    private readonly I<#= _module.GetContextName() #> _context;
 
-    public <#= _model.GetRegisterCommandClassName() #>Handler(<#= _module.GetContextName() #> context)
+    public <#= _model.GetRegisterCommandClassName() #>Handler(I<#= _module.GetContextName() #> context)
     {
         _context = context;
     }

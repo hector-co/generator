@@ -221,9 +221,9 @@ namespace Generator.FilesGeneration
 
         private string GetFolderPath(string folderName)
         {
-            if (folderName.StartsWith(_module.Name))
+            if (folderName.StartsWith(_module.Namespace))
                 return $"{_outputDir}/{folderName}";
-            return $"{_outputDir}/{_module.Name}.{folderName}";
+            return $"{_outputDir}/{_module.Namespace}.{folderName}";
         }
 
         private static void SaveText(string fileName, string text, bool forceRegen)

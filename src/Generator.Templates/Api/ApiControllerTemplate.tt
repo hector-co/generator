@@ -13,7 +13,6 @@ using <#= _module.GetDtoNamespace(_model) #>;
 using <#= _module.GetCommandsNamespace(_model) #>;
 <#  } #>
 using QueryX;
-using <#= _module.Name #>.WebApi.Helpers;
 
 namespace <#= _module.GetApiNamespace() #>;
 

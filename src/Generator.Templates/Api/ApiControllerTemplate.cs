@@ -20,7 +20,7 @@ namespace Generator.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+    #line 1 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class ApiControllerTemplate : ApiControllerTemplateBase
     {
@@ -32,14 +32,14 @@ namespace Generator.Templates.Api
         {
             this.Write("using Microsoft.AspNetCore.Mvc;\r\nusing MediatR;\r\nusing ");
             
-            #line 10 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 10 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 11 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 11 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
   if (_generateCommands) 
     { 
             
@@ -47,49 +47,42 @@ namespace Generator.Templates.Api
             #line hidden
             this.Write("using ");
             
-            #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 13 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 14 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 14 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
   } 
             
             #line default
             #line hidden
-            this.Write("using QueryX;\r\nusing ");
+            this.Write("using QueryX;\r\n\r\nnamespace ");
             
-            #line 16 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_module.Name));
-            
-            #line default
-            #line hidden
-            this.Write(".WebApi.Helpers;\r\n\r\nnamespace ");
-            
-            #line 18 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetApiNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n[Route(\"");
             
-            #line 20 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 19 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.Settings.ApiPrefix));
             
             #line default
             #line hidden
             this.Write("/");
             
-            #line 20 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 19 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetApiRouteName()));
             
             #line default
             #line hidden
             this.Write("\")]\r\npublic class ");
             
-            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 20 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
             
             #line default
@@ -97,7 +90,7 @@ namespace Generator.Templates.Api
             this.Write("Controller : ControllerBase\r\n{\r\n    private readonly IMediator _mediator;\r\n    pr" +
                     "ivate readonly QueryBuilder _queryBuilder;\r\n\r\n    public ");
             
-            #line 26 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 25 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
             
             #line default
@@ -106,14 +99,14 @@ namespace Generator.Templates.Api
                     "or = mediator;\r\n        _queryBuilder = queryBuilder;\r\n    }\r\n\r\n    [HttpGet(\"{i" +
                     "d}\", Name = \"Get");
             
-            #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 31 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("ById\")]\r\n    public async Task<IActionResult> GetById(");
             
-            #line 33 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 32 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
             
             #line default
@@ -121,7 +114,7 @@ namespace Generator.Templates.Api
             this.Write(" id, CancellationToken cancellationToken)\r\n    {\r\n        var getByIdQuery = new " +
                     "");
             
-            #line 35 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 34 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
@@ -137,14 +130,14 @@ namespace Generator.Templates.Api
     {
         var query = _queryBuilder.CreateQuery<");
             
-            #line 44 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 43 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 44 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 43 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
@@ -152,7 +145,7 @@ namespace Generator.Templates.Api
             this.Write(">(queryModel);\r\n        var result = await _mediator.Send(query, cancellationToke" +
                     "n);\r\n        return Ok(result);\r\n    }\r\n");
             
-            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 47 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
   if (_generateCommands) 
 { 
             
@@ -160,7 +153,7 @@ namespace Generator.Templates.Api
             #line hidden
             this.Write("\r\n    [HttpPost]\r\n    public async Task<IActionResult> Register([FromBody] ");
             
-            #line 52 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 51 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
@@ -169,14 +162,14 @@ namespace Generator.Templates.Api
                     "it _mediator.Send(command, cancellationToken);\r\n        response.Verify();\r\n    " +
                     "    var model = await _mediator.Send(new ");
             
-            #line 56 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 55 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
             #line hidden
             this.Write("(response.Value), cancellationToken);\r\n        return CreatedAtRoute(\"Get");
             
-            #line 57 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 56 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
@@ -184,21 +177,21 @@ namespace Generator.Templates.Api
             this.Write("ById\", new { id = response.Value }, model);\r\n    }\r\n\r\n    [HttpPut(\"{id}\")]\r\n    " +
                     "public async Task<IActionResult> Update(");
             
-            #line 61 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 60 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
             this.Write(" id, [FromBody] ");
             
-            #line 61 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 60 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
             
             #line default
             #line hidden
             this.Write(" command, CancellationToken cancellationToken)\r\n    {\r\n        command.");
             
-            #line 63 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 62 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default
@@ -207,14 +200,14 @@ namespace Generator.Templates.Api
                     "\n        response.Verify();\r\n        return Accepted();\r\n    }\r\n\r\n    [HttpDelet" +
                     "e(\"{id}\")]\r\n    public async Task<IActionResult> Delete(");
             
-            #line 70 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 69 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
             
             #line default
             #line hidden
             this.Write(" id, CancellationToken cancellationToken)\r\n    {\r\n        var command = new ");
             
-            #line 72 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 71 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
             
             #line default
@@ -222,7 +215,7 @@ namespace Generator.Templates.Api
             this.Write("(id);\r\n        var response = await _mediator.Send(command, cancellationToken);\r\n" +
                     "        response.Verify();\r\n        return Accepted();\r\n    }\r\n");
             
-            #line 77 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\ApiControllerTemplate.tt"
+            #line 76 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Api\ApiControllerTemplate.tt"
   } 
             
             #line default
