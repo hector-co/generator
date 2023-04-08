@@ -28,6 +28,9 @@ namespace Generator.Gui
 
             foreach (var modelName in moduleDefinition.Model.Keys)
             {
+                if (moduleDefinition.Model[modelName].IsExternal)
+                    continue;
+
                 var node = treeModel.Nodes.Add(modelName);
 
                 AddNode(node, "Domain", "d");

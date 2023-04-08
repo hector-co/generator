@@ -29,16 +29,18 @@ namespace Generator.Metadata
         public bool IsEntity { get; set; } = true;
         public bool IsAbstract { get; set; }
         public string InheritsFrom { get; set; }
+        public string External { get; set; }
         [JsonIgnore]
         public ModelDefinition RootEntity { get; set; }
         [JsonIgnore]
         public PropertyDefinition IdentifierProperty { get; set; }
-        public Dictionary<string, PropertyDefinition> Properties { get; set; }
+        public Dictionary<string, PropertyDefinition> Properties { get; set; } = new Dictionary<string, PropertyDefinition>();
 
         public bool IsOwnedEntity => !IsRoot && IsEntity;
         public bool IsValueObject => !IsRoot && !IsEntity;
         public bool RequiresDataAccessClass { get; private set; }
         public bool IsChildClass => !string.IsNullOrEmpty(InheritsFrom);
+        public bool IsExternal => !string.IsNullOrEmpty(External);
         [JsonIgnore]
         public Dictionary<string, PropertyDefinition> EvalProperties { get; private set; } = new Dictionary<string, PropertyDefinition>();
 

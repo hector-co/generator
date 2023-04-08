@@ -1,13 +1,14 @@
 ﻿using Generator.Metadata;
 using System.Linq;
-using System.Reflection;
 
 namespace Generator.Templates.Queries
 {
     public static class QueriesExtensions
     {
         public static string GetDtoNamespace(this ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
-           => $"{moduleDefinition.Namespace}.{moduleDefinition.Settings.QueriesNamespace}.{(modelDefinition.RootEntity ?? modelDefinition).PluralName}.Queries";
+           => !modelDefinition.IsExternal
+            ? $"{moduleDefinition.Namespace}.{moduleDefinition.Settings.QueriesNamespace}.{(modelDefinition.RootEntity ?? modelDefinition).PluralName}.Queries"
+            : $"{modelDefinition.External}.Application.{modelDefinition.PluralName}.Queries";
 
         public static string GetDtoName(this ModelDefinition modelDefinition)
             => $"{modelDefinition.Name}Dto";
