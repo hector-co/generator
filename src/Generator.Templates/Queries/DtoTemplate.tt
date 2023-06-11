@@ -9,8 +9,8 @@
 <#     foreach(var relType in GetRelatedEntitiesUsings(_model, _module))
       { #>
 using <#= relType #>;
-
 <#     } #>
+
 <# } #>
 namespace <#= _module.GetDtoNamespace(_model) #>;
 
