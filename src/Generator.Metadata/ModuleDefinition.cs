@@ -5,11 +5,6 @@ namespace Generator.Metadata
 {
     public class ModuleDefinition
     {
-        public ModuleDefinition()
-        {
-            Settings = new Settings();
-        }
-
         public string Namespace { get; set; }
         public string Name { get; set; }
 
@@ -24,6 +19,9 @@ namespace Generator.Metadata
 
         public void Init()
         {
+            if (Settings.ModuleFolder == null)
+                Settings.ModuleFolder = Namespace;
+
             foreach (var modelName in Model.Keys)
                 Model[modelName].Init(this, modelName);
 

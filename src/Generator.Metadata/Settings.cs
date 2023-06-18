@@ -38,6 +38,8 @@ namespace Generator.Metadata
         public List<string> CommandHandlerUsings { get; set; } = new List<string>();
         public List<string> QueryHandlerUsings { get; set; } = new List<string>();
 
+        public string ModuleFolder { get; set; } = null;
+
         public string DomainModelFolder { get; set; } = "Domain/Model";
         public string DomainModelNamespace { get; set; } = "Domain.Model";
         public string CommandsFolder { get; set; } = "Application";
