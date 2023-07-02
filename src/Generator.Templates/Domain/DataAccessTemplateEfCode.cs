@@ -47,7 +47,7 @@ namespace Generator.Templates.Domain
             var result = new List<PropertyInfo>();
 
             var models = moduleDefinition.Model.Values
-                .Where(m => m.Properties.Values.Any(p => !p.IsRootType && p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == modelDefinition));
+                .Where(m => m.Properties.Values.Any(p => p.IsEntityType && p.IsCollection && p.CastTargetType<ModelTypeDefinition>().Model == modelDefinition));
 
             foreach (var model in models)
             {
