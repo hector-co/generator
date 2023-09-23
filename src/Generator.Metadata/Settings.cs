@@ -50,5 +50,7 @@ namespace Generator.Metadata
         public string DataAccessEfNamespace { get; set; } = "Infrastructure.DataAccess.EF";
         public string ApiControllersFolder { get; set; } = "WebApi/Controllers";
         public string ApiControllersNamespace { get; set; } = "WebApi.Controllers";
+        public string ApiModulesFolder { get; set; } = "WebApi/Modules";
+        public string ApiModulesNamespace { get; set; } = "WebApi.Modules";
     }
 }

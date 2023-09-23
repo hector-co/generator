@@ -55,6 +55,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ApiControllerTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="Api\MinimalApiTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MinimalApiTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Update="Commands\DeleteTemplate.cs">
       <DependentUpon>DeleteTemplate.tt</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -171,6 +176,10 @@
     <None Update="Api\ApiControllerTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ApiControllerTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Api\MinimalApiTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MinimalApiTemplate.cs</LastGenOutput>
     </None>
     <None Update="Commands\DeleteTemplate.tt">
       <LastGenOutput>DeleteTemplate.cs</LastGenOutput>

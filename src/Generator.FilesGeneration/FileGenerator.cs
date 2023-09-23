@@ -214,9 +214,9 @@ namespace Generator.FilesGeneration
 
             if (!model.IsRoot || model.IsAbstract) return;
 
-            var ctrlDirectory = GetFolderPath(_module.Settings.ApiControllersFolder);
-            var ctrlFileName = $"{ctrlDirectory}/{model.PluralName}Controller.cs";
-            SaveText(ctrlFileName, new ApiControllerTemplate(_module, model, option.Command).TransformText(), _forceRegen);
+            var modDirectory = GetFolderPath(_module.Settings.ApiModulesFolder);
+            var modFileName = $"{modDirectory}/{model.PluralName}Module.cs";
+            SaveText(modFileName, new MinimalApiTemplate(_module, model, option.Command).TransformText(), _forceRegen);
         }
 
         private string GetFolderPath(string folderName)
