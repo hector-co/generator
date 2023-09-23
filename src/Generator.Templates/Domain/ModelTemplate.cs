@@ -31,13 +31,34 @@ namespace Generator.Templates.Domain
         {
             
             #line 7 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+      foreach (var @using in _model.CustomTypeNamespaces) 
+        { 
+            
+            #line default
+            #line hidden
+            this.Write("using ");
+            
+            #line 9 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(@using));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
+            
+            #line 10 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+      } 
+            
+            #line default
+            #line hidden
+            
+            #line 11 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
   if (_model.IsEntity && _module.Settings.EntityUsings.Any()) 
     { 
             
             #line default
             #line hidden
             
-            #line 9 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
       foreach (var @using in _module.Settings.EntityUsings) 
         { 
             
@@ -45,56 +66,56 @@ namespace Generator.Templates.Domain
             #line hidden
             this.Write("using ");
             
-            #line 11 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(@using));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 12 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 16 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
       } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 14 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 18 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("namespace ");
             
-            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 19 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\npublic ");
             
-            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IsAbstract? "abstract " : ""));
             
             #line default
             #line hidden
             this.Write("partial class ");
             
-            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetBaseClassName(_model, _module)));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n");
             
-            #line 19 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 23 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
  if (HasPropertiesForInit(_model))
 { 
             
@@ -102,14 +123,14 @@ namespace Generator.Templates.Domain
             #line hidden
             this.Write("    public ");
             
-            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("()\r\n    {\r\n");
             
-            #line 23 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 27 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
       foreach(var propInfo in GetPropertiesForInitInfo(_model))
     { 
             
@@ -117,34 +138,34 @@ namespace Generator.Templates.Domain
             #line hidden
             this.Write("        ");
             
-            #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.TypeName));
             
             #line default
             #line hidden
             this.Write("();\r\n");
             
-            #line 26 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
       } 
             
             #line default
             #line hidden
             this.Write("    }\r\n\r\n");
             
-            #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 33 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 34 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
   if (_model.IsEntity && _module.Settings.GenerateIdProperties && !_model.IsChildClass)
 { 
             
@@ -152,27 +173,27 @@ namespace Generator.Templates.Domain
             #line hidden
             this.Write("    public ");
             
-            #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n");
             
-            #line 33 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 37 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
   } 
             
             #line default
             #line hidden
             
-            #line 34 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
   foreach(var propInfo in GetPropertiesInfo(_model))
 { 
             
@@ -180,28 +201,28 @@ namespace Generator.Templates.Domain
             #line hidden
             this.Write("    ");
             
-            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Visibility));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n");
             
-            #line 37 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
+            #line 41 "D:\Users\Hector\source\generator\src\Generator.Templates\Domain\ModelTemplate.tt"
   } 
             
             #line default

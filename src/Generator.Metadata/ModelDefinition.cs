@@ -43,6 +43,14 @@ namespace Generator.Metadata
         public bool IsExternal => !string.IsNullOrEmpty(External);
         [JsonIgnore]
         public Dictionary<string, PropertyDefinition> EvalProperties { get; private set; } = new Dictionary<string, PropertyDefinition>();
+        public string[] CustomTypeNamespaces =>
+            Properties.Values.Where(p => p.TargetType is SystemTypeDefinition)
+            .Select(p => p.TargetType as SystemTypeDefinition)
+            .Where(t => t.IsCustom)
+            .Select(t => t.CustomNamespace)
+            .Where(t => !string.IsNullOrEmpty(t))
+            .Distinct()
+            .ToArray();
 
         public void Init(ModuleDefinition moduleDefinition, string name)
         {

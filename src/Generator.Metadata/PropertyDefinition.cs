@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
 
 namespace Generator.Metadata
@@ -160,6 +161,18 @@ namespace Generator.Metadata
                     IsNullable = nullable,
                     Enum = moduleDefinition.Enums[typeName]
                 };
+            else if (moduleDefinition.CustomTypes.Any(ct => ct.TypeNames.Contains(typeName)))
+            {
+                var ct = moduleDefinition.CustomTypes.First(ct => ct.TypeNames.Contains(typeName));
+
+                return new SystemTypeDefinition
+                {
+                    Name = typeName,
+                    IsNullable = nullable,
+                    CustomNamespace = ct.Namespace,
+                    IsCustom = true
+                };
+            }
             else
                 throw new ArgumentException(null, nameof(typeName));
         }

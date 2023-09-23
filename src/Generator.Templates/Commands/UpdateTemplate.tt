@@ -3,6 +3,10 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#      foreach (var @using in _model.CustomTypeNamespaces) 
+        { #>
+using <#= @using #>;
+<#      } #>
 using System.Text.Json.Serialization;
 <#  if (_module.Settings.CommandUsings.Any()) 
     { #>

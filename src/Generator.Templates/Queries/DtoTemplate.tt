@@ -4,6 +4,10 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Metadata" #>
+<#      foreach (var @using in _model.CustomTypeNamespaces) 
+        { #>
+using <#= @using #>;
+<#      } #>
 <# if(HasRelatedEntities(_model, _module)) 
   { #>
 <#     foreach(var relType in GetRelatedEntitiesUsings(_model, _module))

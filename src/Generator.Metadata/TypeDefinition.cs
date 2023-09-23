@@ -14,7 +14,8 @@
 
     public class SystemTypeDefinition : TypeDefinition
     {
-
+        public string CustomNamespace { get; set; }
+        public bool IsCustom { get; set; }
     }
 
     public class ModelTypeDefinition : TypeDefinition

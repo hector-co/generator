@@ -11,6 +11,7 @@ namespace Generator.Metadata
         public Settings Settings { get; set; } = new Settings();
         public Dictionary<string, ModelDefinition> Model { get; set; } = new Dictionary<string, ModelDefinition>();
         public Dictionary<string, EnumDefinition> Enums { get; set; } = new Dictionary<string, EnumDefinition>();
+        public CustomTypeDefinition[] CustomTypes { get; set; }
 
         public IEnumerable<ModelDefinition> RootModels => Model.Values.Where(m => m.IsRoot);
         public IEnumerable<ModelDefinition> EntityModels => Model.Values.Where(m => m.IsEntity);
