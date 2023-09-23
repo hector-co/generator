@@ -37,6 +37,8 @@ namespace Generator.Metadata
         public bool IsGeneric { get; private set; }
         [JsonIgnore]
         public bool IsCollection { get; private set; }
+        [JsonIgnore]
+        public bool IsArray { get; set; }
         public string TypeName { get; set; }
         [JsonIgnore]
         public string InternalTypeName { get; set; }
@@ -67,7 +69,7 @@ namespace Generator.Metadata
 
         private void InitInternalType(ModuleDefinition moduleDefinition)
         {
-            if (!TypeName.Contains("<"))
+            if (!TypeName.Contains("<") && !TypeName.EndsWith("[]"))
             {
                 TargetTypes = new List<TypeDefinition>
                 {
@@ -81,30 +83,46 @@ namespace Generator.Metadata
             }
 
             var match = Regex.Match(TypeName, GenericTypeExp);
-            if (!match.Success)
+            if (!match.Success && !TypeName.EndsWith("[]"))
                 throw new ArgumentException(nameof(TypeName));
 
-            IsGeneric = true;
-            IsCollection = TypeName.StartsWith("List<");
+            IsCollection = TypeName.StartsWith("List<") || TypeName.EndsWith("[]");
+            IsArray = TypeName.EndsWith("[]");
 
-            var stype = match.Groups[1].Value;
-            if (!stype.Contains(","))
+            if (match.Success)
             {
-                InternalTypeName = TypeName.Replace(stype, ":T0:");
-                TargetTypes = new List<TypeDefinition>
+                IsGeneric = true;
+
+                var stype = match.Groups[1].Value;
+                if (!stype.Contains(","))
                 {
-                    GetTypeDefinition (moduleDefinition, stype)
-                };
-                return;
-            }
+                    InternalTypeName = TypeName.Replace(stype, ":T0:");
+                    TargetTypes = new List<TypeDefinition>
+                    {
+                        GetTypeDefinition (moduleDefinition, stype)
+                    };
+                    return;
+                }
 
-            TargetTypes = new List<TypeDefinition>();
-            var stypes = stype.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            foreach (var st in stypes)
-            {
-                TargetTypes.Add(GetTypeDefinition(moduleDefinition, st));
+                TargetTypes = new List<TypeDefinition>();
+                var stypes = stype.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                foreach (var st in stypes)
+                {
+                    TargetTypes.Add(GetTypeDefinition(moduleDefinition, st));
+                }
+                InternalTypeName = TypeName.Replace(stype, string.Join(", ", Enumerable.Range(0, stypes.Count()).Select(n => $":T{n}:")));
             }
-            InternalTypeName = TypeName.Replace(stype, string.Join(", ", Enumerable.Range(0, stypes.Count()).Select(n => $":T{n}:")));
+            else
+            {
+                IsGeneric = true;
+
+                var typeName = TypeName.Replace("[]", "");
+                InternalTypeName = ":T0:[]";
+                TargetTypes = new List<TypeDefinition>
+                    {
+                        GetTypeDefinition (moduleDefinition, typeName)
+                    };
+            }
         }
 
         private void InitFilter()

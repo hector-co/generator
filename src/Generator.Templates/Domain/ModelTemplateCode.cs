@@ -109,6 +109,10 @@ namespace Generator.Templates.Domain
 
         private static string ResolvePropertyInternalType(PropertyDefinition propertyDefinition, string targetType)
         {
+            if(propertyDefinition.IsArray)
+            {
+                return $"List<{targetType}>";
+            }
             return propertyDefinition.InternalTypeName.Replace($":T0:", targetType);
         }
 
