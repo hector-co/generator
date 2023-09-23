@@ -20,7 +20,7 @@ using QueryX;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries;
 
-public class <#= _model.ListDtoClassName() #>Handler : IQueryHandler<<#= _model.ListDtoClassName() #>, IEnumerable<<#= _model.GetDtoName() #>>>
+public class <#= _model.ListDtoClassName() #>Handler : IQueryHandler<<#= _model.ListDtoClassName() #>, <#= _model.GetDtoName() #>[]>
 {
     private readonly IDbContext _context;
 
@@ -29,7 +29,7 @@ public class <#= _model.ListDtoClassName() #>Handler : IQueryHandler<<#= _model.
         _context = context;
     }
 
-    public async Task<Result<IEnumerable<<#= _model.GetDtoName() #>>>> Handle(<#= _model.ListDtoClassName() #> request, CancellationToken cancellationToken)
+    public async Task<Result<<#= _model.GetDtoName() #>[]>> Handle(<#= _model.ListDtoClassName() #> request, CancellationToken cancellationToken)
     {
         var queryable = _context.Set<<#= _model.Name #>>()
 <#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
@@ -44,6 +44,6 @@ public class <#= _model.ListDtoClassName() #>Handler : IQueryHandler<<#= _model.
 
         var data = await queryable.ToListAsync(cancellationToken);
 
-        return new Result<IEnumerable<<#= _model.GetDtoName() #>>>(data.Adapt<List<<#= _model.GetDtoName() #>>>(), totalCount);
+        return new Result<<#= _model.GetDtoName() #>[]>(data.Adapt<<#= _model.GetDtoName() #>[]>(), totalCount);
     }
 }

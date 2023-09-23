@@ -159,16 +159,16 @@ using ");
             #line default
             #line hidden
             this.Write(" not found\");\r\n        return TypedResults.Ok(result);\r\n    }\r\n\r\n    public stati" +
-                    "c async Task<Ok<Result<IEnumerable<");
+                    "c async Task<Ok<Result<");
             
             #line 50 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write(">>>> List([AsParameters] QueryModel queryModel, QueryBuilder queryBuilder, ISende" +
-                    "r sender, CancellationToken cancellationToken)\r\n    {\r\n        var query = query" +
-                    "Builder.CreateQuery<");
+            this.Write("[]>>> List([AsParameters] QueryModel queryModel, QueryBuilder queryBuilder, ISend" +
+                    "er sender, CancellationToken cancellationToken)\r\n    {\r\n        var query = quer" +
+                    "yBuilder.CreateQuery<");
             
             #line 52 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
