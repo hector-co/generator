@@ -47,9 +47,8 @@ public class <#= _model.PluralName #>Module : ICarterModule
         return TypedResults.Ok(result);
     }
 
-    public static async Task<Ok<Result<<#= _model.GetDtoName() #>[]>>> List([AsParameters] QueryModel queryModel, QueryBuilder queryBuilder, ISender sender, CancellationToken cancellationToken)
+    public static async Task<Ok<Result<<#= _model.GetDtoName() #>[]>>> List([AsParameters] <#= _model.ListDtoClassName() #> query, ISender sender, CancellationToken cancellationToken)
     {
-        var query = queryBuilder.CreateQuery<<#= _model.ListDtoClassName() #>, <#= _model.GetDtoName() #>>(queryModel);
         var result = await sender.Send(query, cancellationToken);
         return TypedResults.Ok(result);
     }
