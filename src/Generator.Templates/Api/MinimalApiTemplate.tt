@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
-using QueryX;
 using Shared.Application.Queries;
 
 using <#= _module.GetDtoNamespace(_model) #>;

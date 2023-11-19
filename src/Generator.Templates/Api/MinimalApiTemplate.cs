@@ -37,19 +37,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Routing;
-using QueryX;
 using Shared.Application.Queries;
 
 using ");
             
-            #line 18 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 19 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 18 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
   if (_generateCommands) 
     { 
             
@@ -57,28 +56,28 @@ using ");
             #line hidden
             this.Write("using ");
             
-            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 20 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 22 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
   } 
             
             #line default
             #line hidden
             this.Write("\r\nnamespace ");
             
-            #line 24 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 23 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetModuleNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\npublic class ");
             
-            #line 26 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
             
             #line default
@@ -86,35 +85,35 @@ using ");
             this.Write("Module : ICarterModule\r\n{\r\n    public void AddRoutes(IEndpointRouteBuilder app)\r\n" +
                     "    {\r\n        var group = app.MapGroup(\"");
             
-            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.Settings.ApiPrefix));
             
             #line default
             #line hidden
             this.Write("/");
             
-            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetModuleRouteName()));
             
             #line default
             #line hidden
             this.Write("\")\r\n            .WithTags(\"");
             
-            #line 31 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.PluralName));
             
             #line default
             #line hidden
             this.Write("\");\r\n        group.MapGet(\"/{id}\", GetById).WithName(\"Get");
             
-            #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 31 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("ById\");\r\n        group.MapGet(\"/\", List);\r\n");
             
-            #line 34 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 33 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
   if (_generateCommands) 
 { 
             
@@ -123,21 +122,21 @@ using ");
             this.Write("        group.MapPost(\"/\", Register);\r\n        group.MapPut(\"/{id}\", Update);\r\n  " +
                     "      group.MapDelete(\"/{id}\", Delete);\r\n");
             
-            #line 39 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
  }
             
             #line default
             #line hidden
             this.Write("    }\r\n\r\n    public static async Task<Results<Ok<Result<");
             
-            #line 42 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 41 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">>, NotFound<string>>> GetById(");
             
-            #line 42 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 41 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
             
             #line default
@@ -145,7 +144,7 @@ using ");
             this.Write(" id, ISender sender, CancellationToken cancellationToken)\r\n    {\r\n        var get" +
                     "ByIdQuery = new ");
             
-            #line 44 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 43 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
@@ -153,7 +152,7 @@ using ");
             this.Write("(id);\r\n        var result = await sender.Send(getByIdQuery, cancellationToken);\r\n" +
                     "        if (result.Data == null) return TypedResults.NotFound(\"");
             
-            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 45 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
@@ -161,14 +160,14 @@ using ");
             this.Write(" not found\");\r\n        return TypedResults.Ok(result);\r\n    }\r\n\r\n    public stati" +
                     "c async Task<Ok<Result<");
             
-            #line 50 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 49 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write("[]>>> List([AsParameters] ");
             
-            #line 50 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 49 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
@@ -177,7 +176,7 @@ using ");
                     "result = await sender.Send(query, cancellationToken);\r\n        return TypedResul" +
                     "ts.Ok(result);\r\n    }\r\n");
             
-            #line 55 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 54 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
   if (_generateCommands) 
 { 
             
@@ -185,14 +184,14 @@ using ");
             #line hidden
             this.Write("\r\n    public static async Task<CreatedAtRoute<Result<");
             
-            #line 58 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 57 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
             this.Write(">>> Register([FromBody] ");
             
-            #line 58 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 57 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
@@ -201,7 +200,7 @@ using ");
                     "r response = await sender.Send(command, cancellationToken);\r\n        response.Ve" +
                     "rify();\r\n        var model = await sender.Send(new ");
             
-            #line 62 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 61 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
@@ -209,7 +208,7 @@ using ");
             this.Write("(response.Value), cancellationToken);\r\n        return TypedResults.CreatedAtRoute" +
                     "(model, \"Get");
             
-            #line 63 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 62 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
@@ -217,14 +216,14 @@ using ");
             this.Write("ById\", new { id = response.Value });\r\n    }\r\n\r\n    public static async Task<NoCon" +
                     "tent> Update(");
             
-            #line 66 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 65 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
             
             #line default
             #line hidden
             this.Write(" id, [FromBody] ");
             
-            #line 66 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 65 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
             
             #line default
@@ -239,7 +238,7 @@ using ");
 
     public static async Task<NoContent> Delete(");
             
-            #line 74 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 73 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
             
             #line default
@@ -247,7 +246,7 @@ using ");
             this.Write(" id, ISender sender, CancellationToken cancellationToken)\r\n    {\r\n        var com" +
                     "mand = new ");
             
-            #line 76 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 75 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
             
             #line default
@@ -255,7 +254,7 @@ using ");
             this.Write("(id);\r\n        var response = await sender.Send(command, cancellationToken);\r\n   " +
                     "     response.Verify();\r\n        return TypedResults.NoContent();\r\n    }\r\n");
             
-            #line 81 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 80 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
  }
             
             #line default
