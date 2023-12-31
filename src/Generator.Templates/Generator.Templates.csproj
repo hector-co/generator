@@ -55,6 +55,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ApiControllerTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="Api\MinimalApiTemplateOneOf.cs">
+      <DependentUpon>MinimalApiTemplateOneOf.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Api\MinimalApiTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -120,20 +125,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>QueryableExtensionsTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="DataAccessEf\DeleteHandlerTemplate.cs">
-      <DependentUpon>DeleteHandlerTemplate.tt</DependentUpon>
+    <Compile Update="DataAccessEf\DeleteHandlerTemplateOneOf.cs">
+      <DependentUpon>DeleteHandlerTemplateOneOf.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="DataAccessEf\UpdateHandlerTemplate.cs">
-      <DependentUpon>UpdateHandlerTemplate.tt</DependentUpon>
+    <Compile Update="DataAccessEf\UpdateHandlerTemplateOneOf.cs">
+      <DependentUpon>UpdateHandlerTemplateOneOf.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="DataAccessEf\RegisterHandlerTemplate.cs">
+    <Compile Update="DataAccessEf\RegisterHandlerTemplateOneOf.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>RegisterHandlerTemplate.tt</DependentUpon>
+      <DependentUpon>RegisterHandlerTemplateOneOf.tt</DependentUpon>
     </Compile>
     <Compile Update="DataAccessEf\WithManyConfigurationTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -176,6 +181,10 @@
     <None Update="Api\ApiControllerTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ApiControllerTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Api\MinimalApiTemplateOneOf.tt">
+      <LastGenOutput>MinimalApiTemplateOneOf.cs</LastGenOutput>
+      <Generator>TextTemplatingFilePreprocessor</Generator>
     </None>
     <None Update="Api\MinimalApiTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -225,17 +234,17 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>QueryableExtensionsTemplate.cs</LastGenOutput>
     </None>
-    <None Update="DataAccessEf\DeleteHandlerTemplate.tt">
-      <LastGenOutput>DeleteHandlerTemplate.cs</LastGenOutput>
+    <None Update="DataAccessEf\DeleteHandlerTemplateOneOf.tt">
+      <LastGenOutput>DeleteHandlerTemplateOneOf.cs</LastGenOutput>
       <Generator>TextTemplatingFilePreprocessor</Generator>
     </None>
-    <None Update="DataAccessEf\UpdateHandlerTemplate.tt">
-      <LastGenOutput>UpdateHandlerTemplate.cs</LastGenOutput>
+    <None Update="DataAccessEf\UpdateHandlerTemplateOneOf.tt">
+      <LastGenOutput>UpdateHandlerTemplateOneOf.cs</LastGenOutput>
       <Generator>TextTemplatingFilePreprocessor</Generator>
     </None>
-    <None Update="DataAccessEf\RegisterHandlerTemplate.tt">
+    <None Update="DataAccessEf\RegisterHandlerTemplateOneOf.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>RegisterHandlerTemplate.cs</LastGenOutput>
+      <LastGenOutput>RegisterHandlerTemplateOneOf.cs</LastGenOutput>
     </None>
     <None Update="Domain\DataAccessTemplateEf.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

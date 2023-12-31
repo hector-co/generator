@@ -340,7 +340,7 @@ namespace Generator.Gui
             if (string.IsNullOrEmpty(textFile.Text))
                 return;
 
-            new FileGenerator(textFile.Text, GetGenerationOptions(), Path.GetDirectoryName(textFile.Text), checkForceRegen.Checked)
+            new FileGenerator(textFile.Text, GetGenerationOptions(), Path.GetDirectoryName(textFile.Text), checkForceRegen.Checked, checkOneOf.Checked)
                 .Generate();
 
             MessageBox.Show(this, "Generation completed", "Generator", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -28,167 +28,177 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeModel = new System.Windows.Forms.TreeView();
-            this.textFile = new System.Windows.Forms.TextBox();
-            this.buttonBrowse = new System.Windows.Forms.Button();
-            this.checkSelectAll = new System.Windows.Forms.CheckBox();
-            this.checkDomain = new System.Windows.Forms.CheckBox();
-            this.checkQueries = new System.Windows.Forms.CheckBox();
-            this.checkDataAccessEf = new System.Windows.Forms.CheckBox();
-            this.checkApi = new System.Windows.Forms.CheckBox();
-            this.buttonGenerate = new System.Windows.Forms.Button();
-            this.checkForceRegen = new System.Windows.Forms.CheckBox();
-            this.openFile = new System.Windows.Forms.OpenFileDialog();
-            this.checkCommands = new System.Windows.Forms.CheckBox();
-            this.SuspendLayout();
+            treeModel = new System.Windows.Forms.TreeView();
+            textFile = new System.Windows.Forms.TextBox();
+            buttonBrowse = new System.Windows.Forms.Button();
+            checkSelectAll = new System.Windows.Forms.CheckBox();
+            checkDomain = new System.Windows.Forms.CheckBox();
+            checkQueries = new System.Windows.Forms.CheckBox();
+            checkDataAccessEf = new System.Windows.Forms.CheckBox();
+            checkApi = new System.Windows.Forms.CheckBox();
+            buttonGenerate = new System.Windows.Forms.Button();
+            checkForceRegen = new System.Windows.Forms.CheckBox();
+            openFile = new System.Windows.Forms.OpenFileDialog();
+            checkCommands = new System.Windows.Forms.CheckBox();
+            checkOneOf = new System.Windows.Forms.CheckBox();
+            SuspendLayout();
             // 
             // treeModel
             // 
-            this.treeModel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeModel.CheckBoxes = true;
-            this.treeModel.Location = new System.Drawing.Point(12, 91);
-            this.treeModel.Name = "treeModel";
-            this.treeModel.Size = new System.Drawing.Size(393, 312);
-            this.treeModel.TabIndex = 8;
+            treeModel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            treeModel.CheckBoxes = true;
+            treeModel.Location = new System.Drawing.Point(12, 91);
+            treeModel.Name = "treeModel";
+            treeModel.Size = new System.Drawing.Size(393, 312);
+            treeModel.TabIndex = 8;
             // 
             // textFile
             // 
-            this.textFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textFile.Location = new System.Drawing.Point(12, 12);
-            this.textFile.Name = "textFile";
-            this.textFile.ReadOnly = true;
-            this.textFile.Size = new System.Drawing.Size(344, 23);
-            this.textFile.TabIndex = 9;
+            textFile.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            textFile.Location = new System.Drawing.Point(12, 12);
+            textFile.Name = "textFile";
+            textFile.ReadOnly = true;
+            textFile.Size = new System.Drawing.Size(344, 23);
+            textFile.TabIndex = 9;
             // 
             // buttonBrowse
             // 
-            this.buttonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrowse.Location = new System.Drawing.Point(362, 12);
-            this.buttonBrowse.Name = "buttonBrowse";
-            this.buttonBrowse.Size = new System.Drawing.Size(43, 23);
-            this.buttonBrowse.TabIndex = 1;
-            this.buttonBrowse.Text = "...";
-            this.buttonBrowse.UseVisualStyleBackColor = true;
-            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
+            buttonBrowse.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonBrowse.Location = new System.Drawing.Point(362, 12);
+            buttonBrowse.Name = "buttonBrowse";
+            buttonBrowse.Size = new System.Drawing.Size(43, 23);
+            buttonBrowse.TabIndex = 1;
+            buttonBrowse.Text = "...";
+            buttonBrowse.UseVisualStyleBackColor = true;
+            buttonBrowse.Click += buttonBrowse_Click;
             // 
             // checkSelectAll
             // 
-            this.checkSelectAll.AutoSize = true;
-            this.checkSelectAll.Location = new System.Drawing.Point(12, 41);
-            this.checkSelectAll.Name = "checkSelectAll";
-            this.checkSelectAll.Size = new System.Drawing.Size(72, 19);
-            this.checkSelectAll.TabIndex = 2;
-            this.checkSelectAll.Text = "Select all";
-            this.checkSelectAll.UseVisualStyleBackColor = true;
+            checkSelectAll.AutoSize = true;
+            checkSelectAll.Location = new System.Drawing.Point(12, 41);
+            checkSelectAll.Name = "checkSelectAll";
+            checkSelectAll.Size = new System.Drawing.Size(72, 19);
+            checkSelectAll.TabIndex = 2;
+            checkSelectAll.Text = "Select all";
+            checkSelectAll.UseVisualStyleBackColor = true;
             // 
             // checkDomain
             // 
-            this.checkDomain.AutoSize = true;
-            this.checkDomain.Location = new System.Drawing.Point(12, 66);
-            this.checkDomain.Name = "checkDomain";
-            this.checkDomain.Size = new System.Drawing.Size(68, 19);
-            this.checkDomain.TabIndex = 3;
-            this.checkDomain.Tag = "";
-            this.checkDomain.Text = "Domain";
-            this.checkDomain.UseVisualStyleBackColor = true;
+            checkDomain.AutoSize = true;
+            checkDomain.Location = new System.Drawing.Point(12, 66);
+            checkDomain.Name = "checkDomain";
+            checkDomain.Size = new System.Drawing.Size(68, 19);
+            checkDomain.TabIndex = 3;
+            checkDomain.Tag = "";
+            checkDomain.Text = "Domain";
+            checkDomain.UseVisualStyleBackColor = true;
             // 
             // checkQueries
             // 
-            this.checkQueries.AutoSize = true;
-            this.checkQueries.Location = new System.Drawing.Point(180, 66);
-            this.checkQueries.Name = "checkQueries";
-            this.checkQueries.Size = new System.Drawing.Size(66, 19);
-            this.checkQueries.TabIndex = 5;
-            this.checkQueries.Tag = "";
-            this.checkQueries.Text = "Queries";
-            this.checkQueries.UseVisualStyleBackColor = true;
+            checkQueries.AutoSize = true;
+            checkQueries.Location = new System.Drawing.Point(180, 66);
+            checkQueries.Name = "checkQueries";
+            checkQueries.Size = new System.Drawing.Size(66, 19);
+            checkQueries.TabIndex = 5;
+            checkQueries.Tag = "";
+            checkQueries.Text = "Queries";
+            checkQueries.UseVisualStyleBackColor = true;
             // 
             // checkDataAccessEf
             // 
-            this.checkDataAccessEf.AutoSize = true;
-            this.checkDataAccessEf.Location = new System.Drawing.Point(252, 66);
-            this.checkDataAccessEf.Name = "checkDataAccessEf";
-            this.checkDataAccessEf.Size = new System.Drawing.Size(96, 19);
-            this.checkDataAccessEf.TabIndex = 6;
-            this.checkDataAccessEf.Tag = "";
-            this.checkDataAccessEf.Text = "DataAccessEf";
-            this.checkDataAccessEf.UseVisualStyleBackColor = true;
+            checkDataAccessEf.AutoSize = true;
+            checkDataAccessEf.Location = new System.Drawing.Point(252, 66);
+            checkDataAccessEf.Name = "checkDataAccessEf";
+            checkDataAccessEf.Size = new System.Drawing.Size(96, 19);
+            checkDataAccessEf.TabIndex = 6;
+            checkDataAccessEf.Tag = "";
+            checkDataAccessEf.Text = "DataAccessEf";
+            checkDataAccessEf.UseVisualStyleBackColor = true;
             // 
             // checkApi
             // 
-            this.checkApi.AutoSize = true;
-            this.checkApi.Location = new System.Drawing.Point(354, 66);
-            this.checkApi.Name = "checkApi";
-            this.checkApi.Size = new System.Drawing.Size(44, 19);
-            this.checkApi.TabIndex = 7;
-            this.checkApi.Tag = "";
-            this.checkApi.Text = "Api";
-            this.checkApi.UseVisualStyleBackColor = true;
+            checkApi.AutoSize = true;
+            checkApi.Location = new System.Drawing.Point(354, 66);
+            checkApi.Name = "checkApi";
+            checkApi.Size = new System.Drawing.Size(44, 19);
+            checkApi.TabIndex = 7;
+            checkApi.Tag = "";
+            checkApi.Text = "Api";
+            checkApi.UseVisualStyleBackColor = true;
             // 
             // buttonGenerate
             // 
-            this.buttonGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGenerate.Location = new System.Drawing.Point(330, 412);
-            this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.Size = new System.Drawing.Size(75, 23);
-            this.buttonGenerate.TabIndex = 0;
-            this.buttonGenerate.Text = "Generate";
-            this.buttonGenerate.UseVisualStyleBackColor = true;
-            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
+            buttonGenerate.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            buttonGenerate.Location = new System.Drawing.Point(330, 412);
+            buttonGenerate.Name = "buttonGenerate";
+            buttonGenerate.Size = new System.Drawing.Size(75, 23);
+            buttonGenerate.TabIndex = 0;
+            buttonGenerate.Text = "Generate";
+            buttonGenerate.UseVisualStyleBackColor = true;
+            buttonGenerate.Click += buttonGenerate_Click;
             // 
             // checkForceRegen
             // 
-            this.checkForceRegen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkForceRegen.AutoSize = true;
-            this.checkForceRegen.Location = new System.Drawing.Point(223, 416);
-            this.checkForceRegen.Name = "checkForceRegen";
-            this.checkForceRegen.Size = new System.Drawing.Size(101, 19);
-            this.checkForceRegen.TabIndex = 9;
-            this.checkForceRegen.Text = "Overwrite files";
-            this.checkForceRegen.UseVisualStyleBackColor = true;
+            checkForceRegen.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            checkForceRegen.AutoSize = true;
+            checkForceRegen.Location = new System.Drawing.Point(223, 416);
+            checkForceRegen.Name = "checkForceRegen";
+            checkForceRegen.Size = new System.Drawing.Size(101, 19);
+            checkForceRegen.TabIndex = 9;
+            checkForceRegen.Text = "Overwrite files";
+            checkForceRegen.UseVisualStyleBackColor = true;
             // 
             // openFile
             // 
-            this.openFile.FileName = "openFileDialog1";
-            this.openFile.Filter = "JSON files (*.json)|*.json";
+            openFile.FileName = "openFileDialog1";
+            openFile.Filter = "JSON files (*.json)|*.json";
             // 
             // checkCommands
             // 
-            this.checkCommands.AutoSize = true;
-            this.checkCommands.Location = new System.Drawing.Point(86, 66);
-            this.checkCommands.Name = "checkCommands";
-            this.checkCommands.Size = new System.Drawing.Size(88, 19);
-            this.checkCommands.TabIndex = 4;
-            this.checkCommands.Tag = "";
-            this.checkCommands.Text = "Commands";
-            this.checkCommands.UseVisualStyleBackColor = true;
+            checkCommands.AutoSize = true;
+            checkCommands.Location = new System.Drawing.Point(86, 66);
+            checkCommands.Name = "checkCommands";
+            checkCommands.Size = new System.Drawing.Size(88, 19);
+            checkCommands.TabIndex = 4;
+            checkCommands.Tag = "";
+            checkCommands.Text = "Commands";
+            checkCommands.UseVisualStyleBackColor = true;
+            // 
+            // checkOneOf
+            // 
+            checkOneOf.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            checkOneOf.AutoSize = true;
+            checkOneOf.Location = new System.Drawing.Point(12, 416);
+            checkOneOf.Name = "checkOneOf";
+            checkOneOf.Size = new System.Drawing.Size(83, 19);
+            checkOneOf.TabIndex = 10;
+            checkOneOf.Tag = "";
+            checkOneOf.Text = "Use OneOf";
+            checkOneOf.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(415, 444);
-            this.Controls.Add(this.checkCommands);
-            this.Controls.Add(this.checkForceRegen);
-            this.Controls.Add(this.buttonGenerate);
-            this.Controls.Add(this.checkApi);
-            this.Controls.Add(this.checkDataAccessEf);
-            this.Controls.Add(this.checkQueries);
-            this.Controls.Add(this.checkDomain);
-            this.Controls.Add(this.checkSelectAll);
-            this.Controls.Add(this.buttonBrowse);
-            this.Controls.Add(this.textFile);
-            this.Controls.Add(this.treeModel);
-            this.MinimumSize = new System.Drawing.Size(431, 483);
-            this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Generator";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(415, 444);
+            Controls.Add(checkOneOf);
+            Controls.Add(checkCommands);
+            Controls.Add(checkForceRegen);
+            Controls.Add(buttonGenerate);
+            Controls.Add(checkApi);
+            Controls.Add(checkDataAccessEf);
+            Controls.Add(checkQueries);
+            Controls.Add(checkDomain);
+            Controls.Add(checkSelectAll);
+            Controls.Add(buttonBrowse);
+            Controls.Add(textFile);
+            Controls.Add(treeModel);
+            MinimumSize = new System.Drawing.Size(431, 483);
+            Name = "Form1";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Generator";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -205,5 +215,6 @@
         private System.Windows.Forms.CheckBox checkForceRegen;
         private System.Windows.Forms.OpenFileDialog openFile;
         private System.Windows.Forms.CheckBox checkCommands;
+        private System.Windows.Forms.CheckBox checkOneOf;
     }
 }

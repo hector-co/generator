@@ -18,8 +18,9 @@ namespace Generator.FilesGeneration
         private readonly bool _forceRegen;
         private readonly ModuleDefinition _module;
         private readonly Dictionary<string, TemplateGenerationOption> _templateOptions;
+        private readonly bool _useOneOf;
 
-        public FileGenerator(string file, Dictionary<string, TemplateGenerationOption> templateOptions, string outputDir, bool forceRegen)
+        public FileGenerator(string file, Dictionary<string, TemplateGenerationOption> templateOptions, string outputDir, bool forceRegen, bool useOneOf = false)
         {
             if (!File.Exists(file))
                 throw new FileNotFoundException(file);
@@ -31,6 +32,7 @@ namespace Generator.FilesGeneration
             _module.Init();
 
             _outputDir = outputDir;
+            _useOneOf = useOneOf;
         }
 
         public void Generate()
@@ -187,13 +189,20 @@ namespace Generator.FilesGeneration
                 if (option.Command)
                 {
                     var registerCommandHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Commands/{model.GetRegisterCommandClassName()}Handler.cs";
-                    SaveText(registerCommandHandlerFileName, new RegisterHandlerTemplate(_module, model).TransformText(), _forceRegen);
-
                     var updateCommandHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Commands/{model.GetUpdateCommandClassName()}Handler.cs";
-                    SaveText(updateCommandHandlerFileName, new UpdateHandlerTemplate(_module, model).TransformText(), _forceRegen);
-
                     var deleteCommandHandlerFileName = $"{dataAccessEfDirectory}/{model.PluralName}/Commands/{model.GetDeleteCommandClassName()}Handler.cs";
-                    SaveText(deleteCommandHandlerFileName, new DeleteHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                    if (_useOneOf)
+                    {
+                        SaveText(registerCommandHandlerFileName, new RegisterHandlerTemplateOneOf(_module, model).TransformText(), _forceRegen);
+                        SaveText(updateCommandHandlerFileName, new UpdateHandlerTemplateOneOf(_module, model).TransformText(), _forceRegen);
+                        SaveText(deleteCommandHandlerFileName, new DeleteHandlerTemplateOneOf(_module, model).TransformText(), _forceRegen);
+                    }
+                    else
+                    {
+                        SaveText(registerCommandHandlerFileName, new RegisterHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                        SaveText(updateCommandHandlerFileName, new UpdateHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                        SaveText(deleteCommandHandlerFileName, new DeleteHandlerTemplate(_module, model).TransformText(), _forceRegen);
+                    }
                 }
 
                 if (QueryableExtensionsTemplate.RequiresQueryableExtensions(model))
@@ -216,7 +225,14 @@ namespace Generator.FilesGeneration
 
             var modDirectory = GetFolderPath(_module.Settings.ApiModulesFolder);
             var modFileName = $"{modDirectory}/{model.PluralName}Module.cs";
-            SaveText(modFileName, new MinimalApiTemplate(_module, model, option.Command).TransformText(), _forceRegen);
+            if (_useOneOf)
+            {
+                SaveText(modFileName, new MinimalApiTemplateOneOf(_module, model, option.Command).TransformText(), _forceRegen);
+            }
+            else
+            {
+                SaveText(modFileName, new MinimalApiTemplate(_module, model, option.Command).TransformText(), _forceRegen);
+            }
         }
 
         private string GetFolderPath(string folderName)

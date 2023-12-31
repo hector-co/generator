@@ -1,0 +1,63 @@
+﻿<#@ import namespace="System.Linq" #>
+<#@ import namespace="Generator.Templates.Domain" #>
+<#@ import namespace="Generator.Templates.Commands" #>
+using Mapster;
+using Microsoft.EntityFrameworkCore;
+using OneOf;
+using Shared.Domain.Responses;
+using <#= _module.GetDomainModelNamespace() #>;
+<#  if (_module.Settings.CommandHandlerUsings.Any()) 
+    { #>
+<#      foreach (var @using in _module.Settings.CommandHandlerUsings) 
+        { #>
+using <#= string.Format(@using, _module.Namespace) #>;
+<#      } #>
+<#  } #>
+using <#= _module.GetCommandsNamespace(_model) #>;
+
+namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
+
+public class <#= _model.GetRegisterCommandClassName() #>Handler : ICommandHandler<<#= _model.GetRegisterCommandClassName() #>, <#= _model.IdentifierType #>>
+{
+    private readonly IDbContext _context;
+
+    public <#= _model.GetRegisterCommandClassName() #>Handler(IDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<OneOf<SuccessResponse<<#= _model.IdentifierType #>>, FailedResponse>> Handle(<#= _model.GetRegisterCommandClassName() #> request, CancellationToken cancellationToken)
+    {
+        var <#= _model.Name.GetVariableName() #> = new <#= _model.Name #>
+        {
+<#  foreach(var propInfo in GetScalarPropertiesInfo(_model))
+{ #>
+            <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + propInfo.Name : propInfo.NameOverride #>,
+<#  } #>
+<#  foreach(var entity in GetSingleOwnedEntities(_model))
+{ #>
+            <#= entity.Key #> = new <#= entity.Value.Name #>
+            {
+<#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
+    { #>
+                <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "request." + entity.Key + "." + propInfo.Name : propInfo.NameOverride #>,
+<#      } #>
+            },
+<#  } #>
+<#  foreach(var entity in GetCollectionOwnedEntities(_model))
+{ #>
+            <#= entity.Key #> = request.<#= entity.Key #>.Select(r => new <#= entity.Value.Name #>
+            {
+<#      foreach(var propInfo in GetScalarPropertiesInfo(entity.Value, "r"))
+    { #>
+                <#= propInfo.Name #> = <#= string.IsNullOrEmpty(propInfo.NameOverride)? "r." + propInfo.Name : propInfo.NameOverride #>,
+<#      } #>
+            }).ToList(),
+<#  } #>
+        };
+
+        _context.Add(<#= _model.Name.GetVariableName() #>);
+        await _context.SaveChangesAsync(cancellationToken);
+        return Response.Success(<#= _model.Name.GetVariableName() #>.<#= _model.IdentifierProperty.Name #>);
+    }
+}

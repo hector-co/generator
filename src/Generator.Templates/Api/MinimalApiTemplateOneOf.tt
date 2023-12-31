@@ -1,0 +1,81 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Generator.Templates.Queries" #>
+<#@ import namespace="Generator.Templates.Commands" #>
+using Carter;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Routing;
+using Shared.Application.Queries;
+
+using <#= _module.GetDtoNamespace(_model) #>;
+<#  if (_generateCommands) 
+    { #>
+using <#= _module.GetCommandsNamespace(_model) #>;
+<#  } #>
+
+namespace <#= _module.GetModuleNamespace() #>;
+
+public class <#= _model.PluralName #>Module : ICarterModule
+{
+    public void AddRoutes(IEndpointRouteBuilder app)
+    {
+        var group = app.MapGroup("<#= _module.Settings.ApiPrefix #>/<#= _model.GetModuleRouteName() #>")
+            .WithTags("<#= _model.PluralName #>");
+        group.MapGet("/{id}", GetById).WithName("Get<#= _model.Name #>ById");
+        group.MapGet("/", List);
+<#  if (_generateCommands) 
+{ #>
+        group.MapPost("/", Register);
+        group.MapPut("/{id}", Update);
+        group.MapDelete("/{id}", Delete);
+<# }#>
+    }
+
+    public static async Task<Results<Ok<Result<<#= _model.GetDtoName() #>>>, NotFound<string>>> GetById(<#= _model.IdentifierProperty.TypeName #> id, ISender sender, CancellationToken cancellationToken)
+    {
+        var getByIdQuery = new <#= _model.GetDtoByIdClassName() #>(id);
+        var result = await sender.Send(getByIdQuery, cancellationToken);
+        if (result.Data == null) return TypedResults.NotFound("<#= _model.Name #> not found");
+        return TypedResults.Ok(result);
+    }
+
+    public static async Task<Ok<Result<<#= _model.GetDtoName() #>[]>>> List([AsParameters] <#= _model.ListDtoClassName() #> query, ISender sender, CancellationToken cancellationToken)
+    {
+        var result = await sender.Send(query, cancellationToken);
+        return TypedResults.Ok(result);
+    }
+<#  if (_generateCommands) 
+{ #>
+
+    public static async Task<CreatedAtRoute<Result<<#= _model.GetDtoName() #>>>> Register([FromBody] <#= _model.GetRegisterCommandClassName() #> command, ISender sender, CancellationToken cancellationToken)
+    {
+        var response = await sender.Send(command, cancellationToken);
+        response.Verify();
+        var model = await sender.Send(new <#= _model.GetDtoByIdClassName() #>(response.AsT0.Value), cancellationToken);
+        return TypedResults.CreatedAtRoute(model, "Get<#= _model.Name #>ById", new { id = response.Value });
+    }
+
+    public static async Task<NoContent> Update(<#= _model.IdentifierProperty.TypeName #> id, [FromBody] <#= _model.GetUpdateCommandClassName() #> command, ISender sender, CancellationToken cancellationToken)
+    {
+        command.Id = id;
+        var response = await sender.Send(command, cancellationToken);
+        response.Verify();
+        return TypedResults.NoContent();
+    }
+
+    public static async Task<NoContent> Delete(<#= _model.IdentifierProperty.TypeName #> id, ISender sender, CancellationToken cancellationToken)
+    {
+        var command = new <#= _model.GetDeleteCommandClassName() #>(id);
+        var response = await sender.Send(command, cancellationToken);
+        response.Verify();
+        return TypedResults.NoContent();
+    }
+<# }#>
+}
