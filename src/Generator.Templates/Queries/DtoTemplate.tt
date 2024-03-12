@@ -8,9 +8,9 @@
         { #>
 using <#= @using #>;
 <#      } #>
-<# if(HasRelatedEntities(_model, _module)) 
+<# if(_model.HasRelatedEntities(_module)) 
   { #>
-<#     foreach(var relType in GetRelatedEntitiesUsings(_model, _module))
+<#     foreach(var relType in _model.GetRelatedEntitiesUsings(_module))
       { #>
 using <#= relType #>;
 <#     } #>

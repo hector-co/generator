@@ -38,6 +38,7 @@ namespace Generator.Gui
                 AddNode(node, "Queries", "q");
                 AddNode(node, "DataAccessEf", "da");
                 AddNode(node, "Api", "a");
+                AddNode(node, "WebUI", "w");
             }
 
             treeModel.ExpandAll();
@@ -75,6 +76,8 @@ namespace Generator.Gui
             checkDataAccessEf.Checked = @checked;
             checkApi.CheckState = CheckState.Unchecked;
             checkApi.Checked = @checked;
+            checkWebUI.CheckState = CheckState.Unchecked;
+            checkWebUI.Checked = @checked;
         }
 
         private void SetMainOptionChecked(string optionName, bool @checked)
@@ -96,6 +99,9 @@ namespace Generator.Gui
                 case "Api":
                     checkApi.Checked = @checked;
                     break;
+                case "WebUI":
+                    checkWebUI.Checked = @checked;
+                    break;
             }
 
             SetTreeNodeChecked(optionName, @checked);
@@ -104,7 +110,7 @@ namespace Generator.Gui
 
         private void UpdateMainOptionsCheckedState()
         {
-            (int domain, int commands, int queries, int dataAccessEf, int api) result = (-1, -1, -1, -1, -1);
+            (int domain, int commands, int queries, int dataAccessEf, int api, int webui) result = (-1, -1, -1, -1, -1, -1);
             foreach (TreeNode node in treeModel.Nodes)
             {
                 foreach (TreeNode childNode in node.Nodes)
@@ -126,6 +132,9 @@ namespace Generator.Gui
                         case "Api":
                             result.api = GetcheckState(result.api, childNode.Checked);
                             break;
+                        case "WebUI":
+                            result.webui = GetcheckState(result.webui, childNode.Checked);
+                            break;
                     }
                 }
             }
@@ -135,6 +144,7 @@ namespace Generator.Gui
             SetCheckBoxState(checkQueries, result.queries);
             SetCheckBoxState(checkDataAccessEf, result.dataAccessEf);
             SetCheckBoxState(checkApi, result.api);
+            SetCheckBoxState(checkWebUI, result.webui);
 
             SetCheckedAllState();
 
@@ -166,7 +176,8 @@ namespace Generator.Gui
                 && checkCommands.Checked && checkCommands.CheckState == CheckState.Checked
                 && checkQueries.Checked && checkQueries.CheckState == CheckState.Checked
                 && checkDataAccessEf.Checked && checkDataAccessEf.CheckState == CheckState.Checked
-                && checkApi.Checked && checkApi.CheckState == CheckState.Checked;
+                && checkApi.Checked && checkApi.CheckState == CheckState.Checked
+                && checkWebUI.Checked && checkWebUI.CheckState == CheckState.Checked;
         }
 
         private void SetTreeNodeChecked(string optionName, bool @checked)
@@ -264,6 +275,7 @@ namespace Generator.Gui
             checkQueries.CheckedChanged -= MainOption_CheckedChanged;
             checkDataAccessEf.CheckedChanged -= MainOption_CheckedChanged;
             checkApi.CheckedChanged -= MainOption_CheckedChanged;
+            checkWebUI.CheckedChanged -= MainOption_CheckedChanged;
 
             treeModel.AfterCheck -= TreeModel_AfterCheck;
         }
@@ -277,6 +289,7 @@ namespace Generator.Gui
             checkQueries.CheckedChanged += MainOption_CheckedChanged;
             checkDataAccessEf.CheckedChanged += MainOption_CheckedChanged;
             checkApi.CheckedChanged += MainOption_CheckedChanged;
+            checkWebUI.CheckedChanged += MainOption_CheckedChanged;
 
             treeModel.AfterCheck += TreeModel_AfterCheck;
         }
@@ -290,6 +303,7 @@ namespace Generator.Gui
             checkQueries.Enabled = enabled;
             checkDataAccessEf.Enabled = enabled;
             checkApi.Enabled = enabled;
+            checkWebUI.Enabled = enabled;
 
             treeModel.Enabled = enabled;
 
@@ -324,6 +338,9 @@ namespace Generator.Gui
                                 break;
                             case "Api":
                                 tplOption.Api = true;
+                                break;
+                            case "WebUI":
+                                tplOption.WebUI = true;
                                 break;
                         }
                     }

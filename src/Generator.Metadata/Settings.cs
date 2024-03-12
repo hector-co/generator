@@ -52,5 +52,7 @@ namespace Generator.Metadata
         public string ApiControllersNamespace { get; set; } = "WebApi.Controllers";
         public string ApiModulesFolder { get; set; } = "WebApi/Modules";
         public string ApiModulesNamespace { get; set; } = "WebApi.Modules";
+
+        public string WebUIFolder { get; set; } = "../../webapp/src/modules";
     }
 }

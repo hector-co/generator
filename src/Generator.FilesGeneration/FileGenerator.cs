@@ -5,6 +5,7 @@ using Generator.Templates.Commands;
 using Generator.Templates.DataAccessEf;
 using Generator.Templates.Domain;
 using Generator.Templates.Queries;
+using Humanizer;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -100,6 +101,7 @@ namespace Generator.FilesGeneration
             GenerateQueryFiles(modelName, option);
             GenerateDataAccessEfFiles(modelName, option);
             GenerateApiFiles(modelName, option);
+            GenerateWebUI(modelName, option);
         }
 
         private void GenerateDomainFiles(string modelName, TemplateGenerationOption option)
@@ -232,6 +234,29 @@ namespace Generator.FilesGeneration
             else
             {
                 SaveText(modFileName, new MinimalApiTemplate(_module, model, option.Command).TransformText(), _forceRegen);
+            }
+        }
+
+        public void GenerateWebUI(string modelName, TemplateGenerationOption option)
+        {
+            if (!option.WebUI) return;
+
+            var model = _module.Model[modelName];
+
+            if (model.IsAbstract) return;
+
+            var webDir = $"{_outputDir}/../../webapp/src/modules/{_module.Name.Camelize()}";
+
+            var modelFileName = $"{webDir}/model/{model.Name.Camelize()}.ts";
+            SaveText(modelFileName, new Templates.WebUI.ModelTemplate(_module, model).Generate(), _forceRegen);
+
+            if (model.IsRoot)
+            {
+                var serviceFileName = $"{webDir}/services/{model.Name.Camelize()}Service.ts";
+                SaveText(serviceFileName, new Templates.WebUI.ServiceTemplate(_module, model).Generate(), _forceRegen);
+
+                //var listFileName = $"{webDir}/{model.PluralName}/Queries/{model.ListDtoClassName()}.cs";
+                //SaveText(listFileName, new ListDtoTemplate(_module, model).TransformText(), _forceRegen);
             }
         }
 

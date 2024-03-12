@@ -41,6 +41,7 @@
             openFile = new System.Windows.Forms.OpenFileDialog();
             checkCommands = new System.Windows.Forms.CheckBox();
             checkOneOf = new System.Windows.Forms.CheckBox();
+            checkWebUI = new System.Windows.Forms.CheckBox();
             SuspendLayout();
             // 
             // treeModel
@@ -49,7 +50,7 @@
             treeModel.CheckBoxes = true;
             treeModel.Location = new System.Drawing.Point(12, 91);
             treeModel.Name = "treeModel";
-            treeModel.Size = new System.Drawing.Size(393, 312);
+            treeModel.Size = new System.Drawing.Size(445, 312);
             treeModel.TabIndex = 8;
             // 
             // textFile
@@ -58,13 +59,13 @@
             textFile.Location = new System.Drawing.Point(12, 12);
             textFile.Name = "textFile";
             textFile.ReadOnly = true;
-            textFile.Size = new System.Drawing.Size(344, 23);
+            textFile.Size = new System.Drawing.Size(396, 23);
             textFile.TabIndex = 9;
             // 
             // buttonBrowse
             // 
             buttonBrowse.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            buttonBrowse.Location = new System.Drawing.Point(362, 12);
+            buttonBrowse.Location = new System.Drawing.Point(414, 12);
             buttonBrowse.Name = "buttonBrowse";
             buttonBrowse.Size = new System.Drawing.Size(43, 23);
             buttonBrowse.TabIndex = 1;
@@ -129,7 +130,7 @@
             // buttonGenerate
             // 
             buttonGenerate.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            buttonGenerate.Location = new System.Drawing.Point(330, 412);
+            buttonGenerate.Location = new System.Drawing.Point(382, 412);
             buttonGenerate.Name = "buttonGenerate";
             buttonGenerate.Size = new System.Drawing.Size(75, 23);
             buttonGenerate.TabIndex = 0;
@@ -141,7 +142,7 @@
             // 
             checkForceRegen.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             checkForceRegen.AutoSize = true;
-            checkForceRegen.Location = new System.Drawing.Point(223, 416);
+            checkForceRegen.Location = new System.Drawing.Point(275, 416);
             checkForceRegen.Name = "checkForceRegen";
             checkForceRegen.Size = new System.Drawing.Size(101, 19);
             checkForceRegen.TabIndex = 9;
@@ -176,11 +177,23 @@
             checkOneOf.Text = "Use OneOf";
             checkOneOf.UseVisualStyleBackColor = true;
             // 
+            // checkWebUI
+            // 
+            checkWebUI.AutoSize = true;
+            checkWebUI.Location = new System.Drawing.Point(404, 66);
+            checkWebUI.Name = "checkWebUI";
+            checkWebUI.Size = new System.Drawing.Size(61, 19);
+            checkWebUI.TabIndex = 11;
+            checkWebUI.Tag = "";
+            checkWebUI.Text = "WebUI";
+            checkWebUI.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(415, 444);
+            ClientSize = new System.Drawing.Size(467, 444);
+            Controls.Add(checkWebUI);
             Controls.Add(checkOneOf);
             Controls.Add(checkCommands);
             Controls.Add(checkForceRegen);
@@ -216,5 +229,6 @@
         private System.Windows.Forms.OpenFileDialog openFile;
         private System.Windows.Forms.CheckBox checkCommands;
         private System.Windows.Forms.CheckBox checkOneOf;
+        private System.Windows.Forms.CheckBox checkWebUI;
     }
 }

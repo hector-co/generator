@@ -52,14 +52,14 @@ namespace Generator.Templates.Queries
             #line hidden
             
             #line 11 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\DtoTemplate.tt"
- if(HasRelatedEntities(_model, _module)) 
+ if(_model.HasRelatedEntities(_module)) 
   { 
             
             #line default
             #line hidden
             
             #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\DtoTemplate.tt"
-     foreach(var relType in GetRelatedEntitiesUsings(_model, _module))
+     foreach(var relType in _model.GetRelatedEntitiesUsings(_module))
       { 
             
             #line default

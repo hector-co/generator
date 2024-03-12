@@ -16,65 +16,7 @@ namespace Generator.Templates.Queries
             _module = moduleDefinition;
             _model = modelDefinition;
         }
-
-        public static bool HasRelatedEntities(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
-        {
-            var anyEntityRelated = modelDefinition.EvalProperties.Values.Where(p
-                    => (p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model.RootEntity != modelDefinition
-                                       && p.CastTargetType<ModelTypeDefinition>().Model != modelDefinition
-                                       && !p.CastTargetType<ModelTypeDefinition>().Model.IsAbstract))
-                .Distinct().Any();
-
-            var enumTypes = modelDefinition.EvalProperties
-                .Where(p => p.Value.IsEnumType)
-                .Select(p => p.Value.CastTargetType<EnumTypeDefinition>().Enum).Distinct();
-
-            if (!enumTypes.Any())
-                return anyEntityRelated;
-
-            foreach (var enumType in enumTypes)
-            {
-                var firstEntity = moduleDefinition.Model.Values
-                    .First(e => e.Properties.Values.Any(p => p.IsEnumType && p.CastTargetType<EnumTypeDefinition>().Enum == enumType));
-
-                if (firstEntity != modelDefinition)
-                    return true;
-            }
-
-            return anyEntityRelated;
-        }
-
-        public static List<string> GetRelatedEntitiesUsings(ModelDefinition modelDefinition, ModuleDefinition moduleDefinition)
-        {
-            var result = new List<string>();
-
-            foreach (var model in modelDefinition.EvalProperties.Values.Where(p
-                => (p.IsEntityType && p.CastTargetType<ModelTypeDefinition>().Model.RootEntity != modelDefinition
-                    && p.CastTargetType<ModelTypeDefinition>().Model != modelDefinition
-                    && !p.CastTargetType<ModelTypeDefinition>().Model.IsAbstract))
-                         .Select(p => p.CastTargetType<ModelTypeDefinition>().Model).Distinct())
-            {
-                if (model.Name == modelDefinition.Name)
-                    continue;
-
-                result.Add($"{moduleDefinition.GetDtoNamespace(model)}");
-            }
-
-            var enumTypes = modelDefinition.EvalProperties
-                .Where(p => p.Value.IsEnumType)
-                .Select(p => p.Value.CastTargetType<EnumTypeDefinition>().Enum).Distinct();
-            foreach (var enumType in enumTypes)
-            {
-                var firstEntity = moduleDefinition.Model.Values
-                    .First(e => e.Properties.Values.Any(p => p.IsEnumType && p.CastTargetType<EnumTypeDefinition>().Enum == enumType));
-
-                if (firstEntity != modelDefinition)
-                    result.Add($"{moduleDefinition.GetDtoNamespace(firstEntity)}");
-            }
-
-            return result.Distinct().ToList();
-        }
-
+        
         public static List<PropertyInfo> GetPropertiesInfo(ModelDefinition modelDefinition)
         {
             var result = new List<PropertyInfo>();
