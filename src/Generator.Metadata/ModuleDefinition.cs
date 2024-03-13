@@ -83,7 +83,7 @@ namespace Generator.Metadata
                     {
                         if (property.UI.Field.Contains('.'))
                         {
-                            property.UI.FieldEval = $"m => m.{property.UI.Field.Split('.').Select(s => s.Camelize()).Aggregate((a, b) => $"{a}.{b}")}";
+                            property.UI.FieldEval = $"(m: {model.Name}) => m.{property.UI.Field.Split('.').Select(s => s.Camelize()).Aggregate((a, b) => $"{a}.{b}")}";
                             property.UI.NameEval = $"'{property.UI.Field.Split('.').Select(s => s.Camelize()).Aggregate((a, b) => $"{a}.{b}")}'";
                         }
                         else

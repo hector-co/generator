@@ -137,6 +137,14 @@ public class IndexPageTemplate
               await refresh();
             });
             </script>
+
+            <!--
+              {
+                name: '{{{_model.PluralName.Kebaberize()}}}-list',
+                path: '/{{{_model.PluralName.Kebaberize()}}}',
+                component: () => import('src/modules/{{{_module.Name.Camelize()}}}/pages/{{{_model.PluralName.Camelize()}}}/IndexPage.vue'),
+              },
+            -->
             """;
     }
 
