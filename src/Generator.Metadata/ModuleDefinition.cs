@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Humanizer;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Generator.Metadata
@@ -35,6 +36,8 @@ namespace Generator.Metadata
             foreach (var enumName in Enums.Keys)
                 Enums[enumName].Init(enumName);
 
+            AdjustUI();
+
             if (Settings == null) Settings = new Settings();
             Settings.ModuleName = Name;
         }
@@ -55,6 +58,42 @@ namespace Generator.Metadata
                 result.AddRange(GetSubModels(entity));
 
             return result.Distinct();
+        }
+
+        public void AdjustUI()
+        {
+            foreach (var model in Model.Values)
+            {
+                foreach (var property in model.Properties.Values)
+                {
+                    property.UI ??= new UiDefinition();
+
+                    if (string.IsNullOrEmpty(property.UI.Label))
+                        property.UI.Label = property.Name.Humanize();
+
+                    if (property.UI.Order == 0)
+                        property.UI.Order = model.Properties.Values.ToList().IndexOf(property) + 100;
+
+                    if (string.IsNullOrEmpty(property.UI.Field))
+                    {
+                        property.UI.FieldEval = $"'{property.Name.Camelize()}'";
+                        property.UI.NameEval = $"'{property.Name.Camelize()}'";
+                    }
+                    else
+                    {
+                        if (property.UI.Field.Contains('.'))
+                        {
+                            property.UI.FieldEval = $"m => m.{property.UI.Field.Split('.').Select(s => s.Camelize()).Aggregate((a, b) => $"{a}.{b}")}";
+                            property.UI.NameEval = $"'{property.UI.Field.Split('.').Select(s => s.Camelize()).Aggregate((a, b) => $"{a}.{b}")}'";
+                        }
+                        else
+                        {
+                            property.UI.FieldEval = $"'{property.UI.Field.Camelize()}'";
+                            property.UI.NameEval = $"'{property.UI.Field.Camelize()}'";
+                        }
+                    }
+                }
+            }
         }
     }
 }

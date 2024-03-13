@@ -29,7 +29,7 @@ public class ServiceTemplate
             import { {{_model.Name}} } from '../model/{{_model.Name.Camelize()}}';
 
             const ApiUrl = '{{_module.Settings.ApiPrefix}}/{{_model.PluralName.Kebaberize()}}';
-            const BaseUrl = config.WebApiUrl;
+            const BaseUrl = config.webApiUrl;
 
             export default {
               async get(id: number): Promise<Result<{{_model.Name}}>> {

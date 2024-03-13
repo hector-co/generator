@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Templates", "Gene
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Cli", "Generator.Cli\Generator.Cli.csproj", "{1AFAAB43-C4B0-4C09-A9F6-4F8F1568788F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator.FilesGeneration", "Generator.FilesGeneration\Generator.FilesGeneration.csproj", "{980F1D80-4576-4B35-8D7B-4CB92F76C392}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.FilesGeneration", "Generator.FilesGeneration\Generator.FilesGeneration.csproj", "{980F1D80-4576-4B35-8D7B-4CB92F76C392}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator.Gui", "Generator.Gui\Generator.Gui.csproj", "{68DEDB50-22B5-4C09-A290-D30D2EBA1508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Gui", "Generator.Gui\Generator.Gui.csproj", "{68DEDB50-22B5-4C09-A290-D30D2EBA1508}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

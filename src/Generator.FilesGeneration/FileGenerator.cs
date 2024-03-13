@@ -255,8 +255,8 @@ namespace Generator.FilesGeneration
                 var serviceFileName = $"{webDir}/services/{model.Name.Camelize()}Service.ts";
                 SaveText(serviceFileName, new Templates.WebUI.ServiceTemplate(_module, model).Generate(), _forceRegen);
 
-                //var listFileName = $"{webDir}/{model.PluralName}/Queries/{model.ListDtoClassName()}.cs";
-                //SaveText(listFileName, new ListDtoTemplate(_module, model).TransformText(), _forceRegen);
+                var indexPageName = $"{webDir}/pages/{model.PluralName.Camelize()}/IndexPage.vue";
+                SaveText(indexPageName, new Templates.WebUI.IndexPageTemplate(_module, model).Generate(), _forceRegen);
             }
         }
 

@@ -30,6 +30,7 @@ namespace Generator.Metadata
         }
         public bool WithMany { get; set; }
         public FilterDefinition Filter { get; set; }
+        public UiDefinition UI { get; set; }
         public int? Size { get; set; }
         public bool? Required { get; set; }
         public string DbType { get; set; }
