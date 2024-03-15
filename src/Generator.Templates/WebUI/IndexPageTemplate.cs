@@ -54,6 +54,7 @@ public class IndexPageTemplate
                       </q-td>
                       <q-td auto-width class="text-right">
                         <q-btn
+                          :to="{ name: '{{{_model.PluralName.Kebaberize()}}}-update', params: { id: props.row.id } }"
                           size="sm"
                           icon="edit"
                           class="q-mr-sm"

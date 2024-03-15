@@ -257,6 +257,9 @@ namespace Generator.FilesGeneration
 
                 var indexPageName = $"{webDir}/pages/{model.PluralName.Camelize()}/IndexPage.vue";
                 SaveText(indexPageName, new Templates.WebUI.IndexPageTemplate(_module, model).Generate(), _forceRegen);
+
+                var updatePageName = $"{webDir}/pages/{model.PluralName.Camelize()}/UpdatePage.vue";
+                SaveText(updatePageName, new Templates.WebUI.UpdatePageTemplate(_module, model).Generate(), _forceRegen);
             }
         }
 
