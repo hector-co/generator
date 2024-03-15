@@ -35,7 +35,7 @@ public class IndexPageTemplate
                   <template v-slot:top>
                     <div class="col-3 q-table__title">{{{_model.PluralName.Titleize()}}}</div>
                     <q-space />
-                    <q-btn icon="add" class="q-ml-md" label="Nuevo" />
+                    <q-btn :to="{ name: '{{{_model.PluralName.Kebaberize()}}}-register' }" icon="add" class="q-ml-md" label="Nuevo" />
                     <q-btn @click="refresh" icon="refresh" class="q-ml-md" />
                   </template>
 

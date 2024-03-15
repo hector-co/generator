@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Generator.Templates.WebUI;
 
-public class UpdatePageTemplate
+public class RegisterPageTemplate
 {
     private readonly ModuleDefinition _module;
     private readonly ModelDefinition _model;
 
-    public UpdatePageTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
+    public RegisterPageTemplate(ModuleDefinition moduleDefinition, ModelDefinition modelDefinition)
     {
         _module = moduleDefinition;
         _model = modelDefinition;
@@ -20,13 +20,13 @@ public class UpdatePageTemplate
     {
         return $$$"""
             <template>
-              <div class="{{{_model.PluralName.Kebaberize()}}}-update">
+              <div class="{{{_model.PluralName.Kebaberize()}}}-register">
                 <div class="row justify-center">
                   <div class="col col-sm-8 col-md-6">
                     <q-form @submit="onSubmit">
                       <div class="row">
                         <div class="col-12">
-                          <span class="text-h5">Actualizar {{{_model.Name.Titleize()}}}</span>
+                          <span class="text-h5">Registrar {{{_model.Name.Titleize()}}}</span>
                           {{{GetHtmlFields()}}}
                         </div>
                         <div class="col-12 text-right">
@@ -45,21 +45,18 @@ public class UpdatePageTemplate
                 </div>
               </div>
             </template>
-            <script lang="ts" setup>
-            import { onMounted {{{(HasRefs() ? ", ref" : "")}}} } from 'vue';
-            import { useRouter, useRoute } from 'vue-router';
+            <script lang="ts" setup>{{{(HasRefs() ? $"{Environment.NewLine}import {{ onMounted, ref }} from 'vue';" : "")}}}
+            import { useRouter } from 'vue-router';
             import { useForm } from 'vee-validate';
             import * as yup from 'yup';
             import notifier from 'src/common/notifier';
             {{{GetServiceImports()}}}
 
             const router = useRouter();
-            const route = useRoute();
-            const id = parseInt(<any>route.params.id);
             {{{GetRels()}}}
             {{{GetValidationScheme()}}}
 
-            const { defineField, handleSubmit, resetForm } = useForm({
+            const { defineField, handleSubmit } = useForm({
               validationSchema: validationSchema,
             });
 
@@ -75,28 +72,19 @@ public class UpdatePageTemplate
             const onSubmit = handleSubmit(
               async ({{{GetSubmitArgs()}}}) => {
                 try {
-                  await {{{_model.Name.Camelize()}}}Service.update(id, {{{GetSubmitValues()}}});
-                  notifier.success('Registro actualizado');
+                  await {{{_model.Name.Camelize()}}}Service.register({{{GetSubmitValues()}}});
+                  notifier.success('Registro agregado');
                   router.push({ name: '{{{_model.PluralName.Kebaberize()}}}-list' });
                 } catch {}
               }
             );
-
-            onMounted(async () => {{{{GetRelsInit()}}}
-              const model = (await {{{_model.Name.Camelize()}}}Service.get(id)).data;
-              resetForm({
-                values: {
-            {{{GetFormValues()}}}
-                },
-              });
-            });
-            </script>
+            {{{GetRelsInit()}}}</script>
             
             <!--
               {
-                name: '{{{_model.PluralName.Kebaberize()}}}-update',
-                path: '/{{{_model.PluralName.Kebaberize()}}}/:id/update',
-                component: () => import('src/modules/{{{_module.Name.Camelize()}}}/pages/{{{_model.PluralName.Camelize()}}}/UpdatePage.vue'),
+                name: '{{{_model.PluralName.Kebaberize()}}}-register',
+                path: '/{{{_model.PluralName.Kebaberize()}}}/register',
+                component: () => import('src/modules/{{{_module.Name.Camelize()}}}/pages/{{{_model.PluralName.Camelize()}}}/RegisterPage.vue'),
               },
             -->
             """;
@@ -142,7 +130,10 @@ public class UpdatePageTemplate
 
     public string GetRelsInit()
     {
-        var rels = Environment.NewLine;
+        if (!HasRefs())
+            return string.Empty;
+
+        var rels = Environment.NewLine + "onMounted(async () => {" + Environment.NewLine;
         foreach (var model in _model.GetRelatedEntities(_module).Where(p => !p.IsOwned).Select(p => p.Model).Distinct())
         {
             rels += $$"""
@@ -152,12 +143,12 @@ public class UpdatePageTemplate
                   }));{{Environment.NewLine}}
                 """;
         }
-        return rels == Environment.NewLine ? string.Empty : rels;
+        return rels + "});" + Environment.NewLine;
     }
 
     public string GetHtmlFields()
     {
-        var fields = $@"<q-input label=""Id"" v-bind:model-value=""id"" readonly />{Environment.NewLine}";
+        var fields = Environment.NewLine;
         foreach (var property in _model.Properties.Values)
         {
             if (property.IsEntityType)
@@ -194,19 +185,6 @@ public class UpdatePageTemplate
                 fields += $@"const [{property.Name.Camelize()}, {property.Name.Camelize()}Props] = defineField('{property.Name.Camelize()}', quasarConfig);{Environment.NewLine}";
         }
         return fields.Trim();
-    }
-
-    public string GetFormValues()
-    {
-        var fields = string.Empty;
-        foreach (var property in _model.Properties.Values)
-        {
-            if (property.IsEntityType)
-                fields += $@"      {property.Name.Camelize()}: {{ id: model.{property.Name.Camelize()}.id }},{Environment.NewLine}";
-            else
-                fields += $@"      {property.Name.Camelize()}: model.{property.Name.Camelize()},{Environment.NewLine}";
-        }
-        return fields.TrimEnd();
     }
 
     public string GetSubmitArgs()
