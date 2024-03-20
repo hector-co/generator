@@ -34,12 +34,12 @@ public class <#= _model.Name #>Configuration : IEntityTypeConfiguration<<#= _mod
 { #>
         builder.Property(m => m.<#= propertyName #>_Serialized);
 <#    } #>
-<#    foreach(var property in _model.Properties.Values.Where(p => !p.IsCollection && (p.Size.HasValue || (p.Required.HasValue && p.Required.Value)) || !string.IsNullOrEmpty(p.DbType)))
+<#    foreach(var property in _model.Properties.Values.Where(p => !p.IsCollection || !string.IsNullOrEmpty(p.DbType)))
 { #>
         builder.Property(m => m.<#= property.Name #>)
-<#        if(property.Required.HasValue && property.Required.Value) 
-    { #>
-            .IsRequired()<#= property.Size.HasValue? "" : ";" #>
+<#        if(property.TargetType.IsNullable) 
+          { #>
+            .IsRequired(false)<#= property.Size.HasValue? "" : ";" #>
 <#        } #>
 <#        if(!string.IsNullOrEmpty(property.DbType)) 
     { #>

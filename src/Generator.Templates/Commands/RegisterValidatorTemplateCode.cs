@@ -27,12 +27,12 @@ namespace Generator.Templates.Commands
                 var validations = new List<string>();
                 if (!property.IsGeneric && property.IsRootType && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
                     validations.Add("NotEmpty()");
-                if (!property.IsGeneric && property.IsOwnedEntity && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
+                else if (!property.IsGeneric && property.IsOwnedEntity && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
+                    validations.Add("NotEmpty()");
+                else if ((property.Required ?? false) || !property.TargetType.IsNullable)
                     validations.Add("NotEmpty()");
                 if (!property.IsGeneric && property.IsValueObjectType)
                     validations.Add($"SetValidator(new Register{property.CastTargetType<ModelTypeDefinition>().Model.Name}Validator())");
-                if (property.Required ?? false)
-                    validations.Add("NotEmpty()");
                 if ((property.Size ?? 0) > 0)
                     validations.Add($"MaximumLength({property.Size})");
 

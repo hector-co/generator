@@ -1,6 +1,7 @@
 ﻿using Generator.Metadata;
 using Humanizer;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Generator.Templates.WebUI;
@@ -122,12 +123,31 @@ public class UpdatePageTemplate
     public string GetValidationScheme()
     {
         var sch = "const validationSchema = yup.object({" + Environment.NewLine;
-
+        foreach (var property in _model.EvalProperties.Values)
+        {
+            var validations = GetValidations(property).ToList();
+            if (validations.Count == 2) continue;
+            sch += $"  {property.Name.Camelize()}: {validations.Aggregate((a, b) => $"{a}.{b}")},{Environment.NewLine}";
+        }
         return sch + "});";
-        //category: yup.object().shape({
-        //  id: yup.number().required(),
-        //}),
-        //name: yup.string().required().label('Nombre'),  
+    }
+
+    private static IEnumerable<string> GetValidations(PropertyDefinition property)
+    {
+        yield return "yup." + property.GetTsType() + "()";
+        if (!property.IsGeneric && property.IsRootType && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
+        {
+            yield return $$$"""
+                yup.object().shape({
+                    id: yup.number().required(),
+                }).required()
+                """;
+        }
+        if ((!property.IsGeneric && property.IsOwnedEntity && !property.CastTargetType<ModelTypeDefinition>().IsNullable) ||
+            ((property.Required ?? false) || !property.TargetType.IsNullable) ||
+            ((property.Size ?? 0) > 0))
+            yield return "required()";
+        yield return $"label('{property.UI.Label}')";
     }
 
     public string GetRels()
