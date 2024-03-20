@@ -127,7 +127,7 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             
             #line 37 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\ModelConfigurationTemplate.tt"
-    foreach(var property in _model.Properties.Values.Where(p => !p.IsCollection || !string.IsNullOrEmpty(p.DbType)))
+    foreach(var property in _model.Properties.Values.Where(p => !p.IsCollection && (p.TargetType.IsNullable || !string.IsNullOrEmpty(p.DbType) || p.Size.HasValue || !string.IsNullOrEmpty(p.DbType))))
 { 
             
             #line default

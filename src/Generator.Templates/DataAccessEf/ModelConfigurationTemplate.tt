@@ -34,7 +34,7 @@ public class <#= _model.Name #>Configuration : IEntityTypeConfiguration<<#= _mod
 { #>
         builder.Property(m => m.<#= propertyName #>_Serialized);
 <#    } #>
-<#    foreach(var property in _model.Properties.Values.Where(p => !p.IsCollection || !string.IsNullOrEmpty(p.DbType)))
+<#    foreach(var property in _model.Properties.Values.Where(p => !p.IsCollection && (p.TargetType.IsNullable || !string.IsNullOrEmpty(p.DbType) || p.Size.HasValue || !string.IsNullOrEmpty(p.DbType))))
 { #>
         builder.Property(m => m.<#= property.Name #>)
 <#        if(property.TargetType.IsNullable) 
