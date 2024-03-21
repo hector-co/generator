@@ -166,6 +166,10 @@ public class RegisterPageTemplate
         {
             rels += $"const {model.PluralName.Camelize()} = ref<{{ value: number, label: string}}[]>([]);{Environment.NewLine}";
         }
+        foreach (var model in _model.EvalProperties.Values.Where(p => p.IsEnumType).Select(p => p.CastTargetType<EnumTypeDefinition>()).Distinct())
+        {
+            rels += $"const {model.Name.Pluralize().Camelize()} = ref<{{ value: number, label: string}}[]>([]);{Environment.NewLine}";
+        }
         return rels == Environment.NewLine ? string.Empty : rels;
     }
 
@@ -184,6 +188,17 @@ public class RegisterPageTemplate
                   }));{{Environment.NewLine}}
                 """;
         }
+        foreach (var model in _model.EvalProperties.Values.Where(p => p.IsEnumType).Select(p => p.CastTargetType<EnumTypeDefinition>()).Distinct())
+        {
+            rels += $"{Environment.NewLine}  {model.Name.Pluralize().Camelize()}.value = [{Environment.NewLine}";
+            var index = 0;
+            foreach (var enumValue in model.Enum.Values)
+            {
+                rels += $@"    {{ value: {index}, label: '{enumValue.Camelize().Titleize()}' }},{Environment.NewLine}";
+                index++;
+            }
+            rels += "  ];" + Environment.NewLine;
+        }
         return rels + "});" + Environment.NewLine;
     }
 
@@ -200,6 +215,17 @@ public class RegisterPageTemplate
                                 v-model="{property.Name.Camelize()}"
                                 v-bind="{property.Name.Camelize()}Props"
                                 :options="{property.CastTargetType<ModelTypeDefinition>().Model.PluralName.Camelize()}"
+                                map-options
+                                emit-value
+                              />{Environment.NewLine}
+                """;
+            else if (property.IsEnumType)
+                fields += $"""
+                              <q-select{(firstField ? Environment.NewLine + "                autofocus" : "")}
+                                label="{property.UI.Label}"
+                                v-model="{property.Name.Camelize()}"
+                                v-bind="{property.Name.Camelize()}Props"
+                                :options="{property.CastTargetType<EnumTypeDefinition>().Name.Pluralize().Camelize()}"
                                 map-options
                                 emit-value
                               />{Environment.NewLine}

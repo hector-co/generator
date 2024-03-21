@@ -30,6 +30,7 @@ public class ModelTemplate
 
             {{GetProperties()}}
             }
+
             """;
     }
 
