@@ -20,7 +20,7 @@ public static class WebUiExtensions
                 "bool" => "boolean",
                 _ => "number"
             },
-            ModelTypeDefinition => "",
+            ModelTypeDefinition => "object",
             _ => "number"
         };
     }

@@ -61,7 +61,7 @@ public class UpdatePageTemplate
             {{{GetValidationScheme()}}}
 
             const { defineField, handleSubmit, resetForm } = useForm({
-              validationSchema: validationSchema,
+              validationSchema,
             });
 
             const quasarConfig = (state: any) => ({
@@ -138,12 +138,12 @@ public class UpdatePageTemplate
         if (!property.IsGeneric && property.IsRootType && !property.CastTargetType<ModelTypeDefinition>().IsNullable)
         {
             yield return $$$"""
-                yup.object().shape({
+                shape({
                     id: yup.number().required(),
-                }).required()
+                  })
                 """;
         }
-        if ((!property.IsGeneric && property.IsOwnedEntity && !property.CastTargetType<ModelTypeDefinition>().IsNullable) ||
+        else if ((!property.IsGeneric && property.IsOwnedEntity && !property.CastTargetType<ModelTypeDefinition>().IsNullable) ||
             ((property.Required ?? false) || !property.TargetType.IsNullable) ||
             ((property.Size ?? 0) > 0))
             yield return "required()";
@@ -166,7 +166,7 @@ public class UpdatePageTemplate
         foreach (var model in _model.GetRelatedEntities(_module).Where(p => !p.IsOwned).Select(p => p.Model).Distinct())
         {
             rels += $$"""
-                  {{model.PluralName.Camelize()}}.value = (await {{model.Name.Camelize()}}Service.list()).data.map((item: any) => ({
+                  {{model.PluralName.Camelize()}}.value = (await {{model.Name.Camelize()}}Service.list({ orderBy: 'id' })).data.map((item: any) => ({
                     value: item.id,
                     label: item.name,
                   }));{{Environment.NewLine}}
@@ -178,11 +178,12 @@ public class UpdatePageTemplate
     public string GetHtmlFields()
     {
         var fields = $@"<q-input label=""Id"" v-bind:model-value=""id"" readonly />{Environment.NewLine}";
+        var firstField = true;
         foreach (var property in _model.Properties.Values)
         {
             if (property.IsEntityType)
                 fields += $"""
-                              <q-select 
+                              <q-select{(firstField ? Environment.NewLine + "                autofocus" : "")}
                                 label="{property.UI.Label}"
                                 v-model="{property.Name.Camelize()}"
                                 v-bind="{property.Name.Camelize()}Props"
@@ -191,14 +192,23 @@ public class UpdatePageTemplate
                                 emit-value
                               />{Environment.NewLine}
                 """;
-            else
+            else if (property.TargetType is SystemTypeDefinition systemType && systemType.Name == "bool")
                 fields += $"""
-                              <q-input
+                              <q-toggle{(firstField ? Environment.NewLine + "                autofocus" : "")}
                                 label="{property.UI.Label}"
                                 v-model="{property.Name.Camelize()}"
                                 v-bind="{property.Name.Camelize()}Props"
                               />{Environment.NewLine}
                 """;
+            else
+                fields += $"""
+                              <q-input{(firstField ? Environment.NewLine + "                autofocus" : "")}
+                                label="{property.UI.Label}"
+                                v-model="{property.Name.Camelize()}"
+                                v-bind="{property.Name.Camelize()}Props"
+                              />{Environment.NewLine}
+                """;
+            firstField = false;
         }
         return fields.Trim();
     }

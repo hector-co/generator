@@ -22,8 +22,4 @@ public class UiDefinition
 
     [JsonIgnore]
     public string FieldEval { get; set; }
-    //public string Field => 
-    //    string.IsNullOrEmpty(DisplayFn) 
-    //        ? $"'{Display}'" 
-    //        : DisplayFn;
 }
