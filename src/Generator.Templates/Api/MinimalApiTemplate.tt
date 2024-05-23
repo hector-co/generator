@@ -38,43 +38,46 @@ public class <#= _model.PluralName #>Module : ICarterModule
 <# }#>
     }
 
-    public static async Task<Results<Ok<Result<<#= _model.GetDtoName() #>>>, NotFound<string>>> GetById(<#= _model.IdentifierProperty.TypeName #> id, ISender sender, CancellationToken cancellationToken)
+    public static async Task<Results<Ok<QueryResult<<#= _model.GetDtoName() #>>>, NotFound<string>>> GetById(<#= _model.IdentifierProperty.TypeName #> id, ISender sender, CancellationToken cancellationToken)
     {
         var getByIdQuery = new <#= _model.GetDtoByIdClassName() #>(id);
-        var result = await sender.Send(getByIdQuery, cancellationToken);
-        if (result.Data == null) return TypedResults.NotFound("<#= _model.Name #> not found");
-        return TypedResults.Ok(result);
+        var queryResult = await sender.Send(getByIdQuery, cancellationToken);
+        if (queryResult.Data == null) return TypedResults.NotFound("<#= _model.Name #> not found");
+        return TypedResults.Ok(queryResult);
     }
 
-    public static async Task<Ok<Result<<#= _model.GetDtoName() #>[]>>> List([AsParameters] <#= _model.ListDtoClassName() #> query, ISender sender, CancellationToken cancellationToken)
+    public static async Task<Ok<QueryResult<<#= _model.GetDtoName() #>[]>>> List([AsParameters] <#= _model.ListDtoClassName() #> query, ISender sender, CancellationToken cancellationToken)
     {
-        var result = await sender.Send(query, cancellationToken);
-        return TypedResults.Ok(result);
+        var queryResult = await sender.Send(query, cancellationToken);
+        return TypedResults.Ok(queryResult);
     }
 <#  if (_generateCommands) 
 { #>
 
-    public static async Task<CreatedAtRoute<Result<<#= _model.GetDtoName() #>>>> Register([FromBody] <#= _model.GetRegisterCommandClassName() #> command, ISender sender, CancellationToken cancellationToken)
+    public static async Task<CreatedAtRoute<QueryResult<<#= _model.GetDtoName() #>>>> Register([FromBody] <#= _model.GetRegisterCommandClassName() #> command, ISender sender, CancellationToken cancellationToken)
     {
-        var response = await sender.Send(command, cancellationToken);
-        response.Verify();
-        var model = await sender.Send(new <#= _model.GetDtoByIdClassName() #>(response.Value), cancellationToken);
-        return TypedResults.CreatedAtRoute(model, "Get<#= _model.Name #>ById", new { id = response.Value });
+        var result = await sender.Send(command, cancellationToken);
+
+        return await result.IfSuccess(async id =>
+        {
+            var queryResult = await sender.Send(new <#= _model.GetDtoByIdClassName() #>(id), cancellationToken);
+            return TypedResults.CreatedAtRoute(queryResult, "Get<#= _model.Name #>ById", new { id });
+        });
     }
 
     public static async Task<NoContent> Update(<#= _model.IdentifierProperty.TypeName #> id, [FromBody] <#= _model.GetUpdateCommandClassName() #> command, ISender sender, CancellationToken cancellationToken)
     {
         command.Id = id;
-        var response = await sender.Send(command, cancellationToken);
-        response.Verify();
+        var result = await sender.Send(command, cancellationToken);
+        result.Verify();
         return TypedResults.NoContent();
     }
 
     public static async Task<NoContent> Delete(<#= _model.IdentifierProperty.TypeName #> id, ISender sender, CancellationToken cancellationToken)
     {
         var command = new <#= _model.GetDeleteCommandClassName() #>(id);
-        var response = await sender.Send(command, cancellationToken);
-        response.Verify();
+        var result = await sender.Send(command, cancellationToken);
+        result.Verify();
         return TypedResults.NoContent();
     }
 <# }#>

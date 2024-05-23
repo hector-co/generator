@@ -1,6 +1,7 @@
 ﻿<#@ import namespace="System.Linq" #>
 <#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.Commands" #>
+using LanguageExt.Common;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using <#= _module.GetDomainModelNamespace() #>;
@@ -24,7 +25,7 @@ public class <#= _model.GetRegisterCommandClassName() #>Handler : ICommandHandle
         _context = context;
     }
 
-    public async Task<Response<<#= _model.IdentifierType #>>> Handle(<#= _model.GetRegisterCommandClassName() #> request, CancellationToken cancellationToken)
+    public async Task<Result<<#= _model.IdentifierType #>>> Handle(<#= _model.GetRegisterCommandClassName() #> request, CancellationToken cancellationToken)
     {
         var <#= _model.Name.GetVariableName() #> = new <#= _model.Name #>
         {
@@ -56,6 +57,6 @@ public class <#= _model.GetRegisterCommandClassName() #>Handler : ICommandHandle
 
         _context.Add(<#= _model.Name.GetVariableName() #>);
         await _context.SaveChangesAsync(cancellationToken);
-        return Response.Success(<#= _model.Name.GetVariableName() #>.<#= _model.IdentifierProperty.Name #>);
+        return <#= _model.Name.GetVariableName() #>.<#= _model.IdentifierProperty.Name #>;
     }
 }

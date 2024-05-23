@@ -1,6 +1,7 @@
 ﻿<#@ import namespace="System.Linq" #>
 <#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.Commands" #>
+using LanguageExt.Common;
 using Microsoft.EntityFrameworkCore;
 using <#= _module.GetDomainModelNamespace() #>;
 <#  if (_module.Settings.CommandHandlerUsings.Any()) 
@@ -23,16 +24,16 @@ public class <#= _model.GetDeleteCommandClassName() #>Handler : ICommandHandler<
         _context = context;
     }
 
-    public async Task<Response> Handle(<#= _model.GetDeleteCommandClassName() #> request, CancellationToken cancellationToken)
+    public async Task<Result<bool>> Handle(<#= _model.GetDeleteCommandClassName() #> request, CancellationToken cancellationToken)
     {
         var <#= _model.Name.GetVariableName() #> = await _context.Set<<#= _model.Name #>>()
             .FirstOrDefaultAsync(m => m.<#= _model.IdentifierProperty.Name #> == request.<#= _model.IdentifierProperty.Name #>, cancellationToken);
 
         if (<#= _model.Name.GetVariableName() #> == null)
-            return Response.Failure("<#= _model.Name #>.Delete.NotFound", "Entity not found.");
+            return new Result<bool>(new DomainException("<#= _model.Name #>.Delete.NotFound", "Entity not found."));
 
         _context.Remove(<#= _model.Name.GetVariableName() #>);
         await _context.SaveChangesAsync(cancellationToken);
-        return Response.Success();
+        return true;
     }
 }

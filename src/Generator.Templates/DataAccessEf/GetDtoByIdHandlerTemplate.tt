@@ -28,7 +28,7 @@ public class <#= _model.GetDtoByIdClassName() #>Handler : IQueryHandler<<#= _mod
         _context = context;
     }
 
-    public async Task<Result<<#= _model.GetDtoName() #>>> Handle(<#= _model.GetDtoByIdClassName() #> request, CancellationToken cancellationToken)
+    public async Task<QueryResult<<#= _model.GetDtoName() #>>> Handle(<#= _model.GetDtoByIdClassName() #> request, CancellationToken cancellationToken)
     {
         var data = await _context.Set<<#= _model.Name #>>()
 <#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
@@ -38,6 +38,6 @@ public class <#= _model.GetDtoByIdClassName() #>Handler : IQueryHandler<<#= _mod
             .AsNoTracking()
             .FirstOrDefaultAsync(m => request.Id == m.Id, cancellationToken);
 
-        return new Result<<#= _model.GetDtoName() #>>(data?.Adapt<<#= _model.GetDtoName() #>>());
+        return new QueryResult<<#= _model.GetDtoName() #>>(data?.Adapt<<#= _model.GetDtoName() #>>());
     }
 }

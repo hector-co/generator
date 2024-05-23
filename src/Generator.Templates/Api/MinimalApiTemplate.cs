@@ -127,7 +127,7 @@ using ");
             
             #line default
             #line hidden
-            this.Write("    }\r\n\r\n    public static async Task<Results<Ok<Result<");
+            this.Write("    }\r\n\r\n    public static async Task<Results<Ok<QueryResult<");
             
             #line 41 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
@@ -149,16 +149,16 @@ using ");
             
             #line default
             #line hidden
-            this.Write("(id);\r\n        var result = await sender.Send(getByIdQuery, cancellationToken);\r\n" +
-                    "        if (result.Data == null) return TypedResults.NotFound(\"");
+            this.Write("(id);\r\n        var queryResult = await sender.Send(getByIdQuery, cancellationToke" +
+                    "n);\r\n        if (queryResult.Data == null) return TypedResults.NotFound(\"");
             
             #line 45 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
-            this.Write(" not found\");\r\n        return TypedResults.Ok(result);\r\n    }\r\n\r\n    public stati" +
-                    "c async Task<Ok<Result<");
+            this.Write(" not found\");\r\n        return TypedResults.Ok(queryResult);\r\n    }\r\n\r\n    public " +
+                    "static async Task<Ok<QueryResult<");
             
             #line 49 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
@@ -173,8 +173,8 @@ using ");
             #line default
             #line hidden
             this.Write(" query, ISender sender, CancellationToken cancellationToken)\r\n    {\r\n        var " +
-                    "result = await sender.Send(query, cancellationToken);\r\n        return TypedResul" +
-                    "ts.Ok(result);\r\n    }\r\n");
+                    "queryResult = await sender.Send(query, cancellationToken);\r\n        return Typed" +
+                    "Results.Ok(queryResult);\r\n    }\r\n");
             
             #line 54 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
   if (_generateCommands) 
@@ -182,7 +182,7 @@ using ");
             
             #line default
             #line hidden
-            this.Write("\r\n    public static async Task<CreatedAtRoute<Result<");
+            this.Write("\r\n    public static async Task<CreatedAtRoute<QueryResult<");
             
             #line 57 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
@@ -196,34 +196,38 @@ using ");
             
             #line default
             #line hidden
-            this.Write(" command, ISender sender, CancellationToken cancellationToken)\r\n    {\r\n        va" +
-                    "r response = await sender.Send(command, cancellationToken);\r\n        response.Ve" +
-                    "rify();\r\n        var model = await sender.Send(new ");
+            this.Write(@" command, ISender sender, CancellationToken cancellationToken)
+    {
+        var result = await sender.Send(command, cancellationToken);
+
+        return await result.IfSuccess(async id =>
+        {
+            var queryResult = await sender.Send(new ");
             
-            #line 61 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 63 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoByIdClassName()));
             
             #line default
             #line hidden
-            this.Write("(response.Value), cancellationToken);\r\n        return TypedResults.CreatedAtRoute" +
-                    "(model, \"Get");
+            this.Write("(id), cancellationToken);\r\n            return TypedResults.CreatedAtRoute(queryRe" +
+                    "sult, \"Get");
             
-            #line 62 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 64 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
-            this.Write("ById\", new { id = response.Value });\r\n    }\r\n\r\n    public static async Task<NoCon" +
-                    "tent> Update(");
+            this.Write("ById\", new { id });\r\n        });\r\n    }\r\n\r\n    public static async Task<NoContent" +
+                    "> Update(");
             
-            #line 65 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 68 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
             
             #line default
             #line hidden
             this.Write(" id, [FromBody] ");
             
-            #line 65 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 68 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
             
             #line default
@@ -231,14 +235,14 @@ using ");
             this.Write(@" command, ISender sender, CancellationToken cancellationToken)
     {
         command.Id = id;
-        var response = await sender.Send(command, cancellationToken);
-        response.Verify();
+        var result = await sender.Send(command, cancellationToken);
+        result.Verify();
         return TypedResults.NoContent();
     }
 
     public static async Task<NoContent> Delete(");
             
-            #line 73 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 76 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.TypeName));
             
             #line default
@@ -246,15 +250,15 @@ using ");
             this.Write(" id, ISender sender, CancellationToken cancellationToken)\r\n    {\r\n        var com" +
                     "mand = new ");
             
-            #line 75 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 78 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
             
             #line default
             #line hidden
-            this.Write("(id);\r\n        var response = await sender.Send(command, cancellationToken);\r\n   " +
-                    "     response.Verify();\r\n        return TypedResults.NoContent();\r\n    }\r\n");
+            this.Write("(id);\r\n        var result = await sender.Send(command, cancellationToken);\r\n     " +
+                    "   result.Verify();\r\n        return TypedResults.NoContent();\r\n    }\r\n");
             
-            #line 80 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
+            #line 83 "D:\Users\Hector\source\generator\src\Generator.Templates\Api\MinimalApiTemplate.tt"
  }
             
             #line default

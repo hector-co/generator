@@ -1,6 +1,7 @@
 ﻿<#@ import namespace="System.Linq" #>
 <#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.Commands" #>
+using LanguageExt.Common;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using <#= _module.GetDomainModelNamespace() #>;
@@ -24,7 +25,7 @@ public class <#= _model.GetUpdateCommandClassName() #>Handler : ICommandHandler<
         _context = context;
     }
 
-    public async Task<Response> Handle(<#= _model.GetUpdateCommandClassName() #> request, CancellationToken cancellationToken)
+    public async Task<Result<bool>> Handle(<#= _model.GetUpdateCommandClassName() #> request, CancellationToken cancellationToken)
     {
         var <#= _model.Name.GetVariableName() #> = await _context.Set<<#= _model.Name #>>()
 <#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
@@ -34,7 +35,7 @@ public class <#= _model.GetUpdateCommandClassName() #>Handler : ICommandHandler<
             .FirstOrDefaultAsync(m => m.<#= _model.IdentifierProperty.Name #> == request.<#= _model.IdentifierProperty.Name #>, cancellationToken);
 
         if (<#= _model.Name.GetVariableName() #> == null)
-            return Response.Failure("<#= _model.Name #>.Update.NotFound", "Entity not found.");
+            return new Result<bool>(new DomainException("<#= _model.Name #>.Update.NotFound", "Entity not found."));
 
 <#  foreach(var propInfo in GetScalarPropertiesInfo(_model))
 { #>
@@ -60,6 +61,6 @@ public class <#= _model.GetUpdateCommandClassName() #>Handler : ICommandHandler<
 <#  } #>
 
         await _context.SaveChangesAsync(cancellationToken);
-        return Response.Success();
+        return true;
     }
 }

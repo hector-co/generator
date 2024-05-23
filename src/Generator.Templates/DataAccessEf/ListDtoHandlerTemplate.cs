@@ -115,7 +115,7 @@ namespace Generator.Templates.DataAccessEf
             #line default
             #line hidden
             this.Write("Handler(IDbContext context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    pub" +
-                    "lic async Task<Result<");
+                    "lic async Task<QueryResult<");
             
             #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
@@ -160,7 +160,7 @@ namespace Generator.Templates.DataAccessEf
 
         var data = await queryable.ToListAsync(cancellationToken);
 
-        return new Result<");
+        return new QueryResult<");
             
             #line 47 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));

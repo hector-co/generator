@@ -105,6 +105,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ContextTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Update="DataAccessEf\DeleteHandlerTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DeleteHandlerTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Update="DataAccessEf\ModelConfigurationTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -129,6 +134,16 @@
       <DependentUpon>DeleteHandlerTemplateOneOf.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="DataAccessEf\RegisterHandlerTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RegisterHandlerTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="DataAccessEf\UpdateHandlerTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UpdateHandlerTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="DataAccessEf\UpdateHandlerTemplateOneOf.cs">
       <DependentUpon>UpdateHandlerTemplateOneOf.tt</DependentUpon>
@@ -218,6 +233,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ContextTemplate.cs</LastGenOutput>
     </None>
+    <None Update="DataAccessEf\DeleteHandlerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DeleteHandlerTemplate.cs</LastGenOutput>
+    </None>
     <None Update="DataAccessEf\ModelConfigurationTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ModelConfigurationTemplate.cs</LastGenOutput>
@@ -237,6 +256,14 @@
     <None Update="DataAccessEf\DeleteHandlerTemplateOneOf.tt">
       <LastGenOutput>DeleteHandlerTemplateOneOf.cs</LastGenOutput>
       <Generator>TextTemplatingFilePreprocessor</Generator>
+    </None>
+    <None Update="DataAccessEf\RegisterHandlerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>RegisterHandlerTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="DataAccessEf\UpdateHandlerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>UpdateHandlerTemplate.cs</LastGenOutput>
     </None>
     <None Update="DataAccessEf\UpdateHandlerTemplateOneOf.tt">
       <LastGenOutput>UpdateHandlerTemplateOneOf.cs</LastGenOutput>
