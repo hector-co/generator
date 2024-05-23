@@ -133,14 +133,14 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write(") : ICommand<");
+            this.Write(") : ICommand<Result<");
             
             #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
-            this.Write(">");
+            this.Write(">>");
             
             #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\RegisterTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HasSubClasses(_module, _model)? "" : ";"));

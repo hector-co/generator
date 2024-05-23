@@ -29,16 +29,15 @@ namespace Generator.Templates.Queries
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using QueryX;\r\n");
             
-            #line 8 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 7 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
   if (_module.Settings.QueryUsings.Any()) 
     { 
             
             #line default
             #line hidden
             
-            #line 10 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 9 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
       foreach (var @using in _module.Settings.QueryUsings) 
         { 
             
@@ -46,47 +45,47 @@ namespace Generator.Templates.Queries
             #line hidden
             this.Write("using ");
             
-            #line 12 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 11 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Namespace)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 12 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
       } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 14 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
   } 
             
             #line default
             #line hidden
             this.Write("namespace ");
             
-            #line 16 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDtoNamespace(_model)));
             
             #line default
             #line hidden
-            this.Write(";\r\n\r\npublic class ");
+            this.Write(";\r\n\r\npublic record ");
             
-            #line 18 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
             
             #line default
             #line hidden
-            this.Write(" : QueryModel, IQuery<");
+            this.Write(" : QueryModelBase<");
             
-            #line 18 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write("[]>\r\n{\r\n}\r\n");
+            this.Write("[]>;\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

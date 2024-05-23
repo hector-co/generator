@@ -4,7 +4,6 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Metadata" #>
-using QueryX;
 <#  if (_module.Settings.QueryUsings.Any()) 
     { #>
 <#      foreach (var @using in _module.Settings.QueryUsings) 
@@ -15,6 +14,4 @@ using <#= string.Format(@using, _module.Namespace) #>;
 <#  } #>
 namespace <#= _module.GetDtoNamespace(_model) #>;
 
-public class <#= _model.ListDtoClassName() #> : QueryModel, IQuery<<#= _model.GetDtoName() #>[]>
-{
-}
+public record <#= _model.ListDtoClassName() #> : QueryModelBase<<#= _model.GetDtoName() #>[]>;

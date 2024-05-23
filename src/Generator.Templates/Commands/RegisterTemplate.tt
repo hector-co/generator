@@ -22,7 +22,7 @@ public record <#= _model.GetRegisterCommandClassName() #>
 <#  foreach(var (propInfo, index, count) in GetPropertiesInfo(_model).WithIndex())
     { #>
     <#= propInfo.TypeName #> <#= propInfo.Name #><#= (index == count - 1? "" : ",")#>
-<#  } #>) : ICommand<<#=_model.IdentifierType#>><#= HasSubClasses(_module, _model)? "" : ";" #>
+<#  } #>) : ICommand<Result<<#=_model.IdentifierType#>>><#= HasSubClasses(_module, _model)? "" : ";" #>
 <# if(HasSubClasses(_module, _model)) 
    { #>
 {

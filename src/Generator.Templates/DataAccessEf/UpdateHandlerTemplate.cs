@@ -99,7 +99,7 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(">\r\n{\r\n    private readonly IDbContext _context;\r\n\r\n    public ");
+            this.Write(", Result<bool>>\r\n{\r\n    private readonly IDbContext _context;\r\n\r\n    public ");
             
             #line 23 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));

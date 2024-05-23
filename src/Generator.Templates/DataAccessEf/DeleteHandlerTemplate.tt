@@ -15,7 +15,7 @@ using <#= _module.GetCommandsNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
 
-public class <#= _model.GetDeleteCommandClassName() #>Handler : ICommandHandler<<#= _model.GetDeleteCommandClassName() #>>
+public class <#= _model.GetDeleteCommandClassName() #>Handler : ICommandHandler<<#= _model.GetDeleteCommandClassName() #>, Result<bool>>
 {
     private readonly IDbContext _context;
 

@@ -23,7 +23,7 @@ public record <#= _model.GetUpdateCommandClassName() #>
 <#  foreach(var (propInfo, index, count) in GetPropertiesInfo(_model).WithIndex())
     { #>
     <#= propInfo.TypeName #> <#= propInfo.Name #><#= (index == count - 1? "" : ",")#>
-<#  } #>) : ICommand
+<#  } #>) : ICommand<Result<bool>>
 {
     [JsonIgnore]
     public <#= _model.IdentifierType #> <#= _model.IdentifierProperty.Name #> { get; set; }

@@ -16,7 +16,7 @@ using <#= _module.GetCommandsNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
 
-public class <#= _model.GetUpdateCommandClassName() #>Handler : ICommandHandler<<#= _model.GetUpdateCommandClassName() #>>
+public class <#= _model.GetUpdateCommandClassName() #>Handler : ICommandHandler<<#= _model.GetUpdateCommandClassName() #>, Result<bool>>
 {
     private readonly IDbContext _context;
 

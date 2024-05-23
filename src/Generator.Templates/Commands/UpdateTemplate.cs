@@ -134,7 +134,7 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write(") : ICommand\r\n{\r\n    [JsonIgnore]\r\n    public ");
+            this.Write(") : ICommand<Result<bool>>\r\n{\r\n    [JsonIgnore]\r\n    public ");
             
             #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));

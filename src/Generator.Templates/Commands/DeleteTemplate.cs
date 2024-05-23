@@ -18,7 +18,7 @@ namespace Generator.Templates.Commands
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+    #line 1 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class DeleteTemplate : DeleteTemplateBase
     {
@@ -29,14 +29,14 @@ namespace Generator.Templates.Commands
         public virtual string TransformText()
         {
             
-            #line 6 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+            #line 6 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
   if (_module.Settings.CommandUsings.Any()) 
     { 
             
             #line default
             #line hidden
             
-            #line 8 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+            #line 8 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
       foreach (var @using in _module.Settings.CommandUsings) 
         { 
             
@@ -44,54 +44,54 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("using ");
             
-            #line 10 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+            #line 10 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Namespace)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 11 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+            #line 11 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
       } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 13 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+            #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
   } 
             
             #line default
             #line hidden
             this.Write("namespace ");
             
-            #line 14 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+            #line 14 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\npublic record ");
             
-            #line 16 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+            #line 16 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDeleteCommandClassName()));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 16 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+            #line 16 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 16 "D:\Users\Hector\source\generatorv2\src\Generator.Templates\Commands\DeleteTemplate.tt"
+            #line 16 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\DeleteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default
             #line hidden
-            this.Write(") : ICommand;\r\n");
+            this.Write(") : ICommand<Result<bool>>;\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -117,7 +117,7 @@ namespace Generator.Templates.Commands
         /// <summary>
         /// The string builder that generation-time code is using to assemble generated output
         /// </summary>
-        protected System.Text.StringBuilder GenerationEnvironment
+        public System.Text.StringBuilder GenerationEnvironment
         {
             get
             {

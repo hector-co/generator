@@ -13,4 +13,4 @@ using <#= string.Format(@using, _module.Namespace) #>;
 <#  } #>
 namespace <#= _module.GetCommandsNamespace(_model) #>;
 
-public record <#= _model.GetDeleteCommandClassName() #>(<#= _model.IdentifierType #> <#= _model.IdentifierProperty.Name #>) : ICommand;
+public record <#= _model.GetDeleteCommandClassName() #>(<#= _model.IdentifierType #> <#= _model.IdentifierProperty.Name #>) : ICommand<Result<bool>>;
