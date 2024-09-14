@@ -28,24 +28,23 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using LanguageExt.Common;\r\nusing Mapster;\r\nusing Microsoft.EntityFrameworkCore;\r\n" +
-                    "using ");
+            this.Write("using Microsoft.EntityFrameworkCore;\r\nusing ");
             
-            #line 7 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 5 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 8 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 6 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
   if (_module.Settings.CommandHandlerUsings.Any()) 
     { 
             
             #line default
             #line hidden
             
-            #line 10 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 8 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
       foreach (var @using in _module.Settings.CommandHandlerUsings) 
         { 
             
@@ -53,62 +52,62 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("using ");
             
-            #line 12 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 10 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Namespace)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 11 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
       } 
             
             #line default
             #line hidden
             
-            #line 14 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 12 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
   } 
             
             #line default
             #line hidden
             this.Write("using ");
             
-            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(".Commands;\r\n\r\npublic class ");
             
-            #line 19 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
             #line hidden
             this.Write("Handler : ICommandHandler<");
             
-            #line 19 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
             #line hidden
             this.Write(", Result<");
             
-            #line 19 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
             this.Write(">>\r\n{\r\n    private readonly IDbContext _context;\r\n\r\n    public ");
             
-            #line 23 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
@@ -116,35 +115,35 @@ namespace Generator.Templates.DataAccessEf
             this.Write("Handler(IDbContext context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    pub" +
                     "lic async Task<Result<");
             
-            #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 26 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
             this.Write(">> Handle(");
             
-            #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 26 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetRegisterCommandClassName()));
             
             #line default
             #line hidden
             this.Write(" request, CancellationToken cancellationToken)\r\n    {\r\n        var ");
             
-            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write("\r\n        {\r\n");
             
-            #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
   foreach(var propInfo in GetScalarPropertiesInfo(_model))
 { 
             
@@ -152,27 +151,27 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            ");
             
-            #line 34 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 34 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.IsNullOrEmpty(propInfo.NameOverride)? "request." + propInfo.Name : propInfo.NameOverride));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 35 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 33 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
   } 
             
             #line default
             #line hidden
             
-            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 34 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
   foreach(var entity in GetSingleOwnedEntities(_model))
 { 
             
@@ -180,21 +179,21 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            ");
             
-            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Value.Name));
             
             #line default
             #line hidden
             this.Write("\r\n            {\r\n");
             
-            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
       foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
     { 
             
@@ -202,34 +201,34 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("                ");
             
-            #line 42 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 42 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.IsNullOrEmpty(propInfo.NameOverride)? "request." + entity.Key + "." + propInfo.Name : propInfo.NameOverride));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 43 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 41 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
       } 
             
             #line default
             #line hidden
             this.Write("            },\r\n");
             
-            #line 45 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 43 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
   } 
             
             #line default
             #line hidden
             
-            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 44 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
   foreach(var entity in GetCollectionOwnedEntities(_model))
 { 
             
@@ -237,28 +236,28 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            ");
             
-            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
             
             #line default
             #line hidden
             this.Write(" = request.");
             
-            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
             
             #line default
             #line hidden
             this.Write(".Select(r => new ");
             
-            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Value.Name));
             
             #line default
             #line hidden
             this.Write("\r\n            {\r\n");
             
-            #line 50 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
       foreach(var propInfo in GetScalarPropertiesInfo(entity.Value, "r"))
     { 
             
@@ -266,49 +265,49 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("                ");
             
-            #line 52 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 50 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 52 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 50 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.IsNullOrEmpty(propInfo.NameOverride)? "r." + propInfo.Name : propInfo.NameOverride));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 53 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 51 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
       } 
             
             #line default
             #line hidden
             this.Write("            }).ToList(),\r\n");
             
-            #line 55 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 53 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
   } 
             
             #line default
             #line hidden
             this.Write("        };\r\n\r\n        _context.Add(");
             
-            #line 58 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 56 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(");\r\n        await _context.SaveChangesAsync(cancellationToken);\r\n        return ");
             
-            #line 60 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 58 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 60 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
+            #line 58 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\RegisterHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default

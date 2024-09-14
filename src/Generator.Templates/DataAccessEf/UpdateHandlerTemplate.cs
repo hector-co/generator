@@ -28,24 +28,23 @@ namespace Generator.Templates.DataAccessEf
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using LanguageExt.Common;\r\nusing Mapster;\r\nusing Microsoft.EntityFrameworkCore;\r\n" +
-                    "using ");
+            this.Write("using Microsoft.EntityFrameworkCore;\r\nusing ");
             
-            #line 7 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 5 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDomainModelNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 8 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 6 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
   if (_module.Settings.CommandHandlerUsings.Any()) 
     { 
             
             #line default
             #line hidden
             
-            #line 10 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 8 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
       foreach (var @using in _module.Settings.CommandHandlerUsings) 
         { 
             
@@ -53,55 +52,55 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("using ");
             
-            #line 12 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 10 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Namespace)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 11 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
       } 
             
             #line default
             #line hidden
             
-            #line 14 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 12 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
   } 
             
             #line default
             #line hidden
             this.Write("using ");
             
-            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetDataAccessModelNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(".Commands;\r\n\r\npublic class ");
             
-            #line 19 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
             
             #line default
             #line hidden
             this.Write("Handler : ICommandHandler<");
             
-            #line 19 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
             
             #line default
             #line hidden
             this.Write(", Result<bool>>\r\n{\r\n    private readonly IDbContext _context;\r\n\r\n    public ");
             
-            #line 23 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
             
             #line default
@@ -109,28 +108,28 @@ namespace Generator.Templates.DataAccessEf
             this.Write("Handler(IDbContext context)\r\n    {\r\n        _context = context;\r\n    }\r\n\r\n    pub" +
                     "lic async Task<Result<bool>> Handle(");
             
-            #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 26 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
             
             #line default
             #line hidden
             this.Write(" request, CancellationToken cancellationToken)\r\n    {\r\n        var ");
             
-            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(" = await _context.Set<");
             
-            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write(">()\r\n");
             
-            #line 31 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
     if (QueryableExtensionsTemplate.RequiresIncludes(_model))
 { 
             
@@ -138,42 +137,42 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            .AddIncludes()\r\n");
             
-            #line 34 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
     } 
             
             #line default
             #line hidden
             this.Write("            .FirstOrDefaultAsync(m => m.");
             
-            #line 35 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 33 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default
             #line hidden
             this.Write(" == request.");
             
-            #line 35 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 33 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default
             #line hidden
             this.Write(", cancellationToken);\r\n\r\n        if (");
             
-            #line 37 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 35 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(" == null)\r\n            return new Result<bool>(new DomainException(\"");
             
-            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name));
             
             #line default
             #line hidden
             this.Write(".Update.NotFound\", \"Entity not found.\"));\r\n\r\n");
             
-            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
   foreach(var propInfo in GetScalarPropertiesInfo(_model))
 { 
             
@@ -181,41 +180,41 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("        ");
             
-            #line 42 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 42 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 42 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.IsNullOrEmpty(propInfo.NameOverride)? "request." + propInfo.Name : propInfo.NameOverride));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 43 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 41 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
   } 
             
             #line default
             #line hidden
             
-            #line 44 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 42 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
   foreach(var entity in GetSingleOwnedEntities(_model))
 { 
             
             #line default
             #line hidden
             
-            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 44 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
       foreach(var propInfo in GetScalarPropertiesInfo(entity.Value))
     { 
             
@@ -223,47 +222,47 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("        ");
             
-            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 46 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.IsNullOrEmpty(propInfo.NameOverride)? "request." + entity.Key + "." + propInfo.Name : propInfo.NameOverride));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 49 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 47 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
       } 
             
             #line default
             #line hidden
             
-            #line 50 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 48 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
   } 
             
             #line default
             #line hidden
             
-            #line 51 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 49 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
   foreach(var entity in GetCollectionOwnedEntities(_model))
 { 
             
@@ -271,49 +270,49 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("        ");
             
-            #line 53 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 51 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.Name.GetVariableName()));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 53 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 51 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
             
             #line default
             #line hidden
             this.Write(" = request.");
             
-            #line 53 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 51 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Key));
             
             #line default
             #line hidden
             this.Write(".Select(r => new ");
             
-            #line 53 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 51 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Value.Name));
             
             #line default
             #line hidden
             this.Write("\r\n        {\r\n            ");
             
-            #line 55 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 53 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Value.IdentifierProperty.Name));
             
             #line default
             #line hidden
             this.Write(" = r.");
             
-            #line 55 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 53 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Value.IdentifierProperty.Name));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 56 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 54 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
       foreach(var propInfo in GetScalarPropertiesInfo(entity.Value, "r"))
     { 
             
@@ -321,28 +320,28 @@ namespace Generator.Templates.DataAccessEf
             #line hidden
             this.Write("            ");
             
-            #line 58 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 56 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 58 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 56 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.IsNullOrEmpty(propInfo.NameOverride)? "r." + propInfo.Name : propInfo.NameOverride));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 59 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 57 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
       } 
             
             #line default
             #line hidden
             this.Write("        }).ToList();\r\n");
             
-            #line 61 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
+            #line 59 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\UpdateHandlerTemplate.tt"
   } 
             
             #line default

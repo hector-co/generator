@@ -5,7 +5,6 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.Queries" #>
-using Mapster;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;

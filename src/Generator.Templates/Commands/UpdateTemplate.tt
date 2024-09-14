@@ -7,7 +7,6 @@
         { #>
 using <#= @using #>;
 <#      } #>
-using System.Text.Json.Serialization;
 <#  if (_module.Settings.CommandUsings.Any()) 
     { #>
 <#      foreach (var @using in _module.Settings.CommandUsings) 
@@ -25,7 +24,7 @@ public record <#= _model.GetUpdateCommandClassName() #>
     <#= propInfo.TypeName #> <#= propInfo.Name #><#= (index == count - 1? "" : ",")#>
 <#  } #>) : ICommand<Result<bool>>
 {
-    [JsonIgnore]
+    [SwaggerIgnore]
     public <#= _model.IdentifierType #> <#= _model.IdentifierProperty.Name #> { get; set; }
 <# if(HasSubClasses(_module, _model)) 
    { #>

@@ -1,7 +1,6 @@
 ﻿<#@ import namespace="System.Linq" #>
 <#@ import namespace="Generator.Templates.Domain" #>
 <#@ import namespace="Generator.Templates.Commands" #>
-using LanguageExt.Common;
 using Microsoft.EntityFrameworkCore;
 using <#= _module.GetDomainModelNamespace() #>;
 <#  if (_module.Settings.CommandHandlerUsings.Any()) 

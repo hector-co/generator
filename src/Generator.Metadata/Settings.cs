@@ -42,10 +42,10 @@ namespace Generator.Metadata
 
         public string DomainModelFolder { get; set; } = "Domain/Model";
         public string DomainModelNamespace { get; set; } = "Domain.Model";
-        public string CommandsFolder { get; set; } = "Application";
-        public string CommandsNamespace { get; set; } = "Application";
-        public string QueriesFolder { get; set; } = "Application";
-        public string QueriesNamespace { get; set; } = "Application";
+        public string CommandsFolder { get; set; } = "Application/Features";
+        public string CommandsNamespace { get; set; } = "Application.Features";
+        public string QueriesFolder { get; set; } = "Application/Features";
+        public string QueriesNamespace { get; set; } = "Application.Features";
         public string DataAccessEfFolder { get; set; } = "Infrastructure/DataAccess.EF";
         public string DataAccessEfNamespace { get; set; } = "Infrastructure.DataAccess.EF";
         public string ApiControllersFolder { get; set; } = "WebApi/Controllers";

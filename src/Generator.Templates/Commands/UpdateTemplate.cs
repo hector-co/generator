@@ -49,16 +49,15 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write("using System.Text.Json.Serialization;\r\n");
             
-            #line 11 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 10 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
   if (_module.Settings.CommandUsings.Any()) 
     { 
             
             #line default
             #line hidden
             
-            #line 13 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 12 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
       foreach (var @using in _module.Settings.CommandUsings) 
         { 
             
@@ -66,42 +65,42 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("using ");
             
-            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 14 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(@using, _module.Namespace)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 16 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 15 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
       } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 18 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
   } 
             
             #line default
             #line hidden
             this.Write("namespace ");
             
-            #line 19 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 18 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_module.GetCommandsNamespace(_model)));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\npublic record ");
             
-            #line 21 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 20 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetUpdateCommandClassName()));
             
             #line default
             #line hidden
             this.Write("\r\n(\r\n");
             
-            #line 23 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 22 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
   foreach(var (propInfo, index, count) in GetPropertiesInfo(_model).WithIndex())
     { 
             
@@ -109,48 +108,48 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("    ");
             
-            #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 24 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 24 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             
-            #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 24 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((index == count - 1? "" : ",")));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 26 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 25 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
   } 
             
             #line default
             #line hidden
-            this.Write(") : ICommand<Result<bool>>\r\n{\r\n    [JsonIgnore]\r\n    public ");
+            this.Write(") : ICommand<Result<bool>>\r\n{\r\n    [SwaggerIgnore]\r\n    public ");
             
-            #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierProperty.Name));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n");
             
-            #line 30 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 29 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
  if(HasSubClasses(_module, _model)) 
    { 
             
@@ -158,7 +157,7 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("\r\n");
             
-            #line 33 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 32 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
      foreach(var subClass in GetSubClasses(_module, _model)) 
        { 
             
@@ -166,14 +165,14 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("    public record ");
             
-            #line 35 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 34 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(subClass.Key));
             
             #line default
             #line hidden
             this.Write("(\r\n");
             
-            #line 36 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 35 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
         foreach(var (propInfo, index, count) in subClass.Value.WithIndex())
           { 
             
@@ -181,39 +180,39 @@ namespace Generator.Templates.Commands
             #line hidden
             this.Write("        ");
             
-            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 37 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 37 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propInfo.Name));
             
             #line default
             #line hidden
             
-            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 37 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((index == count-1? ");" : ",")));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 39 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 38 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
         } 
             
             #line default
             #line hidden
             
-            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 39 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
      } 
             
             #line default
             #line hidden
             
-            #line 41 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
+            #line 40 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
  } 
             
             #line default
