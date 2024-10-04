@@ -14,10 +14,10 @@ namespace Generator.Templates.Queries
             => $"{modelDefinition.Name}Dto";
 
         public static string GetDtoByIdClassName(this ModelDefinition modelDefinition)
-            => $"Get{modelDefinition.GetDtoName()}ById";
+            => $"Get{modelDefinition.Name}ById";
 
         public static string ListDtoClassName(this ModelDefinition modelDefinition)
-            => $"List{modelDefinition.GetDtoName()}";
+            => $"List{modelDefinition.PluralName}";
 
         public static ModelDefinition GetEnumParent(this EnumDefinition enumDefinition, ModuleDefinition moduleDefinition)
         {
