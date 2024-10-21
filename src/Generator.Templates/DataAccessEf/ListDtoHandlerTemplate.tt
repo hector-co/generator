@@ -19,18 +19,11 @@ using QueryX;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Queries;
 
-public class <#= _model.ListDtoClassName() #>Handler : IQueryHandler<<#= _model.ListDtoClassName() #>, <#= _model.GetDtoName() #>[]>
+public class <#= _model.ListDtoClassName() #>Handler(IDbContext context) : IQueryHandler<<#= _model.ListDtoClassName() #>, <#= _model.GetDtoName() #>[]>
 {
-    private readonly IDbContext _context;
-
-    public <#= _model.ListDtoClassName() #>Handler(IDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<QueryResult<<#= _model.GetDtoName() #>[]>> Handle(<#= _model.ListDtoClassName() #> request, CancellationToken cancellationToken)
     {
-        var queryable = _context.Set<<#= _model.Name #>>()
+        var queryable = context.Set<<#= _model.Name #>>()
 <#    if (QueryableExtensionsTemplate.RequiresIncludes(_model))
 { #>
             .AddIncludes() 

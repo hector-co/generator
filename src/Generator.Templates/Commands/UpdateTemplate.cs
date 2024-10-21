@@ -133,7 +133,7 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write(") : ICommand<Result<bool>>\r\n{\r\n    [SwaggerIgnore]\r\n    public ");
+            this.Write(") : ICommand<Fin<bool>>\r\n{\r\n    [SwaggerIgnore]\r\n    public ");
             
             #line 28 "D:\Users\Hector\source\generator\src\Generator.Templates\Commands\UpdateTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.IdentifierType));

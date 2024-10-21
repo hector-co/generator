@@ -14,16 +14,9 @@ using <#= _module.GetCommandsNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
 
-public class <#= _model.GetRegisterCommandClassName() #>Handler : ICommandHandler<<#= _model.GetRegisterCommandClassName() #>, Result<<#= _model.IdentifierType #>>>
+public class <#= _model.GetRegisterCommandClassName() #>Handler(IDbContext context) : ICommandHandler<<#= _model.GetRegisterCommandClassName() #>, Fin<<#= _model.IdentifierType #>>>
 {
-    private readonly IDbContext _context;
-
-    public <#= _model.GetRegisterCommandClassName() #>Handler(IDbContext context)
-    {
-        _context = context;
-    }
-
-    public async Task<Result<<#= _model.IdentifierType #>>> Handle(<#= _model.GetRegisterCommandClassName() #> request, CancellationToken cancellationToken)
+    public async Task<Fin<<#= _model.IdentifierType #>>> Handle(<#= _model.GetRegisterCommandClassName() #> request, CancellationToken cancellationToken)
     {
         var <#= _model.Name.GetVariableName() #> = new <#= _model.Name #>
         {
@@ -53,8 +46,8 @@ public class <#= _model.GetRegisterCommandClassName() #>Handler : ICommandHandle
 <#  } #>
         };
 
-        _context.Add(<#= _model.Name.GetVariableName() #>);
-        await _context.SaveChangesAsync(cancellationToken);
+        context.Add(<#= _model.Name.GetVariableName() #>);
+        await context.SaveChangesAsync(cancellationToken);
         return <#= _model.Name.GetVariableName() #>.<#= _model.IdentifierProperty.Name #>;
     }
 }

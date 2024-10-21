@@ -91,7 +91,7 @@ namespace Generator.Templates.Commands
             
             #line default
             #line hidden
-            this.Write(") : ICommand<Result<bool>>;\r\n");
+            this.Write(") : ICommand<Fin<bool>>;\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

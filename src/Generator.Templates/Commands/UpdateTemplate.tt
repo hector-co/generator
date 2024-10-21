@@ -22,7 +22,7 @@ public record <#= _model.GetUpdateCommandClassName() #>
 <#  foreach(var (propInfo, index, count) in GetPropertiesInfo(_model).WithIndex())
     { #>
     <#= propInfo.TypeName #> <#= propInfo.Name #><#= (index == count - 1? "" : ",")#>
-<#  } #>) : ICommand<Result<bool>>
+<#  } #>) : ICommand<Fin<bool>>
 {
     [SwaggerIgnore]
     public <#= _model.IdentifierType #> <#= _model.IdentifierProperty.Name #> { get; set; }

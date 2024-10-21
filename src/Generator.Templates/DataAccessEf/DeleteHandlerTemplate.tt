@@ -14,25 +14,18 @@ using <#= _module.GetCommandsNamespace(_model) #>;
 
 namespace <#= _module.GetDataAccessModelNamespace(_model) #>.Commands;
 
-public class <#= _model.GetDeleteCommandClassName() #>Handler : ICommandHandler<<#= _model.GetDeleteCommandClassName() #>, Result<bool>>
+public class <#= _model.GetDeleteCommandClassName() #>Handler(IDbContext context) : ICommandHandler<<#= _model.GetDeleteCommandClassName() #>, Fin<bool>>
 {
-    private readonly IDbContext _context;
-
-    public <#= _model.GetDeleteCommandClassName() #>Handler(IDbContext context)
+    public async Task<Fin<bool>> Handle(<#= _model.GetDeleteCommandClassName() #> request, CancellationToken cancellationToken)
     {
-        _context = context;
-    }
-
-    public async Task<Result<bool>> Handle(<#= _model.GetDeleteCommandClassName() #> request, CancellationToken cancellationToken)
-    {
-        var <#= _model.Name.GetVariableName() #> = await _context.Set<<#= _model.Name #>>()
+        var <#= _model.Name.GetVariableName() #> = await context.Set<<#= _model.Name #>>()
             .FirstOrDefaultAsync(m => m.<#= _model.IdentifierProperty.Name #> == request.<#= _model.IdentifierProperty.Name #>, cancellationToken);
 
         if (<#= _model.Name.GetVariableName() #> == null)
-            return new Result<bool>(new DomainException("<#= _model.Name #>.Delete.NotFound", "Entity not found."));
+            return DomainErrors.NotFound("<#= _model.Name #>");
 
-        _context.Remove(<#= _model.Name.GetVariableName() #>);
-        await _context.SaveChangesAsync(cancellationToken);
+        context.Remove(<#= _model.Name.GetVariableName() #>);
+        await context.SaveChangesAsync(cancellationToken);
         return true;
     }
 }
