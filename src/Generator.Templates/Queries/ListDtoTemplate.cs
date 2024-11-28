@@ -78,14 +78,14 @@ namespace Generator.Templates.Queries
             
             #line default
             #line hidden
-            this.Write(" : QueryModelBase<");
+            this.Write(" : QueryModelBase<IEnumerable<");
             
             #line 17 "D:\Users\Hector\source\generator\src\Generator.Templates\Queries\ListDtoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write("[]>;\r\n");
+            this.Write(">>;\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

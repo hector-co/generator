@@ -14,4 +14,4 @@ using <#= string.Format(@using, _module.Namespace) #>;
 <#  } #>
 namespace <#= _module.GetDtoNamespace(_model) #>;
 
-public record <#= _model.ListDtoClassName() #> : QueryModelBase<<#= _model.GetDtoName() #>[]>;
+public record <#= _model.ListDtoClassName() #> : QueryModelBase<IEnumerable<<#= _model.GetDtoName() #>>>;

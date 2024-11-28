@@ -100,21 +100,21 @@ namespace Generator.Templates.DataAccessEf
             
             #line default
             #line hidden
-            this.Write(", ");
+            this.Write(", IEnumerable<");
             
             #line 22 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write("[]>\r\n{\r\n    public async Task<QueryResult<");
+            this.Write(">>\r\n{\r\n    public async Task<QueryResult<IEnumerable<");
             
             #line 24 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write("[]>> Handle(");
+            this.Write(">>> Handle(");
             
             #line 24 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.ListDtoClassName()));
@@ -152,21 +152,21 @@ namespace Generator.Templates.DataAccessEf
 
         var data = await queryable.ToListAsync(cancellationToken);
 
-        return new QueryResult<");
+        return new QueryResult<IEnumerable<");
             
             #line 39 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write("[]>(data.Adapt<");
+            this.Write(">>(data.Adapt<IEnumerable<");
             
             #line 39 "D:\Users\Hector\source\generator\src\Generator.Templates\DataAccessEf\ListDtoHandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_model.GetDtoName()));
             
             #line default
             #line hidden
-            this.Write("[]>(), totalCount);\r\n    }\r\n}");
+            this.Write(">>(), totalCount);\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

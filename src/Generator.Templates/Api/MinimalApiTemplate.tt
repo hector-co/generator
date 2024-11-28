@@ -5,7 +5,6 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Generator.Templates.Queries" #>
 <#@ import namespace="Generator.Templates.Commands" #>
-using Carter;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
@@ -20,9 +19,9 @@ using <#= _module.GetCommandsNamespace(_model) #>;
 
 namespace <#= _module.GetModuleNamespace() #>;
 
-public class <#= _model.PluralName #>Module : ICarterModule
+internal static class <#= _model.PluralName #>Module
 {
-    public void AddRoutes(IEndpointRouteBuilder app)
+    internal static void Add<#= _model.PluralName #>Routes(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("<#= _module.Settings.ApiPrefix #>/<#= _model.GetModuleRouteName() #>")
             .WithTags("<#= _model.PluralName #>");
@@ -36,7 +35,7 @@ public class <#= _model.PluralName #>Module : ICarterModule
 <# }#>
     }
 
-    public static async Task<IResult> GetById(<#= _model.IdentifierProperty.TypeName #> id, ISender sender, CancellationToken cancellationToken)
+    private static async Task<IResult> GetById(<#= _model.IdentifierProperty.TypeName #> id, ISender sender, CancellationToken cancellationToken)
     {
         var getByIdQuery = new <#= _model.GetDtoByIdClassName() #>(id);
         var queryResult = await sender.Send(getByIdQuery, cancellationToken);
@@ -44,7 +43,7 @@ public class <#= _model.PluralName #>Module : ICarterModule
         return TypedResults.Ok(queryResult);
     }
 
-    public static async Task<IResult> List([AsParameters] <#= _model.ListDtoClassName() #> query, ISender sender, CancellationToken cancellationToken)
+    private static async Task<IResult> List([AsParameters] <#= _model.ListDtoClassName() #> query, ISender sender, CancellationToken cancellationToken)
     {
         var queryResult = await sender.Send(query, cancellationToken);
         return TypedResults.Ok(queryResult);
@@ -52,7 +51,7 @@ public class <#= _model.PluralName #>Module : ICarterModule
 <#  if (_generateCommands) 
 { #>
 
-    public static async Task<IResult> Register([FromBody] <#= _model.GetRegisterCommandClassName() #> command, ISender sender, CancellationToken cancellationToken)
+    private static async Task<IResult> Register([FromBody] <#= _model.GetRegisterCommandClassName() #> command, ISender sender, CancellationToken cancellationToken)
     {
         var result = await sender.Send(command, cancellationToken);
 
@@ -63,14 +62,14 @@ public class <#= _model.PluralName #>Module : ICarterModule
         });
     }
 
-    public static async Task<IResult> Update(<#= _model.IdentifierProperty.TypeName #> id, [FromBody] <#= _model.GetUpdateCommandClassName() #> command, ISender sender, CancellationToken cancellationToken)
+    private static async Task<IResult> Update(<#= _model.IdentifierProperty.TypeName #> id, [FromBody] <#= _model.GetUpdateCommandClassName() #> command, ISender sender, CancellationToken cancellationToken)
     {
         command.Id = id;
         var result = await sender.Send(command, cancellationToken);
         return result.ToIResult();
     }
 
-    public static async Task<IResult> Delete(<#= _model.IdentifierProperty.TypeName #> id, ISender sender, CancellationToken cancellationToken)
+    private static async Task<IResult> Delete(<#= _model.IdentifierProperty.TypeName #> id, ISender sender, CancellationToken cancellationToken)
     {
         var command = new <#= _model.GetDeleteCommandClassName() #>(id);
         var result = await sender.Send(command, cancellationToken);
